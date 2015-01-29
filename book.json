@@ -1,0 +1,26 @@
+{
+    "title": "Casting SPELs in Lisp",
+    "description": "The LFE Edition of the Comic Book",
+    "plugins": [
+        "ga",
+    ],
+    "pluginsConfig": {
+        "fontSettings": {
+            "theme": "night",
+            "family": "serif",
+            "size": 1
+        },
+        "ga": {
+            "token": "UA-38274766-4"
+        }
+    },
+    "links": {
+        "sidebar": {
+            "LFE Documentation Site": "http://docs.lfe.io/"
+        }
+    },
+    "pdf": {
+        "pageNumbers": true,
+        "paperSize": "a4"
+    }
+}
