@@ -27,7 +27,9 @@ Great! Now we can define our places ... almost. What's the "exit" business? Well
 ()
 ```
 
-Now we're ready to create our places!
+Note that when you create a record in LFE, LFE creates several functions dynamically, just for use with your record: their names start with or have as part of their own names, the record name you used. For example, when we created the ``place`` and ``exit`` records, LFE created the ``make-place`` and ``make-exit`` functions (among several others).
+
+*Now* we're ready to create our places!
 
 ```lisp
 > (set living-room
@@ -49,6 +51,8 @@ Now we're ready to create our places!
   "You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch."
   (#(exit west door garden) #(exit upstairs stairway attic)))
 ```
+
+As you can see above, we have records being created inside records: the ``living-room`` record has two exits in it, and we just created those ``exit`` records when created the living room's ``place`` record.
 
 Two more to go!
 
@@ -86,7 +90,7 @@ Two more to go!
 ```
 
 This may seem like a lot of overhead, but it means that things will be much
-cleaner and less suseptible to bugs: each item of data is well-defined, with functions that create the data, access the data -- both the magical record functions as well as functions in the Erlang standard library.
+cleaner and less suseptible to bugs: each item of data is well-defined, with functions that create the data, access the data, and update the data -- both the "magical" record functions mention above as well as functions defined in the Erlang standard library (e.g., the ``proplists`` and ``orddict`` modules).
 
 Furthermore, this is a common practice used in many real-world Erlang and LFE applications: records are passed as inputs to functions and returned as (often updated) outputs, which in turn are fed into other functions.
 

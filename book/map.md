@@ -1,17 +1,17 @@
 ## Making the Game Map
 
-Now we can combine the data we have defined to finally make our game map! Let's define a new variable called ``*map*`` that combines these together to give us a picture of our mini world:
+Now we can combine the data we have defined to finally make our game map! Let's define a new variable called ``*map*`` that combines these together to give us a picture of our mini-world:
 
 ```lisp
 > (set *map* `(#(living-room ,living-room)
-               #(gargen ,garden)
+               #(garden ,garden)
                #(attic ,attic)))
 ```
 
- Lists such as this are, not surprisingly, called "property lists" in LFE and Erlang. They can also be used as dictionaries. A property list is simply a list of *tuples* where the first item in each *tuple* is a "key" symbol that is associated with "values", a bunch of other data. Our three keys are the *atoms* ``living-room``, ``garden``, and ``attic``.
+ Lists such as this are, not surprisingly, called "property lists" in LFE and Erlang. They can also be used as dictionaries (with the ``orddict`` module). A property list is simply a list of *tuples* where the first item in each *tuple* is a "key" *atom* that is associated with "values", a bunch of other data. Our three keys are the *atoms* ``living-room``, ``garden``, and ``attic``.
 
 But there's more going on there, and it looks pretty strange: that's
-*back-quoting* and *unquoting*. Remember how we used a quote before to flip the compiler from *Code Mode* to *Data Mode*? Well, by using the the back-quote (the quote in the upper left corner of the keyboard) we can not only flip, but then also flop back into Code Mode by using a comma:
+*back-quoting* and *unquoting* you're seeing. Remember how we used a quote before to flip the compiler from *Code Mode* to *Data Mode*? Well, by using the the back-quote (the quote in the upper left corner of the keyboard) we can not only flip, but then also flop back into Code Mode by using a comma:
 
 ![](images/backquote.jpg)
 
@@ -24,7 +24,7 @@ After we set that last variable, we will see the following output:
    #(place
      "You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch."
      (#(exit west door garden) #(exit upstairs stairway attic))))
- #(gargen
+ #(garden
    #(place
      "You are in a beautiful garden. There is a well in front of you."
      (#(exit east door living-room))))
