@@ -1,5 +1,3 @@
-# Looking Around in Our Game World
-
 ## Location, Location, Location
 
 The first command we'd want to have is a command that tells us about the location we're standing in. So what would a function need to describe a location in a world? Well, it would need to know the location we want to describe and would need to be able to look at a map and find that location on the map. Here's our function, and it does exactly that:
