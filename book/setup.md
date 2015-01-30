@@ -16,7 +16,7 @@ should you be missing any of them):
  * Developer/build tools for your system (in particular, ``make``; instructions for this are very different between systems and can be found on the Web by searching for "install developer tools" or "build essential" for your operating system)
 
 
-## Getting LFE
+## Getting and Building LFE
 
 Once all of the above are set up on your system, you're ready to get LFE:
 
@@ -30,7 +30,7 @@ $ make
 
 ## Starting the REPL
 
-Are you ready? Oh, the REPL? That's an acronym that stands for "read-eval-print loop" -- it's where you can type LFE code interactively. Let's start it up!
+Are you ready? Oh, the *REPL*? That's an acronym that stands for *read-eval-print loop* -- it's where you can type LFE code interactively. Let's start it up!
 
 ```bash
 $ ./bin/lfe
