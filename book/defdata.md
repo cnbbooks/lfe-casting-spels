@@ -108,7 +108,12 @@ Now we can combine these to make our game map! Let's define a new variable calle
 
  Lists such as this are, not surprisingly, called "property lists" in LFE and Erlang. They can also be used as dictionaries. A property list is simply a list of *tuples* where the first item in each *tuple* is a "key" symbol that is associated with "values", a bunch of other data. Our three keys are the *atoms* ``living-room``, ``garden``, and ``attic``.
 
-But there's more going on there, and it looks pretty strange.
+But there's more going on there, and it looks pretty strange: that's
+*back-quoting* and *unquoting*. Remember how we used a quote before to flip the compiler from *Code Mode* to *Data Mode*? Well, by using the the back-quote (the quote in the upper left corner of the keyboard) we can not only flip, but then also flop back into Code Mode by using a comma:
+
+![](images/backquote.jpg)
+
+This "back-quoting" technique is a great feature in Lisp -- it lets us write code that looks just like the data it creates. This happens frequently with code written in a functional style: By building functions that *look* like the data they create, we can make our code easier to understand and also build for longevity: As long as the data doesn't change, the functions will probably not need to be refactored or otherwise changed, since they mirror the data so closely. Imagine how you'd write a function like this in VB or C: You would probably chop the path into pieces, then append the text snippets and the pieces together again- A more haphazard process that "looks" totally different from the data that is created and probably less likely to have longevity.
 
 After we set that last variable, we will see the following output:
 
