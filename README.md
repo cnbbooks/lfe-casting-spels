@@ -65,7 +65,12 @@ LFE syntax looks like this:
     (factors n (+ k 1) acc)))
 ```
 
-In the first chapter, you will be setting up LFE so that you can follow along
+You don't need to worry about that code or what it means: it's just there to
+give you a "feel" of the code, a visual sense of how the two languages are
+the same underneath, but superficially different (we'll be discussing syntax
+very shortly!)
+
+If you don't have LFE installed on your computer, no need to worry -- in the first chapter, you will be setting up LFE so that you can follow along
 in this book.
 
 

@@ -47,7 +47,7 @@ We'll use it more soon, but for now you can try out a little addition:
 ```lisp
 > (+ 2 2)
 ```
-```
+```lisp
 4
 ```
 
