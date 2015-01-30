@@ -77,6 +77,7 @@ Two more to go!
                 destination 'living-room))))
 ```
 ```lisp
+#(place
   "You are in a beautiful garden. There is a well in front of you."
   (#(exit east door living-room)))
 ```
@@ -112,7 +113,7 @@ After we set that last variable, we will see the following output:
 ```lisp
 (#(living-room
    #(place
-     "You are in the living-room of a wizards house. There is a wizard snoring loudly on the couch."
+     "You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch."
      (#(exit west door garden) #(exit upstairs stairway attic))))
  #(gargen
    #(place
@@ -120,7 +121,7 @@ After we set that last variable, we will see the following output:
      (#(exit east door living-room))))
  #(attic
    #(place
-     "You are in the attic of the wizards house. There is a giant welding torch in the corner."
+     "You are in the attic of the wizard's house. There is a giant welding torch in the corner."
      (#(exit downstairs stairway living-room)))))
 ```
 
