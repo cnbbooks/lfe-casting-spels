@@ -33,6 +33,42 @@ What will you be copying, you ask? A-ha! This is the best part: **your own text
 adventure game!**
 
 
+## What is LFE?
+
+LFE stands for "Lisp Flavoured Erlang". It's a Lisp dialect written on top of
+the Erlang Virtual Machine (also known as the "BEAM"). Erlang syntax looks
+like this:
+
+```erlang
+factors(N) ->
+     factors(N,2,[]).
+
+factors(1,_,Acc) -> Acc;
+factors(N,K,Acc) when N rem K == 0 ->
+    factors(N div K,K, [K|Acc]);
+factors(N,K,Acc) ->
+    factors(N,K+1,Acc).
+```
+
+LFE syntax looks like this:
+
+```lisp
+(defun factors (n)
+  (factors n 2 '()))
+
+(defun factors
+  ((1 _ acc)
+    acc)
+  ((n k acc) (when (== 0 (rem n k)))
+    (factors (div n k) k (cons k acc)))
+  ((n k acc)
+    (factors n (+ k 1) acc)))
+```
+
+In the first chapter, you will be setting up LFE so that you can follow along
+in this book.
+
+
 ## About
 
 This Gitbook (available [here](http://lfe.gitbooks.io/casting-spels/))
