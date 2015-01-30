@@ -45,21 +45,21 @@ Now we're ready to create our places!
 ```lisp
 > (set living-room
     (make-place
-      description (++ "You are in the living-room of a wizards house. "
+      description (++ "You are in the living-room of a wizard's house. "
                       "There is a wizard snoring loudly on the couch.")
       exits (list
               (make-exit
-                direction 'west
-                object 'door
+                direction "west"
+                object "door"
                 destination 'garden)
               (make-exit
-                direction 'upstairs
-                object 'stairway
+                direction "upstairs"
+                object "stairway"
                 destination 'attic))))
 ```
 ```lisp
 #(place
-  "You are in the living-room of a wizards house. There is a wizard snoring loudly on the couch."
+  "You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch."
   (#(exit west door garden) #(exit upstairs stairway attic)))
 ```
 
@@ -72,8 +72,8 @@ Two more to go!
                       "There is a well in front of you.")
       exits (list
               (make-exit
-                direction 'east
-                object 'door
+                direction "east"
+                object "door"
                 destination 'living-room))))
 ```
 ```lisp
@@ -84,17 +84,17 @@ Two more to go!
 ```lisp
 > (set attic
     (make-place
-      description (++ "You are in the attic of the wizards house. "
+      description (++ "You are in the attic of the wizard's house. "
                       "There is a giant welding torch in the corner.")
       exits (list
               (make-exit
-                direction 'downstairs
-                object 'stairway
+                direction "downstairs"
+                object "stairway"
                 destination 'living-room))))
 ```
 ```lisp
 #(place
-  "You are in the attic of the wizards house. There is a giant welding torch in the corner."
+  "You are in the attic of the wizard's house. There is a giant welding torch in the corner."
   (#(exit downstairs stairway living-room)))
 ```
 
@@ -106,7 +106,9 @@ Now we can combine these to make our game map! Let's define a new variable calle
                #(attic ,attic)))
 ```
 
- Lists such as this are, not surprisingly, called "property lists" in LFE and Erlang. They can also be used as dictionaries. An property list is simply a list of *tuples* where the first item in each *tuple* is a "key" symbol that is associated with "values", a bunch of other data. Our three keys are the *atoms* ``living-room``, ``garden``, and ``attic``.
+ Lists such as this are, not surprisingly, called "property lists" in LFE and Erlang. They can also be used as dictionaries. A property list is simply a list of *tuples* where the first item in each *tuple* is a "key" symbol that is associated with "values", a bunch of other data. Our three keys are the *atoms* ``living-room``, ``garden``, and ``attic``.
+
+But there's more going on there, and it looks pretty strange.
 
 After we set that last variable, we will see the following output:
 
