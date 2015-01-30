@@ -6,7 +6,12 @@
 * [Getting Set Up](book/setup.md)
 * [Syntax and Semantics](book/synsem.md)
 * [Defining the Data for our Game World](book/defdata.md)
-* [Looking Around in our Game World](book/looking.md)
+* Looking Around in our Game World
+  * [Location, Location, Location](book/location.md)
+  * [The Functional Programming Style](book/functional.md)
+  * [Exits](book/exits.md)
+  * [Finding Things](book/finding.md)
+  * [Putting It All Together](book/looking.md)
 * [Walking Around In Our World](book/walking.md)
 * [Casting SPELs](book/macros.md)
 * [Creating Special Actions in Our Game](book/spacts.md)
