@@ -11,35 +11,77 @@ Another problem with our ``describe-location`` function is that it doesn't tell 
       " from here."))
 ```
 
-Ok, now this function looks pretty strange: It almost looks more like a piece of data than a function. Let's try it out first and figures out how it does what it does later. We're going to need some testing data, though:
+That's pretty straight forward, but there's another way we could write this function, too -- a way that would take advantage of extracting record data *in the function arguments*:
+
+```lisp
+(defun describe-exit
+  (((match-exit object obj direction dir))
+    (++ "There is a " obj " going " dir " from here.")))
+```
+
+LFE supports something called *pattern matching* thanks to its heritage from Erlang, and before that, Prolog. Many of the Lisp forms in LFE support *pattern matching*, and one of those is a function definition: you can put patterns in the arguments. However, when you do this, you need to make some changes, as you saw above: an extra parentheses is needed. Functions without pattern matching in their
+arguments look like this, as we saw in the last chapter:
+
+```lisp
+(defun <name> (<arg> ...)
+  <body>)
+```
+
+Whereas functions *with* pattern matching in their arguments look like this:
+
+```lisp
+(defun <name>
+  ((<pattern>)
+    body)
+  ((<pattern>)
+    body)
+  ...)
+```
+
+You can have as many different patterns and associated function bodies as you want -- as long as they all have the same arity. Our pattern was a call to one of the magical functions created by our ``exit`` record, ``match-exit``. So what got filled in the ``<pattern>`` slot was a ``(match-exit ...)`` call, and that explains why you saw three opening parentheses in a row.
+
+Let's try it out first and then figure out how it does what it does later. We're going to need some testing data, though:
 
 ```lisp
 
-> (set exit (car
-              (place-exits (proplists:get_value
-                             'living-room
-                             *map*))))
+> (set test-exit (car
+                   (place-exits
+                     (map-living-room *map*))))
+```
+```lisp
+#(exit "west" "door" garden)
 ```
 
 There: that gives us the first exit in the list of exits we got back from the
 ``place-exits`` call. Let's try these out:
 
 ```lisp
-> (describe-exit exit)
+> (describe-exit test-exit)
 ```
 ```lisp
 "There is a door going west from here."
 ```
 
-Now we can describe a path, but see what we had to do to get our exit data? ``(place-exits ...)`` returns a *list* -- all of the place records have a list of exits (even if there's only one of them). As such, we need a function what will describe one or many exits. Things will be easier to read if we do this the
+Now we can describe an exit, but see what we had to do to get our exit data? ``(place-exits ...)`` returns a *list* (and we called ``car`` to get the first element of that list). All of the place records have a list of exits (even if there's only one of them). As such, we need a function what will describe one or many exits. Things will be easier to read if we do this the
 Lisper way, and create a helper function that "wraps" our magically-created
-record ``place-exits`` function:
+record ``place-exits`` function. This function needs the same logic as the function from last chapter that got location descriptions. Now we're getting a different field from the same record.
+
+However, we've just learned about pattern matching, so let's put that knowledge to use:[^1]
 
 ```lisp
-(defun get-exits (location map)
-  (place-exits
-    (proplists:get_value location map)))
+(defun get-exits
+  (('living-room map-data)
+    (place-exits
+      (map-living-room map-data)))
+  (('garden map-data)
+    (place-exits
+      (map-garden map-data)))
+  (('attic map-data)
+    (place-exits
+      (map-attic map-data))))
 ```
+
+That's our helper-function. Now for the one that does the heavy-lifting:
 
 ```lisp
 (defun describe-exits (location map)
@@ -64,3 +106,8 @@ This function uses another common *functional programming* technique: the use of
 Beautiful!
 
 Next, we'll want to find things ...
+
+
+----
+
+[^1]: As with the function from last chapter, we'll soon see a version of this function that is much shorter and eliminates the repetition.
