@@ -26,18 +26,17 @@ Getting the atom ``true`` as a result means that the whiskey-bottle is in living
 
 ```lisp
 (defun floor-item (x)
-  (io_lib:format "You see a ~s on the floor." `(,(atom_to_list x))))
+  (++ "You see a " (atom_to_list x) " on the floor."))
 
 (defun describe-floor (loc objs obj-locs)
-  (lists:flatten
-    (string:join
-      (lists:map
-        #'floor-item/1
-        (lists:filter (lambda (x) (is-at x loc obj-locs)) objs))
-      " ")))
+  (string:join
+    (lists:map
+      #'floor-item/1
+      (lists:filter (lambda (x) (is-at x loc obj-locs)) objs))
+    " "))
 ```
 
-This function has a couple of new things: First of all, it has an *anonymous function* (``lambda`` is just a fancy word for this). The ``lambda`` form is just the same as defining a helper function ``(defun blabla (x) ...)`` and then sending ``#'blabla/1`` to the ``lists:filter/2`` function. The ``filter/2`` function only keeps items in the list that are in the current location. Let's try this new function:
+This function has a couple of new things: First of all, it has an *anonymous function* (``lambda`` is just a fancy word for this). The ``lambda`` form is just the same as defining a helper function ``(defun blabla (x) ...)`` and then sending ``#'blabla/1`` to the ``lists:filter/2`` function. This saves defining something that would only be called once. The ``filter/2`` function only keeps items in the list that are in the current location. Let's try this new function:
 
 ```lisp
 (describe-floor 'living-room *objects* *object-locations*)
