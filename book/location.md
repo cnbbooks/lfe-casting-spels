@@ -1,7 +1,6 @@
 ## Location, Location, Location
 
-The first command we'd want to have is a command that tells us about the location we're standing in. So what would a function need to describe a location in a world? Well, it would need to know the location we want to describe and would need to be able to look at a map and find that location on the map. In Lisp,
-a function like that would have this general form:
+The first command we'd want to have is a command that tells us about the location we're standing in. So what would a function need to describe a location in a world? Well, it would need to know the location we want to describe and would need to be able to look at a map and find that location on the map. Here's one way you could create that function in LFE:[^1][^2]
 
 ```lisp
 (defun describe-location (location map-data)
@@ -58,3 +57,5 @@ Perfect! Just what we wanted... Notice how we put a quote in front of the symbol
       (place-description
         (map-attic map-data))))
   ```
+
+[^2]: Shortly, we will be learning some Lispy magic that will make this implementation much, much shorter!
