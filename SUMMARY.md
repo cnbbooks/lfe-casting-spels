@@ -8,7 +8,7 @@
   * [Syntax and Semantics](book/part1/2-synsem.md)
 * [Introducing the Game](book/part2/README.md)
   * [Lay of the Land](book/part2/1-lay.md)
-  * [Variables and Functions](book/part2/2-varfunc.md)
+  * [Introducing Functions](book/part2/2-funcs.md)
 * [Getting Functional](book/part3/README.md)
   * [Global State](book/part3/1-glob.md)
   * [A Non-global Alternative](book/part3/2-nonglob.md)
