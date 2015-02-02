@@ -26,10 +26,19 @@ frog
 Ignoring the fact that there's a function which defines this exact behaviour, let's define our own which caputes this playful exploration:
 
 ```lisp
-> (defun cccr (objects)
-    (car (cdr (cdr objects))))
+> (defun cccr (objs)
+    (car (cdr (cdr objs))))
 cccr
 ```
+
+In Lisp, ``defun`` lets us define a function which we can call later. A function definition has several key parts:
+
+* the call to ``defun``
+* a name for the function
+* the arguments that the function will accept when we call it later (in this case, we only have one argument, ``objs``)
+* the function body
+
+Notice that we defined what is called a *local variable* in that function. This means that the ``objs`` variable will only be accessible *inside the function itself*.
 
 Let's try it out:
 
