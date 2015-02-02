@@ -1,1 +1,1 @@
-# Part II - Introducing the Game
+# Introducing the Game
