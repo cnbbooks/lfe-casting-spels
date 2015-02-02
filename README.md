@@ -32,6 +32,8 @@ not to copy the ``>`` prompt! Just copy the code :-)
 What will you be copying, you ask? A-ha! This is the best part: **your own text
 adventure game!**
 
+First, though, we're going to have to cover some basics. But take heart: you'll be coding up some gamey goodness in no time ;-)
+
 
 ## What is LFE?
 
