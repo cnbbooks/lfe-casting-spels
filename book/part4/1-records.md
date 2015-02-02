@@ -1,10 +1,69 @@
 ## Organizing Things with Records
 
-Now that we've defined some objects in our world, we're on our way towards describing our world. But there's more to go, still. Our goal is to represent or game world with a map. Here is a picture of what our world looks like:
+### Making a Plan
 
-![](images/world.jpg)
+As we've said, our game is going to need the following:
 
-In this simple game, there will only be three different locations: A house with a living room and an attic, along with a garden. We're going to describe each of these, as well as provide metadata associated with them. We'll do that with something called a "record", a simple data structure in Erlang and LFE that lets us associate keys and values. Let's create a record for our places:
+* objects
+* places
+* place data (description, exits)
+* object locations
+* player location
+
+We need to create a data structure to hold all of that, so that it can be passed to function which need one or more bits of that data. The data structure we're going to use is the Erlang and LFE *record*. A *record* is a simple data structure that lets us associate keys and values.
+
+Let's attach this problem in pieces.
+
+### Game State
+
+Let's create the over-arching record definition for our game state:
+
+
+```lisp
+> (defrecord state
+    objects
+    places
+    player)
+```
+```lisp
+()
+```
+
+We've just defined a record called ``state`` that has three fields: ```objects``, ``places``, and ``player``.
+
+
+### Objects
+
+For each object in the game, we need to know the its name and its location:
+
+```lisp
+> (defrecord object
+    name
+    location)
+```
+```lisp
+()
+```
+
+Let's create some objects now, improving upon our first try with objects earlier:
+
+```lisp
+> (set objects
+    (list (make-object name 'whiskey-bottle location 'living-room)
+          (make-object name 'bucket location 'living-room)
+          (make-object name 'frog location 'garden)
+          (make-object name 'chain location 'garden)))
+```
+```lisp
+(#(object whiskey-bottle living-room)
+ #(object bucket living-room)
+ #(object frog garden)
+ #(object chain garden))
+```
+
+You are probably wondering where that mysterious ``make-object`` function came from. When you create a record in LFE, LFE creates several functions dynamically, just for use with your record: their names start with or have as part of their own names, the record name you used. For example, when you created the ``state`` and ``object`` records, LFE created the ``make-state`` and ``make-object`` functions (among several others -- more later).
+
+Now that we've defined some objects in our world, we're on our way towards describing our world. But there's more to go, still. Our next goal is to create a record for our places:
 
 ```lisp
 > (defrecord place
@@ -26,8 +85,6 @@ Great! Now we can define our places ... almost. What's the "exit" business? Well
 ```lisp
 ()
 ```
-
-Note that when you create a record in LFE, LFE creates several functions dynamically, just for use with your record: their names start with or have as part of their own names, the record name you used. For example, when we created the ``place`` and ``exit`` records, LFE created the ``make-place`` and ``make-exit`` functions (among several others).
 
 *Now* we're ready to create our places!
 
@@ -53,6 +110,8 @@ Note that when you create a record in LFE, LFE creates several functions dynamic
 ```
 
 As you can see above, we have records being created inside records: the ``living-room`` record has two exits in it, and we just created those ``exit`` records when created the living room's ``place`` record.
+
+Something else new: the ``++`` function. This is the function for combining two lists in LFE, and since strings and lists are actually the same exact data type, it's also what you use to concatenate strings.
 
 Two more to go!
 
