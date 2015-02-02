@@ -1,4 +1,4 @@
-# Getting Set Up
+## Getting Set Up
 
 If you're new to LFE and haven't read the [LFE Quick Start](), that might be a
 good idea to do that -- you'll feel much more comfortable with the material

@@ -1,4 +1,4 @@
-# Syntax and Semantics
+## Syntax and Semantics
 
 Every computer language has code that is made up of *syntax* and *semantics*. The *syntax* of a programming language is the basic skeleton your program has to follow so that the compiler knows *what's what* in your program, so it can tell what's a function, a variable, etc. The *semantics* of a program is the more "random" stuff, like the different commands you have available and what variables you're allowed to look at at any point in the program. The first thing that is special about Lisp is that it has the simplest syntax of any major programming language.
 
