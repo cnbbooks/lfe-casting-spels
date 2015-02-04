@@ -67,6 +67,7 @@ Now that we've defined some objects in our world, we're on our way towards descr
 
 ```lisp
 > (defrecord place
+    name
     description
     exits)
 ```
@@ -91,6 +92,7 @@ Great! Now we can define our places ... almost. What's the "exit" business? Well
 ```lisp
 > (set living-room
     (make-place
+      name 'living-room
       description (++ "You are in the living-room of a wizard's house. "
                       "There is a wizard snoring loudly on the couch.")
       exits (list
@@ -104,9 +106,9 @@ Great! Now we can define our places ... almost. What's the "exit" business? Well
                 destination 'attic))))
 ```
 ```lisp
-#(place
+#(place living-room
   "You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch."
-  (#(exit west door garden) #(exit upstairs stairway attic)))
+  (#(exit "west" "door" garden) #(exit "upstairs" "stairway" attic)))
 ```
 
 As you can see above, we have records being created inside records: the ``living-room`` record has two exits in it, and we just created those ``exit`` records when created the living room's ``place`` record.
@@ -118,6 +120,7 @@ Two more to go!
 ```lisp
 > (set garden
     (make-place
+      name 'garden
       description (++ "You are in a beautiful garden. "
                       "There is a well in front of you.")
       exits (list
@@ -127,13 +130,14 @@ Two more to go!
                 destination 'living-room))))
 ```
 ```lisp
-#(place
+#(place garden
   "You are in a beautiful garden. There is a well in front of you."
-  (#(exit east door living-room)))
+  (#(exit "east" "door" living-room)))
 ```
 ```lisp
 > (set attic
     (make-place
+      name 'attic
       description (++ "You are in the attic of the wizard's house. "
                       "There is a giant welding torch in the corner.")
       exits (list
@@ -143,9 +147,9 @@ Two more to go!
                 destination 'living-room))))
 ```
 ```lisp
-#(place
+#(place attic
   "You are in the attic of the wizard's house. There is a giant welding torch in the corner."
-  (#(exit downstairs stairway living-room)))
+  (#(exit "downstairs" "stairway" living-room)))
 ```
 
 This may seem like a lot of overhead, but it means that things will be much

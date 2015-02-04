@@ -11,5 +11,6 @@ The record functions which you will be seeing more of shortly are those of the f
 * ``<name>-<field>`` - get a record field value
 * ``set-<name>`` - sset a whole record
 * ``set-<name>-<field>`` - set the value of a record field
+* ``match-<name>`` - use a record while pattern matching
 
 This is not a complete list, but it's enough for now!
