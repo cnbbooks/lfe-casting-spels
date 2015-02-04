@@ -10,7 +10,7 @@ We still have one thing we need to describe: If there are any objects on the flo
       'false))
 ```
 
-Here we've got some more pattern-matching arguments. Out function above is *2-arity* (meaning it takes two arguments). The first argument is the location, and the second argument is an expression for matching a record -- in this case, an ``object`` record. But we've added something new: the ``when`` form. When you see a ``(when ...)`` after a pattern in LFE, it's called a *guard*. This guard is standing watch over the pattern, and will only let the pattern match if the location that was passed as a regular function argument is the same as the object record's location.
+This is very similar to one of our previous functions, having both pattern maching and a guard.Here we've got some more pattern-matching arguments. Out function above is *2-arity*, with the first argument being the location, and the second argument the expression for matching an ``object`` record.
 
 That's the first fucntion head pattern that ``there?`` has. The second function head pattern has two arguments, just like the first one, but in this case they are both the "don't care" variable, the underscore. This part of the function is saying, "If you've made it past the first pattern without matching, I don't care what your location is or what your record is: I'm going to return ``false``.
 
@@ -24,15 +24,7 @@ true
 false
 ```
 
-Remember that ``(state-objects state)`` returns all game objects.
-
-We can put this to use listing all the objects in a given location by using
-it with the ``lists:filter`` function. ``lists:filter`` takes two arguments:
-
-1. A *predicate* function (a function that returns ``true`` or ``false``), given some input, and
-1. A list of inputs to give the *predicate* function.
-
-Here it is:
+Remember that ``(state-objects state)`` returns all game objects. Let's use ``lists:filter`` like we did before with the place descriptions:
 
 ```lisp
 (defun whats-here?
@@ -44,8 +36,6 @@ Here it is:
 ```
 
 Now let's try it out:
-
-
 
 ![](images/slob.jpg)
 
