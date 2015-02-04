@@ -19,8 +19,8 @@ That's pretty straight forward, but there's another way we could write this func
     (++ "There is a " obj " going " dir " from here.")))
 ```
 
-LFE supports something called *pattern matching* thanks to its heritage from Erlang, and before that, Prolog. Many of the Lisp forms in LFE support *pattern matching*, and one of those is a function definition: you can put patterns in the arguments. However, when you do this, you need to make some changes, as you saw above: an extra parentheses is needed. Functions without pattern matching in their
-arguments look like this, as we saw in the last chapter:
+LFE supports something called *pattern matching* thanks to its heritage from Erlang (which got it from Prolog). Many of the Lisp forms in LFE support *pattern matching*, and one of those is a function definition: you can put patterns in the arguments. However, when you do this, you need to make some changes, as you saw above: an extra parentheses is needed. Functions without pattern matching in their
+arguments look like this, as we saw previously:
 
 ```lisp
 (defun <name> (<arg> ...)
@@ -43,10 +43,10 @@ You can have as many different patterns and associated function bodies as you wa
 Let's try it out first and then figure out how it does what it does later. We're going to need some testing data, though:
 
 ```lisp
-
 > (set test-exit (car
                    (place-exits
-                     (map-living-room *map*))))
+                     (map-living-room
+                        (state-places state)))))
 ```
 ```lisp
 #(exit "west" "door" garden)
@@ -66,29 +66,32 @@ Now we can describe an exit, but see what we had to do to get our exit data? ``(
 Lisper way, and create a helper function that "wraps" our magically-created
 record ``place-exits`` function. This function needs the same logic as the function from last chapter that got location descriptions. Now we're getting a different field from the same record.
 
-However, we've just learned about pattern matching, so let's put that knowledge to use:[^1]
+However, we've just learned about pattern matching, so let's put that knowledge to use:
 
 ```lisp
-(defun get-exits
-  (('living-room map-data)
-    (place-exits
-      (map-living-room map-data)))
-  (('garden map-data)
-    (place-exits
-      (map-garden map-data)))
-  (('attic map-data)
-    (place-exits
-      (map-attic map-data))))
+(defun get-exits (game-state)
+  (let ((player-location (state-player game-state))
+        (map-data (state-places game-state)))
+    (case player-location
+          ('living-room
+            (place-exits
+              (map-living-room map-data)))
+          ('garden
+            (place-exits
+              (map-garden map-data)))
+          ('attic
+            (place-exits
+              (map-attic map-data))))))
 ```
 
 That's our helper-function. Now for the one that does the heavy-lifting:
 
 ```lisp
-(defun describe-exits (location map)
+(defun describe-exits (game-state)
   (string:join
     (lists:map
       #'describe-exit/1
-      (get-exits location map))
+      (get-exits game-state))
     " "))
 ```
 
@@ -97,7 +100,7 @@ This function uses another common *functional programming* technique: the use of
  What our function does is get a list of the exits records, passes each record to ``describe-exit/1``, and with the resulting list of exit descriptions, joins them together using a single space. Let's try this new function:
 
 ```lisp
-> (describe-exits 'living-room *map*)
+> (describe-exits state)
 ```
 ```lisp
 "There is a door going west from here. There is a stairway going upstairs from here."
@@ -107,7 +110,3 @@ Beautiful!
 
 Next, we'll want to find things ...
 
-
-----
-
-[^1]: As with the function from last chapter, we'll soon see a version of this function that is much shorter and eliminates the repetition.

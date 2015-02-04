@@ -6,9 +6,9 @@ Now we can tie all these descriptor functions into a single, easy command called
 (defun look ()
   (io:format
     "~s~n~s~n~s~n"
-    (list (describe-location *location* *map*)
-          (describe-exits *location* *map*)
-          (describe-floor *location* *objects* *object-locations*))))
+    (list (describe-location state)
+          (describe-exits state)
+          (describe-floor state))))
 ```
 
 ![](images/functional.jpg)
@@ -21,8 +21,8 @@ Let's try it:
 ```lisp
 You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch.
 There is a door going west from here. There is a stairway going upstairs from here.
-you see a whiskey-bottle on the floor. you see a bucket on the floor.
+You see a whiskey-bottle on the floor. You see a bucket on the floor.
 ok
 ```
 
- Pretty cool!
+Pretty cool!
