@@ -49,5 +49,6 @@ frog
 
 That's much easier to type! (For the curious, Common Lisp and LFE define the function ``caddr`` which does the same as ``(car (cdr (cdr ...))))```.)
 
+Note that functions in Lisp are often more like functions in math than in other programming languages: Just like in math, this function doesn't print stuff for the user to read or pop up a message box. All it does is return a value as a result of the function.
 
 In LFE, there are all sorts of ways to create functions, so be prepared -- you're doing to see some different ways soon!
