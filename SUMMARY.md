@@ -19,6 +19,7 @@
   * [Records Functions](book/part4/3-recfuncs.md)
 * [Looking Around in our Game World](book/part5/README.md)
   * [Location, Location, Location](book/part5/1-location.md)
+  * [Thinking in Patterns](book/part5/2-patts.md)
   * [Exits](book/part5/4-exits.md)
   * [Finding Things](book/part5/5-finding.md)
   * [Putting It All Together](book/part5/6-looking.md)
