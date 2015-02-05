@@ -3,7 +3,7 @@
 We still have one thing we need to describe: If there are any objects on the floor at the location we are standing in, we'll want to describe them as well. Let's first write a helper function that tells us wether an item is in a given place:
 
 ```lisp
-(defun there?
+(defun item-there?
   ((loc (match-object location obj-loc)) (when (== loc obj-loc))
       'true)
   ((_ _)
@@ -18,9 +18,9 @@ Let's try out that function in the REPL. This will tell us if the first object
 in the list of game objects is in the living room:
 
 ```lisp
-> (there? 'living-room (car (state-objects state)))
+> (item-there? 'living-room (car (state-objects state)))
 true
-> (there? 'attic (car (state-objects state)))
+> (item-there? 'attic (car (state-objects state)))
 false
 ```
 
@@ -31,7 +31,7 @@ Remember that ``(state-objects state)`` returns all game objects. Let's use ``li
   (((match-state player player-loc objects objs))
     (lists:filter
       (lambda (obj)
-        (there? player-loc obj))
+        (item-there? player-loc obj))
       objs)))
 ```
 
@@ -79,10 +79,10 @@ Now let's use this function and our ``whats-here?`` function to describe all the
 This function has a couple of new things: First of all, it has an *anonymous function* (``lambda`` is just a fancy word for this). The ``lambda`` form is just the same as defining a helper function ``(defun blabla (x) ...)`` and then sending ``#'blabla/1`` to the ``lists:filter/2`` function. This saves defining something that would only be called once. The ``filter/2`` function only keeps items in the list that are in the current location. Let's try this new function:
 
 ```lisp
-(describe-items state)
+> (describe-items state)
 ```
 ```lisp
-"You see a whiskey-bottle on the floor. You see a bucket on the floor."
+"You see a whiskey-bottle on the floor. You see a bucket on the floor.\n"
 ```
 
 That was the last piece of the puzzle. Next we'll see how they fit together ...
