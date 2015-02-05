@@ -9,8 +9,11 @@ Now we can combine the data we have defined to finally make our world state!
 ```lisp
 > (set state (make-state
                objects objects
-               places (list living-room garden attic)
-               player 'living-room))
+               places (list living-room garden attic netherworld)
+               player 'living-room
+               bucket-filled? 'false
+               chain-welded? 'false
+               won? 'false))
 ```
 ```lisp
 #(state

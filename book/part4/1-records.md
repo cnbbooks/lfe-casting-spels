@@ -23,7 +23,10 @@ Let's create the over-arching record definition for our game state:
 > (defrecord state
     objects
     places
-    player)
+    player
+    chain-welded?
+    bucket-filled?
+    won?)
 ```
 ```lisp
 ()
@@ -118,7 +121,7 @@ As you can see above, we have records being created inside records: the ``living
 
 Something else new: the ``++`` function. This is the function for combining two lists in LFE, and since strings and lists are actually the same exact data type, it's also what you use to concatenate strings.
 
-Two more to go!
+Three more to go!
 
 ```lisp
 > (set garden
@@ -154,6 +157,17 @@ Two more to go!
   "You are in the attic of the wizard's house. There is a giant welding torch in the corner."
   (#(exit "downstairs" "stairway" living-room)))
 ```
+```lisp
+> (set netherworld
+    (make-place
+      name 'netherworld
+      description (++ "Everything is misty and vague. "
+                      "You seem to be in the netherworld.\n"
+                      "There are no exits.\n"
+                      "You could be here for a long time.")
+      exits '()))
+```
+
 
 This may seem like a lot of overhead, but it means that things will be much
 cleaner and less suseptible to bugs: each item of data is well-defined, with functions that create the data, access the data, and update the data -- both the "magical" record functions mention above as well as functions defined in the Erlang standard library (e.g., the ``proplists`` and ``orddict`` modules).
