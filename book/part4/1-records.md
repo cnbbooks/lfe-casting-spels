@@ -63,6 +63,9 @@ Let's create some objects now, improving upon our first try with objects earlier
 
 You are probably wondering where that mysterious ``make-object`` function came from. When you create a record in LFE, LFE creates several functions dynamically, just for use with your record: their names start with or have as part of their own names, the record name you used. For example, when you created the ``state`` and ``object`` records, LFE created the ``make-state`` and ``make-object`` functions (among several others -- more later).
 
+
+### Places and Exits
+
 Now that we've defined some objects in our world, we're on our way towards describing our world. But there's more to go, still. Our next goal is to create a record for our places:
 
 ```lisp

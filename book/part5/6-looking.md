@@ -8,7 +8,7 @@ Now we can tie all these descriptor functions into a single, easy command called
     "~s~n~s~n~s~n"
     (list (describe-location game-state)
           (describe-exits game-state)
-          (describe-floor game-state))))
+          (describe-items game-state))))
 ```
 
 ![](images/functional.jpg)

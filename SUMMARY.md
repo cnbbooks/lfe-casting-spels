@@ -15,7 +15,7 @@
   * [The Functional Programming Style](book/part3/3-fp.md)
 * [Game World Data](book/part4/README.md)
   * [Organizing Things with Records](book/part4/1-records.md)
-  * [Making the Game Map](book/part4/2-map.md)
+  * [Making the Game State](book/part4/2-map.md)
   * [Records Functions](book/part4/3-recfuncs.md)
 * [Looking Around in our Game World](book/part5/README.md)
   * [Location, Location, Location](book/part5/1-location.md)

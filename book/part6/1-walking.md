@@ -19,16 +19,19 @@ Since we're in the living room right now, out two valid moves should be those th
 
 [add explanation]
 
+
 ```lisp
+(defun match-directions
+  ((player-dir (match-exit direction dir))
+    (if (== dir (atom_to_list player-dir))
+        'true
+        'false)))
+
 (defun get-new-location (player-dir exits)
   (exit-destination
     (car
       (lists:filter
-        (match-lambda
-          (((match-exit direction dir destination dest))
-            (if (== dir (atom_to_list player-dir))
-                'true
-                'false)))
+        (lambda (exit) (match-directions player-dir exit))
         exits))))
 ```
 

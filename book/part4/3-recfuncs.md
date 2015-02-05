@@ -1,6 +1,8 @@
 ## Record Functions
 
-As noted, for every record we define, a bunch of functions are magically created by Lisp. These functions let us:
+Let's take a quick time-out for a piblic service announcement: records are your friends! And they have magically created functions. You'll be seeing more of them, so let's get you introduced.
+
+As noted, for every record we define, a bunch of functions are magically created by LFE. These functions let us:
  * create records of the given type
  * retreive values from the record
  * update values in a record

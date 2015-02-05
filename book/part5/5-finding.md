@@ -48,17 +48,21 @@ Let's try this out:
 (#(object whiskey-bottle living-room) #(object bucket living-room))
 ```
 
-Now let's use this function to describe the floor:
+You know how, in the last section, we described a single exit and then a list of exits? We're going to do the same thing now. In fact, the functions are *very* similar. Here's the function for describing an item:
 
 ```lisp
-(defun floor-item
+(defun describe-item
   (((match-object name obj-name))
     (++ "You see a " (atom_to_list obj-name) " on the floor.")))
+```
 
-(defun describe-floor (game-state)
+Now let's use this function and our ``whats-here?`` function to describe all the items in the current room:
+
+```lisp
+(defun describe-items (game-state)
   (string:join
     (lists:map
-      #'floor-item/1
+      #'describe-item/1
       (whats-here? game-state))
     " "))
 ```
@@ -66,7 +70,7 @@ Now let's use this function to describe the floor:
 This function has a couple of new things: First of all, it has an *anonymous function* (``lambda`` is just a fancy word for this). The ``lambda`` form is just the same as defining a helper function ``(defun blabla (x) ...)`` and then sending ``#'blabla/1`` to the ``lists:filter/2`` function. This saves defining something that would only be called once. The ``filter/2`` function only keeps items in the list that are in the current location. Let's try this new function:
 
 ```lisp
-(describe-floor state)
+(describe-items state)
 ```
 ```lisp
 "You see a whiskey-bottle on the floor. You see a bucket on the floor."

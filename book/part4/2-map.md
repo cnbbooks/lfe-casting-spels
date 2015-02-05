@@ -1,4 +1,4 @@
-## Making the Game Map
+## Making the Game State
 
 Here's a refresher on our locations:
 
