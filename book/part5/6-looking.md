@@ -5,10 +5,10 @@ Now we can tie all these descriptor functions into a single, easy command called
 ```lisp
 (defun look (game-state)
   (io:format
-    "~s~n~s~n~s~n"
+    "~n~s~s~s~n~n"
     (list (describe-location game-state)
-          (describe-exits game-state)
-          (describe-items game-state))))
+          (describe-items game-state)
+          (describe-exits game-state))))
 ```
 
 ![](images/functional.jpg)
@@ -16,12 +16,13 @@ Now we can tie all these descriptor functions into a single, easy command called
 Let's try it:
 
 ```lisp
-> (look)
+> (look state)
 ```
 ```lisp
 You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
 There is a door going west from here. There is a stairway going upstairs from here.
-You see a whiskey-bottle on the floor. You see a bucket on the floor.
+
 ok
 ```
 

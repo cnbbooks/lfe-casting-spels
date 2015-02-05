@@ -51,4 +51,15 @@ We'll use it more soon, but for now you can try out a little addition:
 4
 ```
 
-We'll be writing our whole adventure game here in the REPL :-)
+We'll be writing our whole adventure game here in the REPL :-) Things shoudl go very smoothly, but if you start exploring and things go nuts, you can reset your REPL to its default clean state with this command:
+
+```lisp
+> (reset-environment)
+```
+```lisp
+ok
+```
+
+![](../images/reset.jpg)
+
+Keep in mind, though, this will clean *verything* up! You'll have to start over again!

@@ -72,7 +72,7 @@ Now we can use this function to get the desciption of the player location:
 
 ```lisp
 (defun describe-location (game-state)
-  (place-description (get-here game-state)))
+  (++ (place-description (get-here game-state)) "\n"))
 ```
 
 Now let's use our new function:

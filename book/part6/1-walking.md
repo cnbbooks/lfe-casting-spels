@@ -52,7 +52,7 @@ Let's make those functions now:
   game-state)
 
 (defun bad-move (game-state)
-  (io:format "You can't go that way.~n")
+  (io:format "~nYou can't go that way.~n~n")
   game-state)
 ```
 

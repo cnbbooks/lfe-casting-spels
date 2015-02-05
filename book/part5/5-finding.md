@@ -53,18 +53,27 @@ You know how, in the last section, we described a single exit and then a list of
 ```lisp
 (defun describe-item
   (((match-object name obj-name))
-    (++ "You see a " (atom_to_list obj-name) " on the floor.")))
+    (++ "You see a " (atom_to_list obj-name) " on the ground.")))
 ```
+
+```lisp
+(defun add-newline
+  (('()) '())
+  ((string) (++ string "\n")))
+```
+
+That last function is to prevent a newline being printed when there are no items to describe.
 
 Now let's use this function and our ``whats-here?`` function to describe all the items in the current room:
 
 ```lisp
 (defun describe-items (game-state)
-  (string:join
-    (lists:map
-      #'describe-item/1
-      (whats-here? game-state))
-    " "))
+  (add-newline
+    (string:join
+      (lists:map
+        #'describe-item/1
+        (whats-here? game-state))
+      " ")))
 ```
 
 This function has a couple of new things: First of all, it has an *anonymous function* (``lambda`` is just a fancy word for this). The ``lambda`` form is just the same as defining a helper function ``(defun blabla (x) ...)`` and then sending ``#'blabla/1`` to the ``lists:filter/2`` function. This saves defining something that would only be called once. The ``filter/2`` function only keeps items in the list that are in the current location. Let's try this new function:
