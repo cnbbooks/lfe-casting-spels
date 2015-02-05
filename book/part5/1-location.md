@@ -47,7 +47,8 @@ Hey, that wasn't so bad! And we got to use our old friend ``car`` :-) But how do
 ```lisp
 ("You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch."
  "You are in a beautiful garden. There is a well in front of you."
- "You are in the attic of the wizard's house. There is a giant welding torch in the corner.")
+ "You are in the attic of the wizard's house. There is a giant welding torch in the corner."
+ "Everything is misty and vague. You seem to be in the netherworld.\nThere are no exits.\nYou could be here for a long time.")
 ```
 
 Wow! How did we do that? Well, there are a few new things here. This function uses another common *functional programming* technique: the use of *Higher Order Functions*. This means that the ``map`` function in the Erlang standard library's ``lists`` module is taking another function as a parameter so that they can call them themselves.

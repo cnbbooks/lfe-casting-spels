@@ -29,8 +29,11 @@ Now we can combine the data we have defined to finally make our world state!
      (#(exit "east" "door" living-room)))
    #(place attic
      "You are in the attic of the wizard's house. There is a giant welding torch in the corner."
-     (#(exit "downstairs" "stairway" living-room))))
-  living-room)
+     (#(exit "downstairs" "stairway" living-room)))
+   #(place netherworld
+     "Everything is misty and vague. You seem to be in the netherworld.\nThere are no exits.\nYou could be here for a long time."
+     ()))
+  living-room false false false)
 ```
 
 This state contains everything important that we'd like to know about:

@@ -26,8 +26,9 @@ Ok, now that they're enabled, let's cast our first spell, called walk:
 
 What this code does is it tells the Lisp compiler that the word walk is not actually the word walk but the word walk-direction and that the word direction actually has a quote in front of it, even though we can't see it. Basically we can sneak in some special code inbetween our program and the compiler that changes our code into something else before it is compiled:
 
-![](../images/spel_compile.jpg)
+[update the image below to account for the state we're passing]
 
+![](../images/spel_compile.jpg)
 
 Notice how similar this function looks to the code we had written before for describe-path: In Lisp, not only do code and data look a lot identical, but code and special commands to the compiler (the SPELs) look identical as well- A very consistent and clean design! Let's try our new spell:
 

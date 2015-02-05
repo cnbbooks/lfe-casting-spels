@@ -60,6 +60,8 @@ We'll be writing our whole adventure game here in the REPL :-) Things shoudl go 
 ok
 ```
 
+[update image below for LFE]
+
 ![](../images/reset.jpg)
 
 Keep in mind, though, this will clean *verything* up! You'll have to start over again!

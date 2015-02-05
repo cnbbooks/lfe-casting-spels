@@ -76,7 +76,7 @@ Now let's use this function and our ``whats-here?`` function to describe all the
       " ")))
 ```
 
-This function has a couple of new things: First of all, it has an *anonymous function* (``lambda`` is just a fancy word for this). The ``lambda`` form is just the same as defining a helper function ``(defun blabla (x) ...)`` and then sending ``#'blabla/1`` to the ``lists:filter/2`` function. This saves defining something that would only be called once. The ``filter/2`` function only keeps items in the list that are in the current location. Let's try this new function:
+There's nothing new here -- you've seen all of this before. You're starting to get it, right? Let's try our latest function:
 
 ```lisp
 > (describe-items state)
