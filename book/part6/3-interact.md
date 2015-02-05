@@ -96,20 +96,25 @@ Now let's add a couple more useful commands: first, a command that lets us see o
 ```
 
 ```lisp
-(defun inv (game-state)
+(defun inv-name (game-state)
   (lists:map
     (lambda (x) (object-name x))
     (inv-obj game-state)))
 ```
 
+```lisp
+(defun inv (game-state)
+  (io:format "~nYou are carrying:~n")
+  (lists:foreach
+    (lambda (x) (io:format " - ~s~n" (list x)))
+    (inv-name game-state))
+  (io:format "~n"))
+```
+
+
 Now a function that tells us if he have a certain object on us:
 
 ```lisp
-(defun have-in-inv? (item-name game-state)
-  (lists:member item-name (inv game-state)))
-```
-
-```lisp
-(defspel inv? (item-name game-state)
-  `(have-in-inv? ',item-name ,game-state))
+(defun inv? (item-name game-state)
+  (lists:member item-name (inv-name game-state)))
 ```
