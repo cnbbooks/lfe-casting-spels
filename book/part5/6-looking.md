@@ -3,12 +3,12 @@
 Now we can tie all these descriptor functions into a single, easy command called ``look/0`` that uses the global variables (therefore this function is not in the *Functional Style*) to feed all the descriptor functions and describes **everything**:
 
 ```lisp
-(defun look ()
+(defun look (game-state)
   (io:format
     "~s~n~s~n~s~n"
-    (list (describe-location state)
-          (describe-exits state)
-          (describe-floor state))))
+    (list (describe-location game-state)
+          (describe-exits game-state)
+          (describe-floor game-state))))
 ```
 
 ![](images/functional.jpg)
