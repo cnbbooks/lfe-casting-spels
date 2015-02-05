@@ -28,7 +28,7 @@
   * [Introducing SPELs](book/part6/2-spels.md)
   * [Interacting ](book/part6/2-interact.md)
   * [Creating Special Actions](book/part6/3-spacts.md)
-* [Game Server](book/part7/README.md)
+* [Adding a Simple Game Server](book/part7/README.md)
   * [The Problem of State](book/part7/1-state.md)
   * [A Glance at Closures](book/part7/2-closures.md)
   * [Light-weight Processes as Closures](book/part7/3-processes.md)
