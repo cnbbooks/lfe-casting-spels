@@ -1,25 +1,27 @@
 ## Supporting Commands
 
 ```lisp
+(defun sent-prompt () ''<-)
+
 (defspel go (direction)
   `(progn
     (! ,(whereis 'game-server) (tuple 'go ',direction))
-    '<-))
+    ,(sent-prompt)))
 
 (defspel view ()
   `(progn
     (! ,(whereis 'game-server) (tuple 'view))
-    '<-))
+    ,(sent-prompt)))
 
 (defspel i ()
   `(progn
     (! ,(whereis 'game-server) (tuple 'inv))
-    '<-))
+    ,(sent-prompt)))
 
 (defspel take (item)
   `(progn
     (! ,(whereis 'game-server) (tuple 'take ',item))
-    '<-))
+    ,(sent-prompt)))
 ```
 
 We've got some new SPELs -- let's try them out:
