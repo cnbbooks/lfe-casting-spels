@@ -48,6 +48,8 @@ Let's try this out:
 (#(object whiskey-bottle living-room) #(object bucket living-room))
 ```
 
+![](../images/slob.jpg)
+
 You know how, in the last section, we described a single exit and then a list of exits? We're going to do the same thing now. In fact, the functions are *very* similar. Here's the function for describing an item:
 
 ```lisp
