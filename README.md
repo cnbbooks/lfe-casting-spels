@@ -2,7 +2,7 @@
 
 *The LFE Edition*
 
-Anyone who has ever learned to program in Lisp will tell you it is very different from any other programming language. It is different in lots of surprising ways- This comic book will let you find out how Lisp's unique design makes it so powerful!
+Anyone who has ever learned to program in Lisp will tell you it is very different from any other programming language. It is different in lots of surprising ways -- this comic book will let you find out how Lisp's unique design makes it so powerful!
 
 ![](book/images/different.jpg)
 
@@ -74,6 +74,23 @@ very shortly!)
 
 If you don't have LFE installed on your computer, no need to worry -- in the first chapter, you will be setting up LFE so that you can follow along
 in this book.
+
+
+## Casting SPELs in LFE?
+
+The decision to port Casting SPELs in Lisp to LFE was based on two things. Firstly, it was inspired by an interest in providing the community and new comers with a greater number of intereseting learning tools for the language. Secondly, whimsy. The original for Common Lisp was such great fun; how delightful to share that with the LFE community?
+
+It's actually very easy to port basic Common Lisp to LFE. But once you get deeper than syntax, things can diverge quite strongly. It turns out that the immutable data of Erlang and LFE made porting this comic book quite tricky. In the end, I had to give up all hope of the whimsy, and switch gears to basic application architecture best practices.
+
+As such, you will see a *very* different comic in this book than in the others: immutable data, Erlang records for tracking game state, state being returned by most functions, and many more. At first I was disappointed: this wasn't going to be the best casual, entry-level introduction to LFE.
+
+Upon further reflection, however, I cam to embrace this difference. Erlang, and thus LFE, is not just another language you can pick up in a weekend and hack on for fun. It's not a Python, or Ruby, or Julia. Erlang wasn't created to solve the the human problem of making a better high-level language, of making programming fit in the brains of new developers more easily. Rather, Erlang was created to hammer a very different nail, and quite the sledgehammer it turned out to be: pounding out some impressive fault-tolerant, distributed systems. Erlang was created to be *industrial grade telecommunications infrastructure*.
+
+And this brings me to the point: LFE is not a casual Lisp. It's a Lisp for those who want to build distributed applications like the Erlang software that powers 40% of the world's telecommunications. As a systems programming language, it's somewhat more involved and has many more moving parts than the sort of languages that are picked up like hobbies or to crunch data at work. If you've never programmed before, I'd highly recommend learning another language first, waiting to tackle the concepts behind distributed systems once you have a strong foundation in place.
+
+Ans so, the concerns I had abotu introducing records, pattern matching, guards, immutable data, and process servers paled in comparison to the other potential ways this comic book could have been rendered for use on the Erlang VM (don't worry, there's no OTP!). And for those who *are* ready to jump into the world of functional programming for distributed systems, this is a *super* fun way to start, giving you an intuition for some of the basic building blocks you will use in every LFE application you build from here on out.
+
+Enjoy!
 
 
 ## About
