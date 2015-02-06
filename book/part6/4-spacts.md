@@ -19,6 +19,7 @@ Let's try our new command:
 ```
 
 ```lisp
+(...)
 ```
 
 Oops... we're don't have a bucket or chain, do we? ...and there's no welding machine around... oh well...
@@ -48,7 +49,7 @@ The point of this SPEL is to show you just how sophisticated and clever you can 
 Let's use our new SPEL to replace our ugly ``weld-them`` command:
 
 ```lisp
-
+(...)
 ```
 
 Look at how much easier it is to understand this command- The game-action SPEL lets us write exactly what we want to say without a lot of fat- It's almost like we've created our own computer language just for creating game commands. Creating your own pseudo-language with SPELs is called Domain Specific Language Programming, a very powerful way to program very quickly and elegantly.
@@ -56,7 +57,9 @@ Look at how much easier it is to understand this command- The game-action SPEL l
 ```lisp
 > (weld chain bucket)
 ```
-```
+
+```lisp
+(...)
 ```
 
 ...we still aren't in the right situation to do any welding, but the command is doing its job!
@@ -68,7 +71,7 @@ Look at how much easier it is to understand this command- The game-action SPEL l
 Next, let's rewrite the ``dunk`` command as well:
 
 ```lisp
-
+(...)
 ```
 
 Notice how the ``weld`` command had to check whether we have the subject, but that the ``dunk`` command skips that step -- our new ``game-action`` SPEL makes the code easy to write and understand.
@@ -79,5 +82,5 @@ And now our last code for splashing water on the wizard:
 
 
 ```lisp
-
+(...)
 ```
