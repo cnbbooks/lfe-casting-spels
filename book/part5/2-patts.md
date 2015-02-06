@@ -68,6 +68,8 @@ Let's create a function which uses ``lists:filter`` to only return the place tha
 
 We used *pattern matching* again, but this time to do something a tiny bit clever: we used it to define the variables ``player-loc`` and ``locs``.
 
+![](../images/living_room.jpg)
+
 Now we can use this function to get the desciption of the player location:
 
 ```lisp
