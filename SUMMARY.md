@@ -35,6 +35,8 @@
   * [Making a Game Server](book/part7/4-server.md)
   * [Supporting Commands](book/part7/5-commands.md)
 * [Let's Play!](book/part8/README.md)
+  * [Playing to Win](book/part8/1-win.md)
+  * [Playing to Lose](book/part8/2-lose.md)
 * [Addenda](book/addenda/README.md)
   * [Changes from the Original](book/addenda/1-changes.md)
   * [The Case Against the Word "Macro"](book/addenda/2-whyspels.md)
