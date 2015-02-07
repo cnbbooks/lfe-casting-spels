@@ -15,7 +15,7 @@ We're going to need some functions that print messages to the player; let's crea
 
 ```lisp
 (defun weld-not-ready ()
-  (io:format "~nYou seem to be missing a key condition ...~n~n"))
+  (io:format "~nYou seem to be missing a key condition for welding ...~n~n"))
 
 (defun cant-weld ()
   (io:format "~nYou can't weld like that ...~n~n"))
@@ -62,18 +62,49 @@ Let's try our new command:
 > (weld-them 'chain 'bucket state)
 ```
 ```lisp
-You seem to be missing a key condition ...
+You seem to be missing a key condition for welding ...
 ```
 
 Oops... we're don't have a bucket or chain, do we? ...and there's no welding machine around... oh well...
 
-Now let's create a command for dunking the chain and bucket in the well:
+Now let's create a command for dunking the chain and bucket in the well. We'll need similar functions for this action:
 
 ```lisp
-(defun dunk )
+(defun dunk-ready? (game-state)
+  (andalso (inv? 'bucket game-state)
+           (== (state-chain-welded? game-state) 'true)
+           (== (state-player game-state) 'garden)))
+
+(defun dunk-not-ready ()
+  (io:format "~nYou seem to be missing a key condition for dunking ...~n~n"))
+
+(defun cant-dunk ()
+  (io:format "~nYou can't dunk like that ...~n~n"))
+
+(defun good-dunk ()
+  (io:format "~nThe bucket is now full of water.~n~n"))
+
+(defun already-dunked ()
+  (io:format "~nWhy did you re-fill the bucket?~n~n"))
+
+(defun dunk-it
+  ((_ _ (= (match-state bucket-filled? 'true) game-state))
+    (already-dunked)
+    game-state)
+  (('bucket 'well game-state)
+    (case (dunk-ready? game-state)
+        ('true
+          (good-dunk)
+          (set-state-bucket-filled? game-state 'true))
+        ('false
+          (dunk-not-ready)
+          game-state)))
+  ((_ _ game-state)
+    (cant-dunk)
+    game-state))
 ```
 
-Now if you paid attention, you probably noticed that this command looks a lot like the weld command... Both commands need to check the location, subject, and object- But there's enough making them different enough so that we can't combine the similarities into a single function. Too bad...
+Now if you paid attention, you probably noticed that this command looks a lot like the weld command... Both commands need to check the location, subject, and object -- but there's enough making them different that we can't combine the similarities into a single function. Too bad...
 
 ...but since this is Lisp, we can do more than just write functions, we can cast SPELs! Let's create the following SPEL:
 
