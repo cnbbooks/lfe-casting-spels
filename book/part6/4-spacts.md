@@ -7,7 +7,13 @@ Before we tackle the issue of always setting the game ``state`` with every game 
   (andalso (inv? 'bucket game-state)
            (inv? 'chain game-state)
            (== (state-player game-state) 'attic)))
+```
 
+As you can see, that function checks to make sure that all the necessary conditions are present for a successful welding.
+
+We're going to need some functions that print messages to the player; let's create those now:
+
+```lisp
 (defun weld-not-ready ()
   (io:format "~nYou seem to be missing a key condition ...~n~n"))
 
@@ -19,7 +25,11 @@ Before we tackle the issue of always setting the game ``state`` with every game 
 
 (defun already-welded ()
   (io:format "~nYou have already welded the bucket and chain!~n~n"))
+```
 
+And now for the welding!
+
+```lisp
 (defun weld-them
   ((_ _ (= (match-state chain-welded? 'true) game-state))
     (already-welded)
@@ -37,7 +47,11 @@ Before we tackle the issue of always setting the game ``state`` with every game 
     game-state))
 ```
 
-As you can see, that function checks to make sure that all the necessary conditions are present for a successful welding.
+We've pieced together all our function parts to give our game a new action. The one thing in this code you haven't yet seen is the odd ``(= ...)`` form -- that's not an equality test! In LFE, you can test if two things are equal with ``(== ...)`` or ``(=:= ...)``. So what is ``(= ...)``, then?
+
+If you look at it, you see that it's wrapping a record matching in the function arguments. In our match, we only care about one field from the record: ``chain-welded?``. And we only care if it's ``true``. Let's say our match succeeds, that the chain is already welded ... now what? We don't have any variables defined! Our function needs to return the game state, so how do we get it?
+
+In LFE record-matching, you have the ability to not only match individual fields from a record, but to wrap the whole matching up and assign the passed record to a variable. You do that with the ``(= ...)`` form!
 
 ![](../images/weld.jpg)
 
@@ -45,11 +59,10 @@ Let's try our new command:
 
 
 ```lisp
-> (weld 'chain 'bucket state)
+> (weld-them 'chain 'bucket state)
 ```
-
 ```lisp
-(...)
+You seem to be missing a key condition ...
 ```
 
 Oops... we're don't have a bucket or chain, do we? ...and there's no welding machine around... oh well...
