@@ -3,8 +3,38 @@
 Before we tackle the issue of always setting the game ``state`` with every game command we type, we need to do one more thing: add some special actions to the game that the player has to do to win in the game. The first command will let the player weld the chain to the bucket in the attic:
 
 ```lisp
-(defun weld-them (item-1 item-2 game-state)
-  )
+(defun weld-ready? (game-state)
+  (andalso (inv? 'bucket game-state)
+           (inv? 'chain game-state)
+           (== (state-player game-state) 'attic)))
+
+(defun weld-not-ready ()
+  (io:format "~nYou seem to be missing a key condition ...~n~n"))
+
+(defun cant-weld ()
+  (io:format "~nYou can't weld like that ...~n~n"))
+
+(defun good-weld ()
+  (io:format "~nThe chain is now securely welded to the bucket.~n~n"))
+
+(defun already-welded ()
+  (io:format "~nYou have already welded the bucket and chain!~n~n"))
+
+(defun weld-them
+  ((_ _ (= (match-state chain-welded? 'true) game-state))
+    (already-welded)
+    game-state)
+  (('chain 'bucket game-state)
+    (case (weld-ready? game-state)
+        ('true
+          (good-weld)
+          (set-state-chain-welded? game-state 'true))
+        ('false
+          (weld-not-ready)
+          game-state)))
+  ((_ _ game-state)
+    (cant-weld)
+    game-state))
 ```
 
 As you can see, that function checks to make sure that all the necessary conditions are present for a successful welding.
