@@ -2,7 +2,13 @@
 
 You probably noticed that the dunk command looked a lot like the weld command... Both commands need to check the location, subject, and object -- but there's enough making them different that we can't combine the similarities into a single function. Too bad...
 
-...but since this is Lisp, we can do more than just write functions, we can cast SPELs! Let's create the following SPEL:
+...but since this is Lisp, we can do more than just write functions, we can cast SPELs! As usually, we're going to need some helper functions.
+
+```lisp
+
+```
+
+Now we can create a new SPEL to save us from having to repeat so much code:
 
 ```lisp
 (defspel game-action (command subj obj place &rest rest)
