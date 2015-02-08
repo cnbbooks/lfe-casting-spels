@@ -89,11 +89,11 @@ Now we can create a new SPEL to save us from having to repeat so much code:
       ((_ _ (= (match-state ,(ccatoms `(,check)) 'true) game-state))
         (,(ccatoms `(already- ,cmd ed)))
         game-state)
-      (('bucket 'well game-state)
+      ((,sub ,obj game-state)
         (case (,(ccatoms `(,cmd -ready?)) game-state)
             ('true
-              (,(ccatoms `(good- ,cmd)))
-              (,(ccatoms `(set-state- ,check)) game-state 'true))
+              (,(ccatoms `(good- ,cmd))
+                (,(ccatoms `(set-state- ,check)) game-state 'true)))
             ('false
               (,(ccatoms `(,cmd -not-ready)))
               game-state)))
@@ -157,9 +157,3 @@ dunk
 
 ![](../images/splash.jpg)
 
-And now our last code for splashing water on the wizard:
-
-
-```lisp
-(...)
-```

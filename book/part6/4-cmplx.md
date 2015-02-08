@@ -22,12 +22,15 @@ We're going to need some functions that print messages to the player; let's crea
 (defun cant-weld ()
   (io:format "~nYou can't weld like that ...~n~n"))
 
-(defun good-weld ()
-  (io:format "~nThe chain is now securely welded to the bucket.~n~n"))
+(defun good-weld (game-state)
+  (io:format "~nThe chain is now securely welded to the bucket.~n~n")
+  game-state)
 
 (defun already-welded ()
   (io:format "~nYou have already welded the bucket and chain!~n~n"))
 ```
+
+Notice that our ``good-weld`` function takes the game state as a parameter, unlike the other functions. This is us planning for the future :-) We may want to do something with the game state *after* we check for a good weld ...
 
 And now for the welding!
 
@@ -39,8 +42,8 @@ And now for the welding!
   (('chain 'bucket game-state)
     (case (weld-ready? game-state)
         ('true
-          (good-weld)
-          (set-state-chain-welded? game-state 'true))
+          (good-weld
+            (set-state-chain-welded? game-state 'true)))
         ('false
           (weld-not-ready)
           game-state)))
@@ -74,7 +77,7 @@ Now let's create a command for dunking the chain and bucket in the well. We'll n
 ```lisp
 (defun dunk-ready? (game-state)
   (andalso (inv? 'bucket game-state)
-           (== (state-chain-welded? game-state) 'true)
+           (state-chain-welded? game-state)
            (== (state-player game-state) 'garden)))
 
 (defun dunk-not-ready ()
@@ -96,8 +99,8 @@ Now let's create a command for dunking the chain and bucket in the well. We'll n
   (('bucket 'well game-state)
     (case (dunk-ready? game-state)
         ('true
-          (good-dunk)
-          (set-state-bucket-filled? game-state 'true))
+          (good-dunk
+            (set-state-bucket-filled? game-state 'true)))
         ('false
           (dunk-not-ready)
           game-state)))

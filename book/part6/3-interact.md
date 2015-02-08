@@ -47,7 +47,7 @@ Now we'll create a command to pickup objects in our world. We'll need some helpe
   ((item-name (= (match-state player player-loc objects objs) game-state))
     (case (lists:member item-name (get-item-names game-state))
           ('true
-            (set-state-objects state (update-items item-name game-state)))
+            (set-state-objects game-state (update-items item-name game-state)))
           ('false
             (bad-pick)
             game-state)))
