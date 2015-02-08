@@ -87,7 +87,7 @@ Now let's create a command for dunking the chain and bucket in the well. We'll n
   (io:format "~nThe bucket is now full of water.~n~n"))
 
 (defun already-dunked ()
-  (io:format "~nWhy did you re-fill the bucket?~n~n"))
+  (io:format "~nYou filled the bucket. Again.~n~n"))
 
 (defun dunk-it
   ((_ _ (= (match-state bucket-filled? 'true) game-state))
