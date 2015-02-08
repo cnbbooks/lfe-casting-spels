@@ -36,32 +36,7 @@ We're still missing one last special action: the one that will let us win the ga
                  "Best not push your luck.~n~n")))
 ```
 
-(defun dunk-it
-  ((_ _ (= (match-state bucket-filled? 'true) game-state))
-    (already-dunked)
-    game-state)
-  (('bucket 'well game-state)
-    (case (dunk-ready? game-state)
-        ('true
-          (good-dunk)
-          (set-state-bucket-filled? game-state 'true))
-        ('false
-          (dunk-not-ready)
-          game-state)))
-  ((_ _ game-state)
-    (cant-dunk)
-    game-state))
-
-(game-action splash bucket wizard living-room
-             (cond ((not *bucket-filled*) '(the bucket has nothing in it.))
-                   ((have 'frog) '(the wizard awakens and sees that you stole his frog.
-                                   he is so upset he banishes you to the
-                                   netherworlds- you lose! the end.))
-                   (t '(the wizard awakens from his slumber and greets you warmly.
-                        he hands you the magic low-carb donut- you win! the end.))))
-
-And now the code for splashing water on the wizard:
-
+And now we can generate the code for splashing water on the wizard:
 
 ```lisp
 > (game-action splash wizard bucket won?)
@@ -77,7 +52,7 @@ splash
 ()
 ```
 ```lisp
-> 
+> (set state (splash-wizard state))
 ```
 
 ![](../images/donut.jpg)
