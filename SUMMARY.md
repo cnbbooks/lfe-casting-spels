@@ -29,6 +29,7 @@
   * [Interacting ](book/part6/3-interact.md)
   * [Complex Interactions](book/part6/4-cmplx.md)
   * [Creating Special Actions](book/part6/5-spacts.md)
+  * [The Winning Move](book/part6/6-winact.md)
 * [Adding a Simple Game Server](book/part7/README.md)
   * [The Problem of State](book/part7/1-state.md)
   * [A Glance at Closures](book/part7/2-closures.md)
