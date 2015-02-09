@@ -17,7 +17,9 @@ Here's the first part:
 
 That looks pretty wild, so let's pause while we go through it.
 
-LFE supports something called *pattern matching* thanks to its heritage from Erlang (which got it from Prolog). Many of the Lisp forms in LFE support *pattern matching*, and one of those is a function definition: you can put patterns in the arguments. However, when you do this, you need to make some changes. That's why the function above looks funny, because of these changes: an extra set of parentheses is needed. Functions without pattern matching in their arguments look like this, as we saw previously:
+LFE supports something called *pattern matching* thanks to its heritage from Erlang (which got it from Prolog). Many of the Lisp forms in LFE support *pattern matching*, and one of those is a function definition: you can put patterns in a function's arguments when you define it. However, when you do this, you need to make some changes. That's why the function above looks funny, because of these changes: an extra set of parentheses is needed (if you're wondering why, it's because instead of just one set of arguments and a function body, patterns allow for *many* sets of arguments and corresponding bodies ... so the extra set of parentheses is like a list of function definitions).
+
+Functions without pattern matching in their arguments look like this, as we saw previously:
 
 ```lisp
 (defun <name> (<arg> ...)
@@ -35,7 +37,7 @@ Whereas functions *with* pattern matching in their arguments look like this:
   ...)
 ```
 
-You can have as many different patterns and associated function bodies as you want -- as long as they all have the same number of arguments (also know as *arity*). Our function has two arguments (*2-arity*): a location ``loc`` and a pattern matching against a ``place`` record.Our pattern was a call to one of the magical functions created by our ``place`` record, ``match-place``. So what got filled in the ``<pattern>`` slot was a ``(match-place ...)`` call, and that explains why you saw three opening parentheses in a row.
+You can have as many different patterns and associated function bodies as you want -- as long as they all have the same number of arguments (also know as *arity*). Our function has two arguments (*2-arity*): a location ``loc`` and a pattern matching against a ``place`` record. Our pattern was a call to one of the magical functions created by our ``place`` record, ``match-place``. So what got filled in the ``<pattern>`` slot was a ``(match-place ...)`` call, and that explains why you saw three opening parentheses in a row.
 
 But we've got something else new there, too: the ``when`` form. When you see a ``(when ...)`` after a pattern in LFE, it's called a *guard*. This guard is standing watch over the pattern, and will only let the pattern match if the location ``loc`` that was passed as a regular function argument is the same as the ``place`` record's ``location`` field.
 
@@ -66,7 +68,7 @@ Let's create a function which uses ``lists:filter`` to only return the place tha
            locs))))
 ```
 
-We used *pattern matching* again, but this time to do something a tiny bit clever: we used it to define the variables ``player-loc`` and ``locs``.
+We used *pattern matching* again, but this time to do something a tiny bit clever: we used it to define the variables ``player-loc`` and ``locs``. In other words, with our pattern above, we said "When you get a ``state`` record coming through here, get its ``player`` field and assign it to the ``player-loc`` variable; also get its ``places`` field and assign it to the ``locs`` variable."
 
 ![](../images/living_room.jpg)
 

@@ -9,15 +9,15 @@ We can get there in stages by plying with our new game state and record fucntion
 living-room
 ```
 
-What about a place's description? Well, that burried a few more levels deep in our game state. Let's take a look. Let's refresh our memories about the fields defined in the records we will be accessing:
+What about a place's description? Well, that's burried a few more levels deep in our game state record. We'll take a look, but first we can refresh our memories about the fields defined in the records:
 
 ```lisp
 > (fields-state)
-(objects places player)
-> (fields-map)
-(living-room garden attic)
+(objects places player goals)
+> (fields-object)
+(name location)
 > (fields-place)
-(description exits)
+(name description exits)
 ```
 
 Let's imagine our location is in ``living-room`` (which, indeed, it is...).
@@ -51,6 +51,6 @@ Hey, that wasn't so bad! And we got to use our old friend ``car`` :-) But how do
  "Everything is misty and vague. You seem to be in the netherworld.\nThere are no exits.\nYou could be here for a long time.")
 ```
 
-Wow! How did we do that? Well, there are a few new things here. This function uses another common *functional programming* technique: the use of *Higher Order Functions*. This means that the ``map`` function in the Erlang standard library's ``lists`` module is taking another function as a parameter so that they can call them themselves.
+Wow! How did we do that? Well, there are a few new things here. This function uses a common *functional programming* technique: *Higher Order Functions*. This means that the ``map`` function in the Erlang standard library's ``lists`` module is taking another function as a parameter so that it can be called for each item in the list that is passed (in this case, the list that is passed is the output of the call to ``(state-places ...)``).
 
-But what function? Good question! This is and example of the Function with No Name, or *anonymous functions*. *Anonymous functions* don't use ``define``; instead, you use the ``lambda`` form. *Anonymous functions* are useful for doing a task that you don't want to bother writing a function for (or to wrap something that's not a function ...).
+But what function? Good question! This is an example of the Function with No Name, or as it is better known, an *anonymous function*. *Anonymous functions* are not created with ``define`` like named functions are. Instead, they are created by using the ``lambda`` form. *Anonymous functions* are useful for doing a task that you don't want to bother writing a function for (or to wrap something that's not a function, but you want to *treat* like a function ...).
