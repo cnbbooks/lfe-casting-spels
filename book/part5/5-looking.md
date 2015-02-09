@@ -1,4 +1,4 @@
-## Putting It All Together
+## Putting These Pieces Together
 
 Now we can tie all these descriptor functions into a single, easy command called ``look/0`` that uses the global variables (therefore this function is not in the *Functional Style*) to feed all the descriptor functions and describes **everything**:
 
