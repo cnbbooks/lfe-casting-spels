@@ -2,7 +2,44 @@
 
 We've just implemented some simple interactions like picking up objects or checking our player's inventory. What about interacting with the world on a conditional basis? We need add these sorts of actions to the game so that the player can meed the conditions to *win* in the game.
 
-The first of these is the ability to weld the chain to the bucket in the attic:
+Now we're to the bit about goals. Let's write some functions that will help us get info about goals and set the status of goals.
+
+```lisp
+(defun goal?
+  ((goal-name (= (match-goal name name) goal)) (when (== goal-name name))
+    `#(true ,goal))
+  ((_)
+    'false))
+
+(defun get-goal (goal-name game-state)
+  (car
+    (lists:filtermap
+      (lambda (x) (goal? x goal))
+      (state-goals state))))
+
+(defun goal-met? (goal-name game-state)
+  (goal-achieved?
+    (get-goal goal-name game-state)))
+```
+
+There are a couple of things in this code you haven't yet seen:
+
+* the odd ``(= ...)`` form, and
+* ``lists:filtermap``
+
+The ``(= ...)`` form is not an equality test! In LFE, you can test if two things are equal with ``(== ...)`` or ``(=:= ...)``. So what is ``(= ...)``, then? If you look at it, you see that it's wrapping a record matching in the function arguments. In our match, we only care about one field from the goal record: ``name``. And we only care if it matches the passed argument ``goal-nam``. Let's say our match succeeds, that the chain is already welded ... now what? We don't have any variables defined! Our function needs to return the game state, so how do we get it?
+
+In LFE record-matching, you have the ability to not only match individual fields from a record, but to wrap the whole matching up and assign the passed record to a variable. You do that with the ``(= ...)`` form!
+
+The function ``lists:filtermap`` does what you might guess: it performs a ``map`` and a ``filter`` simultaneously. In order to use this, the function passed to ``lists:filtermap`` needs to return ``false`` for a bad match and a tuple of ``#(true ,value)`` for a good match. In our case, the value is the matching goal.
+
+So we've managed to get goal information -- what about updating goals? We can do the same thing that we did for updating objects:
+
+```lisp
+TBD
+```
+
+The first of the goals we'll write code for is the welding of the chain to the bucket in the attic:
 
 ```lisp
 (defun weld-ready? (game-state)
@@ -50,13 +87,41 @@ And now for the welding!
   ((_ _ game-state)
     (cant-weld)
     game-state))
+
+(defun weld-them (sub obj game-state)
+  (let ((ready? (weld-ready? game-state)))
+    (cond (((goal-met? 'chain-welded game-state))
+            (already-welded)
+            game-state)
+          ((not ready?)
+            (weld-not-ready)
+            game-state)
+          (ready?
+            (good-weld
+            (set-state-chain-welded? game-state 'true))))
+
+            )
+  (cant-weld)
+  game-state)
+
+
+  ((_ _ (= (match-state chain-welded? 'true) game-state))
+    (already-welded)
+    game-state)
+  (('chain 'bucket game-state)
+    (case (weld-ready? game-state)
+        ('true
+          (good-weld
+            (set-state-chain-welded? game-state 'true)))
+        ('false
+          
+  ((_ _ game-state)
+    (cant-weld)
+    game-state))
+
 ```
 
-We've pieced together all our function parts to give our game a new action. The one thing in this code you haven't yet seen is the odd ``(= ...)`` form -- that's not an equality test! In LFE, you can test if two things are equal with ``(== ...)`` or ``(=:= ...)``. So what is ``(= ...)``, then?
-
-If you look at it, you see that it's wrapping a record matching in the function arguments. In our match, we only care about one field from the record: ``chain-welded?``. And we only care if it's ``true``. Let's say our match succeeds, that the chain is already welded ... now what? We don't have any variables defined! Our function needs to return the game state, so how do we get it?
-
-In LFE record-matching, you have the ability to not only match individual fields from a record, but to wrap the whole matching up and assign the passed record to a variable. You do that with the ``(= ...)`` form!
+All of the code above should be familiar to you now, and with that, we've pieced together all our various functions to give our game a new action.
 
 ![](../images/weld.jpg)
 
