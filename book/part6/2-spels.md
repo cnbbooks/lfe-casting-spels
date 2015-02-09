@@ -20,17 +20,14 @@ Ok, now that they're enabled, let's cast our first spell, called walk:
 (defspel walk (direction game-state)
   `(walk-direction ',direction ,game-state))
 ```
-```lisp
-()
-```
 
-What this code does is it tells the Lisp compiler that the word walk is not actually the word walk but the word walk-direction and that the word direction actually has a quote in front of it, even though we can't see it. Basically we can sneak in some special code inbetween our program and the compiler that changes our code into something else before it is compiled:
-
-[update the image below to account for the state we're passing]
+What this code does is it tells the Lisp compiler that the *atom* ``walk`` is not actually the *atom* ``walk`` but is, instead, ``walk-direction`` and that the direction actually has a quote in front of it, even though we can't see it. Basically we can sneak in some special code inbetween our program and the compiler that changes our code into something else before it is compiled:
 
 ![](../images/spel_compile.jpg)
 
-Notice how similar this function looks to the code we had written before for describe-path: In Lisp, not only do code and data look a lot identical, but code and special commands to the compiler (the SPELs) look identical as well- A very consistent and clean design! Let's try our new spell:
+Notice how similar this function looks to the code we had written before for ``describe-exit``. In Lisp, not only do code and data look a lot identical, but code and special commands to the compiler (the SPELs) look identical as well -- a very consistent and clean design!
+
+Let's try our new spell:
 
 ```lisp
 > (set state (walk east state))
@@ -42,3 +39,5 @@ You see a whiskey-bottle on the floor. You see a bucket on the floor.
 ```
 
 Much better!
+
+Wait, why ``(set state ...)``? Rmember: this is *functional programming*! We're not changing any global variables insdie functions. So if our player walks, how do we make sure that the new state created by the ``walk`` SPEL is usable for the next command? We set the output of the ``walk`` SPEL (which is the new state) to the ``state`` variable!
