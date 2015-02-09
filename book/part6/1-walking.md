@@ -13,12 +13,13 @@ Ok, now that we can see our world, let's write some code that lets us walk aroun
 Since we're in the living room right now, out two valid moves should be those that take us to the garden or to the attic:
 
 ```lisp
-> (get-valid-moves state)
-(garden attic)
+> (get-valid-moves (place-exits (get-here state)))
+(west upstairs)
 ```
 
-[add explanation]
+We used the same record function that we did in the "Exits" section: ``place-exits``, after getting the place record for our current location.
 
+We've got our list of valid moves the player can make; what next? Well, once the player moves in a direction, we'll want to set that destination has the new location for the player. So, given a list of exits, we need to match the one that the player chose to use:
 
 ```lisp
 (defun match-directions
@@ -35,7 +36,14 @@ Since we're in the living room right now, out two valid moves should be those th
         exits))))
 ```
 
-[add demonstration]
+So, given a list of exits for the current location (``(place-exits (get-here state))``), what is the destination if the player choses to go ``west``?
+
+```lisp
+> (get-new-location 'west (place-exits (get-here state)))
+```
+```lisp
+garden
+```
 
 Excellent!
 
@@ -80,8 +88,10 @@ There is a door going east from here.
 You see a frog on the floor. You see a chain on the floor.
 ```
 
-You will also see the new state displayed in the REPL. We'll talk more about that later.
+You will also see the new state displayed in the REPL. We'll talk more about that later. (Don't worry, we're going to make it go away!)
 
+Remember how we were able to simplify our description functions by creating a ``look`` command that is easy for our player to type? It would be nice to adjust the ``walk-direction`` command so that it doesn't have an annoying quote mark in the command that the player has to type in. But, as we have learned, when the compiler reads a form in *Code Mode*, it will read all its parameters in *Code Mode*, unless a quote tells it not to.
 
-Now, we were able to simplify our description functions by creating a look command that is easy for our player to type. Similarly, it would be nice to adjust the walk-direction command so that it doesn't have an annoying quote mark in the command that the player has to type in. But, as we have learned, when the compiler reads a form in Code Mode, it will read all its parameters in Code Mode, unless a quote tells it not to. Is there anything we can do to tell the compiler that west is just a piece of data without the quote?
+Is there anything we can do to tell the compiler that west is just a piece of data without the quote?
 
+Let's find out ...
