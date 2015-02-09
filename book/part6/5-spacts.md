@@ -119,17 +119,8 @@ weld
 Look at how much easier it is to understand this command- The game-action SPEL lets us write exactly what we want to say without a lot of fat- It's almost like we've created our own computer language just for creating game commands. Creating your own pseudo-language with SPELs is called Domain Specific Language Programming, a very powerful way to program very quickly and elegantly.
 
 ```lisp
-> (weld 'chain 'bucket state)
-```
-
-```lisp
 (defspel weld-chain (game-state)
   `(weld 'chain 'bucket ,game-state))
-```
-
-
-```lisp
-> (weld-chain state)
 ```
 
 ...we still aren't in the right situation to do any welding, but the command is doing its job!
@@ -141,19 +132,9 @@ Look at how much easier it is to understand this command- The game-action SPEL l
 Next, let's rewrite the ``dunk`` command as well:
 
 ```lisp
-> (game-action dunk bucket well bucket-filled?)
-```
-```lisp
-dunk
+(game-action dunk bucket well bucket-filled?)
 ```
 ```lisp
 (defspel dunk-bucket (game-state)
   `(dunk 'bucket 'well ,game-state))
 ```
-```lisp
-()
-```
-
-
-![](../images/splash.jpg)
-

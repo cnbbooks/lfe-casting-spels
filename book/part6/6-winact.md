@@ -36,6 +36,8 @@ We're still missing one last special action: the one that will let us win the ga
                  "Best not push your luck.~n~n")))
 ```
 
+![](../images/splash.jpg)
+
 And now we can generate the code for splashing water on the wizard:
 
 ```lisp
