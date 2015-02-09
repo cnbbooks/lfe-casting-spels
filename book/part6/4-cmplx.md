@@ -72,6 +72,8 @@ Notice that our ``good-weld`` function takes the game state as a parameter, unli
 And now for the welding!
 
 ```lisp
+REFACTORING IN-PROGRESS ...
+
 (defun weld-them
   ((_ _ (= (match-state chain-welded? 'true) game-state))
     (already-welded)
@@ -114,7 +116,7 @@ And now for the welding!
           (good-weld
             (set-state-chain-welded? game-state 'true)))
         ('false
-          
+
   ((_ _ game-state)
     (cant-weld)
     game-state))
