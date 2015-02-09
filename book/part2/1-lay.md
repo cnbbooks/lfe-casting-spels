@@ -2,9 +2,11 @@
 
 As earlier stated, we're going to be creating a game. Our game is going to have some objects in it that the player can pick up and use. It's going to have places. It's going to have a player -- you! It's going to let you interact with it.
 
-Things are going to get pretty deep, pretty quickly, so before we take the dive, let's cruise around in the shallow end.
+Things are going to get pretty deep, pretty quickly, so before we take the dive, let's cruise around in the shallow end. We're going to play in the LFE REPL a bit, defining some variables. Our game won't be using them in exactly this form. For now, though, it will be helpful for demostrating a few things.
 
 ### Objects
+
+Let's create some objects, a list of *atoms*:
 
 ```lisp
 > (set objects '(whiskey-bottle bucket frog chain))
@@ -14,8 +16,6 @@ Things are going to get pretty deep, pretty quickly, so before we take the dive,
 ```
 
 Ok, now let's dissect this line an see what it means: Since a Lisp compiler always starts reading things in *Code Mode* and expects a form, the first symbol, ``set``, must be a command. In this case, the command sets a variable to a value: The variable is ``objects`` The value we are setting it to is a list of the four objects in our game. Now, since the list is data (i.e. we don't want the compiler to try and call a function with the name of ``whiskey-bottle``) we need to "flip" the compiler into *Data Mode* when reading the list. The single quote in front of the list is the command that tells the compiler to flip:
-
-[update image to not use earmuffs]
 
 ![](../images/objects.jpg)
 
@@ -42,7 +42,7 @@ Now, assume we wanted to bring all of these together in yet another, mind-blowin
                #(attic ,attic)))
 ```
 
-What's going on here? Well, we've defined what is called a "property list" in LFE, a list of key/value tuples. Our three *keys* are the atoms ``living-room``, ``garden``, and ``attic``.
+What's going on here? Well, we've defined what is called a "property list" in LFE, a list of key/value tuples. Our three *keys* are the atoms ``living-room``, ``garden``, and ``attic``. Our three *values* are the data stored in each of the variables.
 
 But there's more going on there, and it looks pretty strange: that's back-quoting and unquoting you're seeing. Just like above, when we used a quote to flip the compiler from *Code Mode* to *Data Mode*, by using the the back-quote (the quote in the upper left corner of the keyboard) we can not only flip, but then also flop back into *Code Mode* by using a comma:
 
