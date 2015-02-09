@@ -10,9 +10,9 @@ As we've said, our game is going to need the following:
 * object locations
 * player location
 
-We need to create a data structure to hold all of that, so that it can be passed to function which need one or more bits of that data. The data structure we're going to use is the Erlang and LFE *record*. A *record* is a simple data structure that lets us associate keys and values.
+We need to create a data structure to hold all of that, so that it can be passed to function which need one or more bits of that data. As we mentioned when we talked about Non-Global State, The data structure we're going to use is the LFE *record*. A *record* is a simple data structure that lets us associate keys and values.
 
-Let's attach this problem in pieces.
+Let's attack this problem in pieces; we can start with the big picture, and then fill that in.
 
 ### Game State
 
@@ -20,16 +20,11 @@ Let's create the over-arching record definition for our game state:
 
 
 ```lisp
-> (defrecord state
-    objects
-    places
-    player
-    chain-welded?
-    bucket-filled?
-    won?)
-```
-```lisp
-()
+(defrecord state
+  objects
+  places
+  player
+  goals)
 ```
 
 We've just defined a record called ``state`` that has three fields: ```objects``, ``places``, and ``player``.
@@ -37,18 +32,15 @@ We've just defined a record called ``state`` that has three fields: ```objects``
 
 ### Objects
 
-For each object in the game, we need to know the its name and its location:
+For each object in the game, we need to know its name and location:
 
 ```lisp
-> (defrecord object
-    name
-    location)
-```
-```lisp
-()
+(defrecord object
+  name
+  location)
 ```
 
-Let's create some objects now, improving upon our first try with objects earlier:
+Let's create some objects now, improving upon our initial "objects" exploration:
 
 ```lisp
 > (set objects
@@ -72,25 +64,19 @@ You are probably wondering where that mysterious ``make-object`` function came f
 Now that we've defined some objects in our world, we're on our way towards describing our world. But there's more to go, still. Our next goal is to create a record for our places:
 
 ```lisp
-> (defrecord place
-    name
-    description
-    exits)
-```
-```lisp
-()
+(defrecord place
+  name
+  description
+  exits)
 ```
 
 Great! Now we can define our places ... almost. What's the "exit" business? Well, if we're going to move about from place to place, we need to know what direction to go in, the object that lets us pass from one location to the next, and the final destination. Let's create another record for this data:
 
 ```lisp
-> (defrecord exit
-    direction
-    object
-    destination)
-```
-```lisp
-()
+(defrecord exit
+  direction
+  object
+  destination)
 ```
 
 *Now* we're ready to create our places!
@@ -164,7 +150,7 @@ Three more to go!
       description (++ "Everything is misty and vague. "
                       "You seem to be in the netherworld.\n"
                       "There are no exits.\n"
-                      "You could be here for a long time.")
+                      "You could be here for a long, long time ...")
       exits '()))
 ```
 
@@ -173,5 +159,30 @@ This may seem like a lot of overhead, but it means that things will be much
 cleaner and less suseptible to bugs: each item of data is well-defined, with functions that create the data, access the data, and update the data -- both the "magical" record functions mention above as well as functions defined in the Erlang standard library (e.g., the ``proplists`` and ``orddict`` modules).
 
 Furthermore, this is a common practice used in many real-world Erlang and LFE applications: records are passed as inputs to functions and returned as (often updated) outputs, which in turn are fed into other functions.
+
+
+### Goals
+
+We're going to have a couple of puzzles in our game and a final task to accomplish, once these puzzles are solved. Let's define the goal record:
+
+```lisp
+(defrecord goal
+  name
+  achieved?)
+```
+
+Now the goals:
+
+```lisp
+> (set goals
+    (list (make-goal name 'weld-chain achieved? 'false)
+          (make-goal name 'fill-bucket achieved? 'false)
+          (make-goal name 'splash-wizard achieved? 'false)))
+```
+```lisp
+(#(goal weld-chain false)
+ #(goal fill-bucket false)
+ #(goal splash-wizard false))
+```
 
 Now that we have our records, let's put them together!
