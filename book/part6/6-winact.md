@@ -59,8 +59,7 @@ splash
 ```lisp
 ()
 ```
-```lisp
-> (set state (splash-wizard state))
-```
 
 ![](../images/donut.jpg)
+
+There remains that rather unpleasant user experience, though ... seeing the game state for many of the commands we execute. Ah, but there's a clever solution to that!
