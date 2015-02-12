@@ -84,22 +84,23 @@ We're going to use that function to create names in our macros.
 Now we can create a new SPEL to save us from having to repeat so much code:
 
 ```lisp
-(defmacro game-action (cmd sub obj check)
+
+(defmacro game-action (cmd sub obj goal-name)
   `(defun ,cmd
-      ((_ _ (= (match-state ,(ccatoms `(,check)) 'true) game-state))
-        (,(ccatoms `(already- ,cmd ed)))
-        game-state)
-      ((,sub ,obj game-state)
-        (case (,(ccatoms `(,cmd -ready?)) game-state)
-            ('true
-              (,(ccatoms `(good- ,cmd))
-                (,(ccatoms `(set-state- ,check)) game-state 'true)))
-            ('false
-              (,(ccatoms `(,cmd -not-ready)))
-              game-state)))
-      ((_ _ game-state)
-        (,(ccatoms `(cant- ,cmd)))
-        game-state)))
+    ((',sub ',obj game-state)
+      (let ((ready? (,(ccatoms `(,cmd -ready?)) game-state)))
+        (cond ((goal-met? ',goal-name game-state)
+                (,(ccatoms `(already- ,cmd ed)))
+                game-state)
+              ((not ready?)
+                (,(ccatoms `(,cmd -not-ready)))
+                game-state)
+              (ready?
+                (,(ccatoms `(good- ,cmd))
+                  (update-goals ',goal-name game-state))))))
+    ((_ _ game-state)
+      (,(ccatoms `(cant- ,cmd)))
+      game-state)))
 ```
 
 Notice how ridiculously complex this SPEL is -- it has more weird quotes, backquotes, and commas than you can shake a list at. More than that it is a SPEL that actually cast ANOTHER SPEL! Even experienced Lisp programmers would have to put some thought into create a monstrosity like this (and in fact they would consider this SPEL to be inelegant and would go through some extra esoteric steps to make it better-behaved that we won't worry about here...)
@@ -112,7 +113,7 @@ The point of this SPEL is to show you just how sophisticated and clever you can 
 Let's use our new SPEL to replace our ugly ``weld-them`` command:
 
 ```lisp
-> (game-action weld chain bucket chain-welded?)
+> (game-action weld chain bucket weld-chain)
 weld
 ```
 
@@ -132,7 +133,7 @@ Look at how much easier it is to understand this command- The game-action SPEL l
 Next, let's rewrite the ``dunk`` command as well:
 
 ```lisp
-(game-action dunk bucket well bucket-filled?)
+(game-action dunk bucket well dunk-bucket)
 ```
 ```lisp
 (defspel dunk-bucket (game-state)
