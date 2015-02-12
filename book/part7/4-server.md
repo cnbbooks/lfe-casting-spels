@@ -82,3 +82,5 @@ Try stopping and restarting:
 > (start)
 #(status started)
 ```
+
+Next, we can cast some new SPELs for use with our server ...
