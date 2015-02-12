@@ -4,8 +4,8 @@ We're still missing one last special action: the one that will let us win the ga
 
 ```lisp
 (defun splash-ready? (game-state)
-  (andalso (not (inv? 'frog state))
-           (state-bucket-filled? game-state)
+  (andalso (inv? 'bucket game-state)
+           (goal-met? 'dunk-bucket game-state)
            (== (state-player game-state) 'living-room)))
 
 (defun splash-not-ready ()
@@ -14,20 +14,26 @@ We're still missing one last special action: the one that will let us win the ga
 (defun cant-splash ()
   (io:format "~nYou can't splash like that ...~n~n"))
 
+(defun won-msg ()
+  (io:format (++ "~nThe wizard awakens from his slumber, greets you "
+                 "warmly, and thanks you for pulling him out of a rather "
+                 "nasty dream.~nYour reward, it seems, is a magical "
+                 "low-card donut which he hands you ... right before "
+                 "drifting off to sleep again.~n~nYou won!!~n~n")))
+
+(defun lost-msg ()
+  (io:format (++ "~nThe wizard awakens to see that you are in possession "
+                 "of his most precious -- and dangerous -- frog.~nHe "
+                 "completely looses it, then waves his wand at you.~n"
+                 "Everything disappears ...~n~n")))
+
 (defun good-splash (game-state)
   (case (inv? 'frog game-state)
     ('false
-      (io:format (++ "~nThe wizard awakens from his slumber, greets you "
-                     "warmly, and thanks you for pulling him out of a rather "
-                     "nasty dream.~nYour reward, it seems, is a magical "
-                     "low-card donut which hands you ... right before "
-                     "drifting off to sleep again.~n~nYou won!~n~n"))
+      (won-msg)
       game-state)
     ('true
-      (io:format (++ "~nThe wizard awakens to see that you are in possession "
-                     "of his most precious ... and dangerous ... frog.~nHe "
-                     "completely looses it, then waves his wand at you.~n"
-                     "Everything disappears ...~n~n"))
+      (lost-msg)
       (set-state-player game-state 'netherworld))))
 
 (defun already-splashed ()
@@ -41,7 +47,7 @@ We're still missing one last special action: the one that will let us win the ga
 And now we can generate the code for splashing water on the wizard:
 
 ```lisp
-> (game-action splash wizard bucket won?)
+> (game-action splash wizard bucket splash-wizard)
 ```
 ```lisp
 splash
