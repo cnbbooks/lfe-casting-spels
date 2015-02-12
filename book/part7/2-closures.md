@@ -52,7 +52,7 @@ Let's set up our state with an initial value of ``0``:
 #Fun<lfe_eval.12.101079464>
 ```
 
-Unlike our first, super-simple example, the ``lambda`` in the ``state-holder`` example takes an argument. But not any old argument! It can only be ``'hi`` or ``'bye``. Let's try it out on our ``state-holder`` variable:
+Unlike our first, super-simple example, the ``lambda`` in the ``state-holder`` example takes an argument. But not any old argument! It can only be ``'hi``. Let's try it out on our ``state-holder`` variable:
 
 ```lisp
 > (funcall sh 'hi)
@@ -86,7 +86,7 @@ Since we're returning a new closure for the updated state, we'll want to capture
 #Fun<lfe_eval.12.101079464>
 ```
 
-Hrm. We just keep getting the new closure back. How can we get a look at the currnt state? We could add a new message type!
+Well, *maybe* that better -- we just can't tell. We keep getting the new closure back. How can we get a look at the current state? We could add a new message type ...
 
 ```lisp
 (defun state-holder (state)
@@ -115,6 +115,6 @@ Let's try this out:
 3
 ```
 
-Hey -- looks at that! We've got something pretty cool happening: the internal workings and representation of the state is hidden away. When we want to change things, we just need to send the right message and then rebind our ``sh`` variable to the updated ``state-holder``. The down side is that we're seeing the closure data (the output of ``#Fun<lfe_eval.12.101079464>``). But maybe there's a way around that?
+Hey, look at that! We've got something pretty cool happening: the internal workings and representation of the state are hidden away. When we want to change things, we just need to send the right message and then rebind our ``sh`` variable to the updated ``state-holder``. The down side is that we're seeing the closure data (the output of ``#Fun<lfe_eval.12.101079464>``). But maybe there's a way around that?
 
 There is :-) But we're going to have to go a little further down the rabbit hole ...

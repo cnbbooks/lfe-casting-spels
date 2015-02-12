@@ -2,14 +2,14 @@
 
 We've looked at classic Lisp closures, and now we're going to look at something completely different ... that's almost the same thing! LFE runs on the Erlang Virtual Machine, and Erlang is *famous* for its "light-weight processes." It turns out that we can use these processes in a way that is very similar to closures.
 
-To do this, a couple of parts:
+To take advantage of this, we will need a couple of parts:
 
 * a state-holder function
 * something that starts our inital state-holder "process"
 * a name for out state-holder "process"
 * something that stops our state-holder "process"
 
-Let's take a look:
+Here's what something like these might look like:
 
 ```lisp
 (defun state-holder (state)
@@ -31,7 +31,9 @@ Let's take a look:
   (exit (whereis 'our-proc) 'done))
 ```
 
-As you can see, we are going to "spawn" a function as its own tiny little process (these are nothing like operating system processes!). And then we are going to send messages to it -- kinda like our closures. We'll use the special "send" function, though: ``(! ...)`` And we'll use the ``(whereis ...)`` function to lookup our spawned process id. Wanna try it out?
+See that ``receive`` call? That's like the ``lambda`` in the previous example that was creating our closure. Just like we could ``send`` messages to that ``lambda``, we can *really* send message to the ``recieve``.
+
+As you can see, to start things off, we are going to "spawn" a function as its own tiny little process (these are nothing like operating system processes!). And then we are going to send messages to it -- kinda like our closures. We'll use the special "send" function, though: ``(! ...)`` And we'll use the ``(whereis ...)`` function to look up our spawned process id. Wanna try it out?
 
 ```lisp
 > (! (whereis 'our-proc) 'hi)
@@ -48,5 +50,5 @@ amount?
 Current state: 3
 ```
 
-Hey! This is looking like it might be the answer! No function data, no state data (unless we ask for it) -- this is a pretty clean user experience. We still get the output of our send command, but that's pretty easy to overlook. And we might be able to make that even better.
+Whadayaknow? This is looking like it might be the answer! No function data, no state data (unless we ask for it) -- this is a pretty clean user experience. We still get the output of our "send" command, but that's pretty easy to overlook. And we might be able to make that even better...
 
