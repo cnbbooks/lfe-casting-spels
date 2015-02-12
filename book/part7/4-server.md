@@ -1,5 +1,14 @@
 ## Making a Game Server
 
+Given what we're learned so far, we're ready to make a small process "server" that will hold our game's state. We can then send messages to it that will execute the functions we've defined. Here's a list of the commands we need to support in order to play the game:
+
+* look
+* walk
+* pickup
+* weld
+* dunk
+* splash
+
 Assuming that you've already defined the variables in this function, you can
 create a game-state initializer like so:
 
@@ -9,10 +18,10 @@ create a game-state initializer like so:
     objects objects
     places (list living-room garden attic netherworld)
     player 'living-room
-    bucket-filled? 'false
-    chain-welded? 'false
-    won? 'false)))
+    goals goals))
 ```
+
+[clean up loop-server code and add missing comands]
 
 ```lisp
 (defun loop-server (state)
@@ -34,11 +43,14 @@ create a game-state initializer like so:
     (`#(take ,item)
       (loop-server (pickup-item item state)))
     ))
+
+(defun loop-server ()
+  (loop-server (init-state)))
 ```
 
 ```lisp
 (defun start ()
-  (let ((server-pid (spawn (lambda () (loop-server (init-state))))))
+  (let ((server-pid (spawn #'loop-server/0)))
     (register 'game-server server-pid)
     '#(status started)))
 
@@ -60,7 +72,7 @@ Start it up your new game server!
 #(status started)
 ```
 
-Try some of the other commands:
+Try stopping and restarting:
 
 ```lisp
 > (stop)

@@ -1,5 +1,9 @@
 ## Supporting Commands
 
+[add notes about this section]
+
+[add missing commands]
+
 ```lisp
 (defun sent-prompt () ''<-)
 
@@ -43,3 +47,5 @@ There is a door going east from here.
 ```
 
 Look at that! No more state -- we're not passing it and we're not seeing it returned! The closures are taking care of that for us. We haven't abandoned the *functional programming way* -- our game code is still not mutating any data. We've just "hidden" the plumbing, as it were, with the raised floor of closures :-)
+
+Well, it looks like we're finally ready to play our game!
