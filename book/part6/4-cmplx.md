@@ -5,21 +5,31 @@ We've just implemented some simple interactions like picking up objects or check
 Now we're to the bit about goals. Let's write some functions that will help us get info about goals and set the status of goals.
 
 ```lisp
-(defun goal?
+(defun goal-matches?
   ((goal-name (= (match-goal name name) goal)) (when (== goal-name name))
     `#(true ,goal))
-  ((_)
+  ((_ _)
     'false))
 
+(defun filter-goals (goal-name game-state)
+  (lists:filtermap
+    (lambda (x) (goal-matches? goal-name x))
+    (state-goals state)))
+
+(defun extract-goal
+  (('())
+    'undefined)
+  ((`(,goal))
+    goal))
+
 (defun get-goal (goal-name game-state)
-  (car
-    (lists:filtermap
-      (lambda (x) (goal? x goal))
-      (state-goals state))))
+  (extract-goal (filter-goals goal-name game-state)))
 
 (defun goal-met? (goal-name game-state)
-  (goal-achieved?
-    (get-goal goal-name game-state)))
+  (let ((goal (get-goal goal-name game-state)))
+    (if (== goal 'undefined)
+        goal
+        (goal-achieved? goal))))
 ```
 
 There are a couple of things in this code you haven't yet seen:
@@ -33,10 +43,27 @@ In LFE record-matching, you have the ability to not only match individual fields
 
 The function ``lists:filtermap`` does what you might guess: it performs a ``map`` and a ``filter`` simultaneously. In order to use this, the function passed to ``lists:filtermap`` needs to return ``false`` for a bad match and a tuple of ``#(true ,value)`` for a good match. In our case, the value is the matching goal.
 
+Also, don't let the ``(goal-acheived? ...)`` call confuse you -- that's the magically created function for the ``goal`` record's ``achieved?`` field!
+
 So we've managed to get goal information -- what about updating goals? We can do the same thing that we did for updating objects:
 
 ```lisp
-TBD
+(defun good-goal (item-name)
+  (io:format "~nYou have achieved the '~s' goal!~n"
+             (list (atom_to_list item-name))))
+
+(defun check-goal
+  ((goal-name (= (match-goal name g-name) goal)) (when (== goal-name g-name))
+    (good-goal goal-name)
+    (set-goal-achieved? goal 'true))
+  ((_ goal) goal))
+
+(defun update-goals (goal-name game-state)
+  (set-state-goals
+    game-state
+    (lists:map
+      (lambda (goal) (check-goal goal-name goal))
+      (state-goals game-state))))
 ```
 
 The first of the goals we'll write code for is the welding of the chain to the bucket in the attic:
@@ -72,55 +99,21 @@ Notice that our ``good-weld`` function takes the game state as a parameter, unli
 And now for the welding!
 
 ```lisp
-REFACTORING IN-PROGRESS ...
-
 (defun weld-them
-  ((_ _ (= (match-state chain-welded? 'true) game-state))
-    (already-welded)
-    game-state)
   (('chain 'bucket game-state)
-    (case (weld-ready? game-state)
-        ('true
-          (good-weld
-            (set-state-chain-welded? game-state 'true)))
-        ('false
-          (weld-not-ready)
-          game-state)))
+    (let ((ready? (weld-ready? game-state)))
+      (cond ((goal-met? 'weld-chain game-state)
+              (already-welded)
+              game-state)
+            ((not ready?)
+              (weld-not-ready)
+              game-state)
+            (ready?
+              (good-weld
+                (update-goals 'weld-chain game-state))))))
   ((_ _ game-state)
     (cant-weld)
     game-state))
-
-(defun weld-them (sub obj game-state)
-  (let ((ready? (weld-ready? game-state)))
-    (cond (((goal-met? 'chain-welded game-state))
-            (already-welded)
-            game-state)
-          ((not ready?)
-            (weld-not-ready)
-            game-state)
-          (ready?
-            (good-weld
-            (set-state-chain-welded? game-state 'true))))
-
-            )
-  (cant-weld)
-  game-state)
-
-
-  ((_ _ (= (match-state chain-welded? 'true) game-state))
-    (already-welded)
-    game-state)
-  (('chain 'bucket game-state)
-    (case (weld-ready? game-state)
-        ('true
-          (good-weld
-            (set-state-chain-welded? game-state 'true)))
-        ('false
-
-  ((_ _ game-state)
-    (cant-weld)
-    game-state))
-
 ```
 
 All of the code above should be familiar to you now, and with that, we've pieced together all our various functions to give our game a new action.
@@ -144,7 +137,7 @@ Now let's create a command for dunking the chain and bucket in the well. We'll n
 ```lisp
 (defun dunk-ready? (game-state)
   (andalso (inv? 'bucket game-state)
-           (state-chain-welded? game-state)
+           (goal-met? 'weld-chain game-state)
            (== (state-player game-state) 'garden)))
 
 (defun dunk-not-ready ()
@@ -153,24 +146,25 @@ Now let's create a command for dunking the chain and bucket in the well. We'll n
 (defun cant-dunk ()
   (io:format "~nYou can't dunk like that ...~n~n"))
 
-(defun good-dunk ()
-  (io:format "~nThe bucket is now full of water.~n~n"))
+(defun good-dunk (game-state)
+  (io:format "~nThe bucket is now full of water.~n~n")
+  game-state)
 
 (defun already-dunked ()
   (io:format "~nYou filled the bucket. Again.~n~n"))
 
 (defun dunk-it
-  ((_ _ (= (match-state bucket-filled? 'true) game-state))
-    (already-dunked)
-    game-state)
   (('bucket 'well game-state)
-    (case (dunk-ready? game-state)
-        ('true
-          (good-dunk
-            (set-state-bucket-filled? game-state 'true)))
-        ('false
-          (dunk-not-ready)
-          game-state)))
+    (let ((ready? (dunk-ready? game-state)))
+      (cond ((goal-met? 'dunk-bucket game-state)
+              (already-dunked)
+              game-state)
+            ((not ready?)
+              (dunk-not-ready)
+              game-state)
+            (ready?
+              (good-dunk
+                (update-goals 'dunk-bucket game-state))))))
   ((_ _ game-state)
     (cant-dunk)
     game-state))

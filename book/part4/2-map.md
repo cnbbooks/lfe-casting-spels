@@ -33,7 +33,7 @@ Now we can combine the data we have defined to finally make our world state!
      ()))
   living-room
   (#(goal weld-chain false)
-   #(goal fill-bucket false)
+   #(goal dunk-bucket false)
    #(goal splash-wizard false)))
 ```
 

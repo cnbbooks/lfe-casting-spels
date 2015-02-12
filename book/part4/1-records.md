@@ -176,12 +176,12 @@ Now the goals:
 ```lisp
 > (set goals
     (list (make-goal name 'weld-chain achieved? 'false)
-          (make-goal name 'fill-bucket achieved? 'false)
+          (make-goal name 'dunk-bucket achieved? 'false)
           (make-goal name 'splash-wizard achieved? 'false)))
 ```
 ```lisp
 (#(goal weld-chain false)
- #(goal fill-bucket false)
+ #(goal dunk-bucket false)
  #(goal splash-wizard false))
 ```
 
