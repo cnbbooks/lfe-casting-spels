@@ -11,8 +11,6 @@ Now we can tie all these descriptor functions into a single, easy command called
           (describe-exits game-state))))
 ```
 
-![](../images/functional.jpg)
-
 Note that we're using an awkward name for now -- by the time we finish our game, we'll have created very easy game commands!
 
 Let's try it:
