@@ -1,3 +1,5 @@
+(reset-environment)
+
 (defrecord state
   objects
   places
@@ -141,12 +143,17 @@
         (whats-here? game-state))
       " ")))
 
-(defun look (game-state)
+(defun display-scene (game-state)
   (io:format
     "~n~s~s~s~n~n"
     (list (describe-location game-state)
           (describe-items game-state)
           (describe-exits game-state))))
+
+(defun display-exits (game-state)
+  (io:format
+    "~n~s~n~n"
+    (list (describe-exits game-state))))
 
 (defun get-valid-moves (exits)
   (lists:map
@@ -168,7 +175,7 @@
         exits))))
 
 (defun good-move (game-state)
-  (look game-state)
+  (display-scene game-state)
   game-state)
 
 (defun bad-move (game-state)
@@ -238,7 +245,7 @@
     (lambda (x) (object-name x))
     (inv-obj game-state)))
 
-(defun inv (game-state)
+(defun display-inv (game-state)
   (io:format "~nYou are carrying:~n")
   (lists:foreach
     (lambda (x) (io:format " - ~s~n" (list x)))
@@ -368,7 +375,7 @@
     (lists:foldl #'add-next-atom/2 "" atoms)))
 
 (defmacro game-action (cmd sub obj goal-name)
-  `(defun ,cmd
+  `(defun ,(ccatoms `(do- ,cmd))
     ((',sub ',obj game-state)
       (let ((ready? (,(ccatoms `(,cmd -ready?)) game-state)))
         (cond ((goal-met? ',goal-name game-state)
@@ -387,12 +394,12 @@
 (game-action weld chain bucket weld-chain)
 
 (defspel weld-chain (game-state)
-  `(weld 'chain 'bucket ,game-state))
+  `(do-weld 'chain 'bucket ,game-state))
 
 (game-action dunk bucket well dunk-bucket)
 
 (defspel dunk-bucket (game-state)
-  `(dunk 'bucket 'well ,game-state))
+  `(do-dunk 'bucket 'well ,game-state))
 
 (defun splash-ready? (game-state)
   (andalso (inv? 'bucket game-state)
@@ -435,7 +442,7 @@
 (game-action splash wizard bucket splash-wizard)
 
 (defspel splash-wizard (game-state)
-  `(splash 'wizard 'bucket ,game-state))
+  `(do-splash 'wizard 'bucket ,game-state))
 
 (defun init-state ()
   (make-state
@@ -443,3 +450,106 @@
     places (list living-room garden attic netherworld)
     player 'living-room
     goals goals))
+
+(defun spell-of-mercy ()
+  (timer:sleep 2000)
+  (io:format (++ "From deep in the mists, you hear a familiar intonation ...\n"
+                 "Great relief washes over you, as you recognize the "
+                 "time-travel spell -- you're not doomed!\n\n"))
+  (timer:sleep 4000)
+  (io:format (++ "Confident that you will never pick up the frog again, "
+                 "things get a bit fuzzy. You start to lose consciousness \n"
+                 "as the wizard pulls you back in time. Your last thought is "
+                 "that you're probably not going to remember any of this "
+                 "...\n\n"))
+  (timer:sleep 4000)
+  (let ((state (init-state)))
+    (display-scene state)
+    state))
+
+(defun hope-for-mercy (state)
+  (if (> 0.75 (random:uniform))
+        (spell-of-mercy)
+        state))
+
+(defun loop-server (state)
+  (receive
+    (`#(look)
+      (display-scene state)
+      (case (state-player state)
+        ('netherworld (loop-server (hope-for-mercy state)))
+        (_ (loop-server state))))
+    (`#(exits)
+      (display-exits state)
+      (loop-server state))
+    (`#(go ,direction)
+      (loop-server (walk-direction direction state)))
+    (`#(take ,item)
+      (loop-server (pickup-item item state)))
+    (`#(inv)
+      (display-inv state)
+      (loop-server state))
+    (`#(weld ,subj ,obj)
+      (loop-server (do-weld subj obj state)))
+    (`#(dunk ,subj ,obj)
+      (loop-server (do-dunk subj obj state)))
+    (`#(splash ,subj ,obj)
+      (loop-server (do-splash subj obj state)))))
+
+(defun loop-server ()
+  (loop-server (init-state)))
+
+(defun start ()
+  (case (whereis 'game-server)
+    ('undefined
+      (let ((server-pid (spawn #'loop-server/0)))
+        (register 'game-server server-pid)
+        '#(status started)))
+    (_ '#(status already-started))))
+
+(defun stop
+  (('undefined _)
+    '#(status already-stopped))
+  ((pid msg)
+    (exit pid msg)
+    `#(status ,msg)))
+
+(defun stop ()
+  (stop (whereis 'game-server) 'game-over))
+
+(defspel sent-prompt ()
+  '(list_to_atom (string:copies "-" 78)))
+
+(defspel send (args)
+  `(progn
+    (! (whereis 'game-server) ,args)
+    ',(sent-prompt)))
+
+(defspel go (direction)
+  `(send #(go ,direction)))
+
+(defspel look ()
+  `(send #(look)))
+
+(defspel exits ()
+  `(send #(exits)))
+
+(defspel inv ()
+  `(send #(inv)))
+
+(defspel take (item)
+  `(send #(take ,item)))
+
+(defspel weld (subj obj)
+  `(send #(weld ,subj ,obj)))
+
+(defspel dunk (subj obj)
+  `(send #(dunk ,subj ,obj)))
+
+(defspel splash (subj obj)
+  `(send #(splash ,subj ,obj)))
+
+(defun game-data-loaded ()
+  "This is a dummy function; it's only here to display a message in the REPL
+  after loading this file."
+  'noop)
