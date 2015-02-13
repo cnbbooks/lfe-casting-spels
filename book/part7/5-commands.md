@@ -5,33 +5,43 @@
 [add missing commands]
 
 ```lisp
-(defun sent-prompt () ''<-)
+(defspel sent-prompt ()
+  '(list_to_atom (string:copies "-" 78)))
+
+(defspel send (args)
+  `(progn
+    (! (whereis 'game-server) ,args)
+    ',(sent-prompt)))
 
 (defspel go (direction)
-  `(progn
-    (! ,(whereis 'game-server) (tuple 'go ',direction))
-    ,(sent-prompt)))
+  `(send #(go ,direction)))
 
-(defspel view ()
-  `(progn
-    (! ,(whereis 'game-server) (tuple 'view))
-    ,(sent-prompt)))
+(defspel look ()
+  `(send #(look)))
 
-(defspel i ()
-  `(progn
-    (! ,(whereis 'game-server) (tuple 'inv))
-    ,(sent-prompt)))
+(defspel exits ()
+  `(send #(exits)))
+
+(defspel inv ()
+  `(send #(inv)))
 
 (defspel take (item)
-  `(progn
-    (! ,(whereis 'game-server) (tuple 'take ',item))
-    ,(sent-prompt)))
+  `(send #(take ,item)))
+
+(defspel weld (subj obj)
+  `(send #(weld ,subj ,obj)))
+
+(defspel dunk (subj obj)
+  `(send #(dunk ,subj ,obj)))
+
+(defspel splash (subj obj)
+  `(send #(splash ,subj ,obj)))
 ```
 
 We've got some new SPELs -- let's try them out:
 
 ```lisp
-(view)
+(look)
 <-
 >
 You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch.
