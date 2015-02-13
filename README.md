@@ -92,7 +92,7 @@ And this brings me to the point: LFE is not a casual Lisp. It's a Lisp for those
 
 So why build a game with it? Well, games can be fun when played alone -- and often are. But they can be even *more* fun when played with good friends. Even lots of friends! By learning to write games in an industrial-strength Lisp which speciallizes in distributed, fault-tolerant, message-passing applications, you're getting a foundation that can help you build the next SPEL-casting MMOMUD :-) But I digress.
 
-As a result of these ponderings, the concerns I had about introducing records, pattern matching, guards, immutable data, and process servers paled in comparison to the other potential ways this comic book could have been rendered for use on the Erlang VM (don't worry, there's no OTP!). And for those who *are* ready to jump into the world of functional programming for distributed systems, this is a *super* fun way to start, giving you an intuition for some of the basic building blocks you will use in every LFE application you build from here on out.
+As a result of these ponderings, I concluded the following: the concerns about introducing records, pattern matching, guards, immutable data, and process servers paled in comparison to the other potential ways this comic book could have been rendered for use on the Erlang VM (don't worry, there's no OTP!). And for those who *are* ready to jump into the world of functional programming for distributed systems, this is a *super* fun way to start, giving you an intuition for some of the basic building blocks you will use in every LFE application you build from here on out.
 
 Enjoy!
 
