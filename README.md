@@ -114,4 +114,4 @@ Other editions of the book include:
 If you found a bug, typo, inconsistency, etc., fee free to open a ticket or
 even submit a pull request!
 
-* [Create a ticket](https://github.com/lfe/sicp/issues/new).
+* [Create a ticket](https://github.com/lfe/casting-spels/issues/new).
