@@ -37,7 +37,7 @@ Remember that ``(state-objects state)`` returns all game objects. Let's use ``li
 
 Now let's try it out:
 
-![](images/slob.jpg)
+![](../images/slob.jpg)
 
 Let's try this out:
 
