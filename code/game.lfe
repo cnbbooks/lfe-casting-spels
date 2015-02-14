@@ -549,6 +549,33 @@
 (defspel splash (subj obj)
   `(send #(splash ,subj ,obj)))
 
+(defun make-regex-str (max-len)
+  (++ "(.{1," (integer_to_list max-len) "}|\\S{"
+      (integer_to_list (+ max-len 1)) ",})(?:\\s[^\\S\\r\\n]*|\\Z)"))
+
+(defun wrap-text (text max-len)
+  (let ((find-patt (make-regex-str max-len))
+        (replace-patt "\\1\\\n"))
+    (re:replace text find-patt replace-patt
+                '(global #(return list)))))
+
+(defun wrap-text (text)
+  (wrap-text text 78))
+
+(defun display-scene (game-state)
+  (io:format
+    "~n~s~s~s~n~n"
+  (lists:map
+    #'wrap-text/1
+    `(,(describe-location game-state)
+      ,(describe-items game-state)
+      ,(describe-exits game-state))))))
+
+(defun display-exits (game-state)
+  (io:format
+    "~n~s~n~n"
+    (list (wrap-text (describe-exits game-state)))))
+
 (defun game-data-loaded ()
   "This is a dummy function; it's only here to display a message in the REPL
   after loading this file."
