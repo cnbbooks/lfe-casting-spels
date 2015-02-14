@@ -1,6 +1,6 @@
-# Casting SPELs in Lisp
+# Casting SPELs in Lisp Flavored Erlang
 
-*The LFE Edition*
+*A Bold New LFE Take on the Common Lisp Comic Classic*
 
 Anyone who has ever learned to program in Lisp will tell you it is very different from any other programming language. It is different in lots of surprising ways -- this comic book will let you find out how Lisp's unique design makes it so powerful!
 
