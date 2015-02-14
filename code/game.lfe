@@ -145,14 +145,14 @@
 
 (defun display-scene (game-state)
   (io:format
-    "~n~s~s~s~n~n"
+    "~n~s~s~s"
     (list (describe-location game-state)
           (describe-items game-state)
           (describe-exits game-state))))
 
 (defun display-exits (game-state)
   (io:format
-    "~n~s~n~n"
+    "~n~s"
     (list (describe-exits game-state))))
 
 (defun get-valid-moves (exits)
@@ -179,7 +179,7 @@
   game-state)
 
 (defun bad-move (game-state)
-  (io:format "~nYou can't go that way.~n~n")
+  (io:format "~nYou can't go that way.~n")
   game-state)
 
 (defun walk-direction (direction game-state)
@@ -197,7 +197,7 @@
   `(walk-direction ',direction ,game-state))
 
 (defun good-pick (item-name)
-  (io:format "~nYou are now carrying the ~s.~n~n"
+  (io:format "~nYou are now carrying the ~s.~n"
              (list (atom_to_list item-name))))
 
 (defun check-item
@@ -217,7 +217,7 @@
     (whats-here? game-state)))
 
 (defun bad-pick ()
-  (io:format "~nThat item is not here.~n~n"))
+  (io:format "~nThat item is not here.~n"))
 
 (defun pickup-item
   ((item-name (= (match-state player player-loc objects objs) game-state))
@@ -245,12 +245,19 @@
     (lambda (x) (object-name x))
     (inv-obj game-state)))
 
+(defun get-inv-str (game-state)
+  (string:join
+    (lists:map
+      (lambda (x) (++ " - " (atom_to_list x) "\n"))
+      (inv-name game-state))
+    ""))
+
 (defun display-inv (game-state)
-  (io:format "~nYou are carrying:~n")
-  (lists:foreach
-    (lambda (x) (io:format " - ~s~n" (list x)))
-    (inv-name game-state))
-  (io:format "~n"))
+  (let ((inv-str (get-inv-str game-state)))
+    (case inv-str
+      ('() (io:format "~nYou are not carrying anything.~n"))
+      (_ (io:format "~nYou are carrying the following:~n~s"
+                    (list inv-str))))))
 
 (defun inv? (item-name game-state)
   (lists:member item-name (inv-name game-state)))
@@ -304,17 +311,17 @@
            (== (state-player game-state) 'attic)))
 
 (defun weld-not-ready ()
-  (io:format "~nYou seem to be missing a key condition for welding ...~n~n"))
+  (io:format "~nYou seem to be missing a key condition for welding ...~n"))
 
 (defun cant-weld ()
-  (io:format "~nYou can't weld like that ...~n~n"))
+  (io:format "~nYou can't weld like that ...~n"))
 
 (defun good-weld (game-state)
-  (io:format "~nThe chain is now securely welded to the bucket.~n~n")
+  (io:format "~nThe chain is now securely welded to the bucket.~n")
   game-state)
 
 (defun already-welded ()
-  (io:format "~nYou have already welded the bucket and chain!~n~n"))
+  (io:format "~nYou have already welded the bucket and chain!~n"))
 
 (defun weld-them
   (('chain 'bucket game-state)
@@ -338,17 +345,17 @@
            (== (state-player game-state) 'garden)))
 
 (defun dunk-not-ready ()
-  (io:format "~nYou seem to be missing a key condition for dunking ...~n~n"))
+  (io:format "~nYou seem to be missing a key condition for dunking ...~n"))
 
 (defun cant-dunk ()
-  (io:format "~nYou can't dunk like that ...~n~n"))
+  (io:format "~nYou can't dunk like that ...~n"))
 
 (defun good-dunk (game-state)
-  (io:format "~nThe bucket is now full of water.~n~n")
+  (io:format "~nThe bucket is now full of water.~n")
   game-state)
 
 (defun already-dunked ()
-  (io:format "~nYou filled the bucket. Again.~n~n"))
+  (io:format "~nYou filled the bucket. Again.~n"))
 
 (defun dunk-it
   (('bucket 'well game-state)
@@ -407,23 +414,23 @@
            (== (state-player game-state) 'living-room)))
 
 (defun splash-not-ready ()
-  (io:format "~nYou seem to be missing a key condition for splashing ...~n~n"))
+  (io:format "~nYou seem to be missing a key condition for splashing ...~n"))
 
 (defun cant-splash ()
-  (io:format "~nYou can't splash like that ...~n~n"))
+  (io:format "~nYou can't splash like that ...~n"))
 
 (defun won-msg ()
   (io:format (++ "~nThe wizard awakens from his slumber, greets you "
-                 "warmly, and thanks you for pulling him out of a rather "
+                 "warmly, and thanks you for~npulling him out of a rather "
                  "nasty dream.~nYour reward, it seems, is a magical "
-                 "low-card donut which he hands you ... right before "
-                 "drifting off to sleep again.~n~nYou won!!~n~n")))
+                 "low-card donut which he hands you ...~nright before "
+                 "drifting off to sleep again.~n~nYou won!!~n")))
 
 (defun lost-msg ()
   (io:format (++ "~nThe wizard awakens to see that you are in possession "
-                 "of his most precious -- and dangerous -- frog.~nHe "
-                 "completely looses it, then waves his wand at you.~n"
-                 "Everything disappears ...~n~n")))
+                 "of his most precious --~nand dangerous! -- frog.~nHe "
+                 "completely looses it.~nAs he waves his wand at you, "
+                 "everything disappears ...~n")))
 
 (defun good-splash (game-state)
   (case (inv? 'frog game-state)
@@ -437,7 +444,7 @@
 (defun already-splashed ()
   (io:format (++ "~nYou've already woken the wizard once. With a bucket full "
                  "of well water.~n"
-                 "Best not push your luck.~n~n")))
+                 "Best not push your luck.~n")))
 
 (game-action splash wizard bucket splash-wizard)
 
@@ -453,22 +460,22 @@
 
 (defun spell-of-mercy ()
   (timer:sleep 2000)
-  (io:format (++ "From deep in the mists, you hear a familiar intonation ...\n"
+  (io:format (++ "~nFrom deep in the mists, you hear a familiar intonation ...~n"
                  "Great relief washes over you, as you recognize the "
-                 "time-travel spell -- you're not doomed!\n\n"))
+                 "time-travel spell -- you're~nnot doomed!~n~n"))
   (timer:sleep 4000)
   (io:format (++ "Confident that you will never pick up the frog again, "
-                 "things get a bit fuzzy. You start to lose consciousness \n"
-                 "as the wizard pulls you back in time. Your last thought is "
+                 "things get a bit fuzzy.~nYou start to lose consciousness"
+                 "as the wizard pulls you back in time. Your~nlast thought is "
                  "that you're probably not going to remember any of this "
-                 "...\n\n"))
+                 "...~n~n"))
   (timer:sleep 4000)
   (let ((state (init-state)))
     (display-scene state)
     state))
 
 (defun hope-for-mercy (state)
-  (if (> 0.75 (random:uniform))
+  (if (> 0.25 (random:uniform))
         (spell-of-mercy)
         state))
 
@@ -564,16 +571,16 @@
 
 (defun display-scene (game-state)
   (io:format
-    "~n~s~s~s~n~n"
-  (lists:map
-    #'wrap-text/1
-    `(,(describe-location game-state)
-      ,(describe-items game-state)
-      ,(describe-exits game-state))))))
+    "~n~s~s~s"
+    (lists:map
+      #'wrap-text/1
+      `(,(describe-location game-state)
+        ,(describe-items game-state)
+        ,(describe-exits game-state)))))
 
 (defun display-exits (game-state)
   (io:format
-    "~n~s~n~n"
+    "~n~s"
     (list (wrap-text (describe-exits game-state)))))
 
 (defun game-data-loaded ()

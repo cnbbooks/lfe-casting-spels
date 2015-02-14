@@ -27,15 +27,15 @@ There's one more thing we can do, though: take pitty on the overly-curious and i
 ```lisp
 (defun spell-of-mercy ()
   (timer:sleep 2000)
-  (io:format (++ "From deep in the mists, you hear a familiar intonation ...\n"
+  (io:format (++ "~nFrom deep in the mists, you hear a familiar intonation ...~n"
                  "Great relief washes over you, as you recognize the "
-                 "time-travel spell -- you're not doomed!\n\n"))
+                 "time-travel spell -- you're~nnot doomed!~n~n"))
   (timer:sleep 4000)
   (io:format (++ "Confident that you will never pick up the frog again, "
-                 "things get a bit fuzzy. You start to lose consciousness \n"
-                 "as the wizard pulls you back in time. Your last thought is "
+                 "things get a bit fuzzy.~nYou start to lose consciousness"
+                 "as the wizard pulls you back in time. Your~nlast thought is "
                  "that you're probably not going to remember any of this "
-                 "...\n\n"))
+                 "...~n~n"))
   (timer:sleep 4000)
   (let ((state (init-state)))
     (display-scene state)
@@ -53,21 +53,21 @@ Now we can create our state holder "server":
         ('netherworld (loop-server (hope-for-mercy state)))
         (_ (loop-server state))))
     (`#(exits)
-      (describe-exits state)
+      (display-exits state)
       (loop-server state))
     (`#(go ,direction)
       (loop-server (walk-direction direction state)))
     (`#(take ,item)
       (loop-server (pickup-item item state)))
     (`#(inv)
-      (inv state)
+      (display-inv state)
       (loop-server state))
     (`#(weld ,subj ,obj)
-      (loop-server (weld-them subj obj state)))
+      (loop-server (do-weld subj obj state)))
     (`#(dunk ,subj ,obj)
-      (loop-server (dunk-it subj obj state)))
+      (loop-server (do-dunk subj obj state)))
     (`#(splash ,subj ,obj)
-      (loop-server (splash subj obj state)))))
+      (loop-server (do-splash subj obj state)))))
 
 (defun loop-server ()
   (loop-server (init-state)))

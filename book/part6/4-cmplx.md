@@ -81,17 +81,17 @@ We're going to need some functions that print messages to the player; let's crea
 
 ```lisp
 (defun weld-not-ready ()
-  (io:format "~nYou seem to be missing a key condition for welding ...~n~n"))
+  (io:format "~nYou seem to be missing a key condition for welding ...~n"))
 
 (defun cant-weld ()
-  (io:format "~nYou can't weld like that ...~n~n"))
+  (io:format "~nYou can't weld like that ...~n"))
 
 (defun good-weld (game-state)
-  (io:format "~nThe chain is now securely welded to the bucket.~n~n")
+  (io:format "~nThe chain is now securely welded to the bucket.~n")
   game-state)
 
 (defun already-welded ()
-  (io:format "~nYou have already welded the bucket and chain!~n~n"))
+  (io:format "~nYou have already welded the bucket and chain!~n"))
 ```
 
 Notice that our ``good-weld`` function takes the game state as a parameter, unlike the other functions. This is us planning for the future :-) We may want to do something with the game state *after* we check for a good weld ...
@@ -141,17 +141,17 @@ Now let's create a command for dunking the chain and bucket in the well. We'll n
            (== (state-player game-state) 'garden)))
 
 (defun dunk-not-ready ()
-  (io:format "~nYou seem to be missing a key condition for dunking ...~n~n"))
+  (io:format "~nYou seem to be missing a key condition for dunking ...~n"))
 
 (defun cant-dunk ()
-  (io:format "~nYou can't dunk like that ...~n~n"))
+  (io:format "~nYou can't dunk like that ...~n"))
 
 (defun good-dunk (game-state)
-  (io:format "~nThe bucket is now full of water.~n~n")
+  (io:format "~nThe bucket is now full of water.~n")
   game-state)
 
 (defun already-dunked ()
-  (io:format "~nYou filled the bucket. Again.~n~n"))
+  (io:format "~nYou filled the bucket. Again.~n"))
 
 (defun dunk-it
   (('bucket 'well game-state)

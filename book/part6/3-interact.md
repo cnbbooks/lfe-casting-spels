@@ -10,7 +10,7 @@ Now we'll create a command to pick up objects in our world. We'll need some help
 
 ```lisp
 (defun good-pick (item-name)
-  (io:format "~nYou are now carrying the ~s.~n~n"
+  (io:format "~nYou are now carrying the ~s.~n"
              (list (atom_to_list item-name))))
 
 (defun check-item
@@ -30,7 +30,7 @@ Now we'll create a command to pick up objects in our world. We'll need some help
     (whats-here? game-state)))
 
 (defun bad-pick ()
-  (io:format "~nThat item is not here.~n~n"))
+  (io:format "~nThat item is not here.~n"))
 ```
 
 That's all the helper functions we need; now for the main attraction:
@@ -96,20 +96,36 @@ Now let's add a couple more useful commands: first, a command that lets us see o
   (lists:map
     (lambda (x) (object-name x))
     (inv-obj game-state)))
+
+(defun get-inv-str (game-state)
+  (string:join
+    (lists:map
+      (lambda (x) (++ " - " (atom_to_list x) "\n"))
+      (inv-name game-state))
+    ""))
 ```
 
 Did you notice our ``inv-obj`` helper function has a ``match-lambda``? In LFE, you can even do pattern matching in *anonymous functions*!
 
 ```lisp
-(defun inv (game-state)
-  (io:format "~nYou are carrying:~n")
-  (lists:foreach
-    (lambda (x) (io:format " - ~s~n" (list x)))
-    (inv-name game-state))
-  (io:format "~n"))
+(defun display-inv (game-state)
+  (let ((inv-str (get-inv-str game-state)))
+    (case inv-str
+      ('() (io:format "~nYou are not carrying anything.~n"))
+      (_ (io:format "~nYou are carrying the following:~n~s"
+                    (list inv-str))))))
 ```
 
-Let's pick up the bucket and then check our inventory:
+Try it out:
+
+```lisp
+> (display-inv state)
+```
+```lisp
+You are not carrying anything.
+```
+
+Now pick up the bucket and try again:
 
 ```lisp
 > (set state (pickup bucket state))
@@ -118,10 +134,10 @@ Let's pick up the bucket and then check our inventory:
 You are now carrying the whiskey-bottle.
 ```
 ```lisp
-> (inv state)
+> (display-inv state)
 ```
 ```lisp
-You are carrying:
+You are carrying the following:
  - bucket
 ```
 
