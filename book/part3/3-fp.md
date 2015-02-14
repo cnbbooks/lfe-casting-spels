@@ -1,6 +1,6 @@
 ## The Functional Programming Style
 
-We've mentioned it once or twice, so it probably timem to talk about it in some more detail: *functional programming* (to be clear, this is completely unrelated in any way to the concept called "procedural programming" or "structural programming" that you might have learned about in high school...). In this style, the goal is to write functions that always follow the following rules:
+We've mentioned it once or twice, so it probably time to talk about it in some more detail: *functional programming* (to be clear, this is completely unrelated in any way to the concept called "procedural programming" or "structural programming" that you might have learned about in high school...). In this style, the goal is to write functions that always follow the following rules:
 
 1. You only read variables that are passed into the function or are created by the function (So you don't read any global variables)
 
