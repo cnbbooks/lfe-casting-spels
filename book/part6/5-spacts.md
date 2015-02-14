@@ -86,7 +86,7 @@ Now we can create a new SPEL to save us from having to repeat so much code:
 ```lisp
 
 (defmacro game-action (cmd sub obj goal-name)
-  `(defun ,cmd
+  `(defun ,(ccatoms `(do- ,cmd))
     ((',sub ',obj game-state)
       (let ((ready? (,(ccatoms `(,cmd -ready?)) game-state)))
         (cond ((goal-met? ',goal-name game-state)
@@ -114,15 +114,12 @@ Let's use our new SPEL to replace our ugly ``weld-them`` command:
 
 ```lisp
 > (game-action weld chain bucket weld-chain)
-weld
+```
+```lisp
+do-weld
 ```
 
 Look at how much easier it is to understand this command- The game-action SPEL lets us write exactly what we want to say without a lot of fat- It's almost like we've created our own computer language just for creating game commands. Creating your own pseudo-language with SPELs is called Domain Specific Language Programming, a very powerful way to program very quickly and elegantly.
-
-```lisp
-(defspel weld-chain (game-state)
-  `(weld 'chain 'bucket ,game-state))
-```
 
 ...we still aren't in the right situation to do any welding, but the command is doing its job!
 
@@ -136,6 +133,8 @@ Next, let's rewrite the ``dunk`` command as well:
 (game-action dunk bucket well dunk-bucket)
 ```
 ```lisp
-(defspel dunk-bucket (game-state)
-  `(dunk 'bucket 'well ,game-state))
+do-dunk
 ```
+
+Now we're ready to tackle the biggest move of the game ...
+
