@@ -22,7 +22,7 @@ What about a place's description? Well, that's burried a few more levels deep in
 
 Let's imagine our location is in ``living-room`` (which, indeed, it is...).
 
-![](images/living_room.jpg)
+![](../images/living_room.jpg)
 
 To get the ``description`` field, we'll need a ``place`` record; to get the place, we'll need a specific element of the ``places`` field of the ``state`` record. Let's do it:
 
