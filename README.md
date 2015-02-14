@@ -1,4 +1,4 @@
-# Casting SPELs in Lisp Flavored Erlang
+# Casting SPELs in Lisp Flavoured Erlang
 
 *A Bold New LFE Take on the Common Lisp Comic Classic*
 
