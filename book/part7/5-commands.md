@@ -100,6 +100,10 @@ And we can use that to update our ``display-scene/1`` and ``display-exits/1`` fu
 Let's try again, with our display functions updated to wrap long text:
 
 ```
+> (stop)
+#(status game-over)
+> (start)
+#(status started)
 > (look)
 ------------------------------------------------------------------------------
 >
