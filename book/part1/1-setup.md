@@ -1,11 +1,11 @@
 ## Getting Set Up
 
-If you're new to LFE and haven't read the [LFE Quick Start](), that might be a
-good idea to do that -- you'll feel much more comfortable with the material
-in this book if you have.
-
-But! It's not a requirement :-)
-
+If you're new to LFE and haven't read the [LFE Quick Start](http://lfe.gitbooks.io/quick-start/content/), that might be a
+good idea to do that -- you'll feel much more comfortable with the material in
+this book if you have. If you never encountered a Lisp before, or if your
+familiarity is rusty, we'd recommend reading through the original [Casting
+SPELs in Lisp](http://www.lisperati.com/casting.html). That version is more
+accessible to the Lisp new-comer.
 
 ## Prerequisites
 
