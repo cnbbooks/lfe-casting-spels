@@ -56,7 +56,7 @@ Let's make those functions now:
 
 ```lisp
 (defun good-move (game-state)
-  (look game-state)
+  (display-scene game-state)
   game-state)
 
 (defun bad-move (game-state)
@@ -90,7 +90,7 @@ You see a frog on the floor. You see a chain on the floor.
 
 You will also see the new state displayed in the REPL. We'll talk more about that later. (Don't worry, we're going to make it go away!)
 
-Remember how we were able to simplify our description functions by creating a ``look`` command that is easy for our player to type? It would be nice to adjust the ``walk-direction`` command so that it doesn't have an annoying quote mark in the command that the player has to type in. But, as we have learned, when the compiler reads a form in *Code Mode*, it will read all its parameters in *Code Mode*, unless a quote tells it not to.
+It would be nice to adjust the ``walk-direction/2`` function so that it doesn't have an annoying quote mark in the command that the player has to type in. But, as we have learned, when the compiler reads a form in *Code Mode*, it will read all its parameters in *Code Mode*, unless a quote tells it not to.
 
 Is there anything we can do to tell the compiler that west is just a piece of data without the quote?
 
