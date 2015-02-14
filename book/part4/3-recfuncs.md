@@ -15,6 +15,8 @@ The record functions which you will be seeing more of shortly are those of the f
 * ``set-<name>-<field>`` - set the value of a record field
 * ``match-<name>`` - use a record while *pattern matching*
 
-This is not a complete list, but it's enough get get us started!
+This is not a complete list, but it's enough get get us started! (see the
+[Reference Guide](http://lfe.gitbooks.io/reference-guide/content/16.html) for
+more details).
 
 *Now* we can create some game commands ...
