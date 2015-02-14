@@ -22,7 +22,7 @@ create a game-state initializer like so:
     goals goals))
 ```
 
-There's one more thing we can do, though: take pitty on the overly-curious and inclined-to-steal-frogs. Let's make sure that a player who takes too strong an interest in making new amphibian friends can ammend their ways:
+There's one more thing we can do, though: take pitty on the overly-curious and inclined-to-steal-frogs. Let's make sure that a player who takes too strong an interest in making new amphibian friends can amend their ways:
 
 ```lisp
 (defun spell-of-mercy ()
