@@ -18,7 +18,13 @@ Now we'll create a command to pick up objects in our world. We'll need some help
     (good-pick item-name)
     (set-object-location obj 'player))
   ((_ obj) obj))
+```
 
+We saw something like this before, with our function that conditionally printed a new line. In ``check-item/2``, there are two matches against function arguments: one is checking the value of a passed object name and the record's object name; the other doesn't care. If there's no match with the object name, the state isn't updated -- the old state is simply returned.
+
+Here are some more helper functions we'll need:
+
+```lisp
 (defun update-items (item-name game-state)
   (lists:map
     (lambda (obj) (check-item item-name obj))
@@ -70,6 +76,7 @@ Now let's try our new SPEL:
 ```
 ```lisp
 You are now carrying the whiskey-bottle.
+...
 ```
 
 Again, we're going to keep ignoring the state data that is returned with each of our commands -- we'll be taking care of that in the next chapter!
@@ -79,6 +86,7 @@ Again, we're going to keep ignoring the state data that is returned with each of
 ```
 ```lisp
 That item is not here.
+...
 ```
 
 Now let's add a couple more useful commands: first, a command that lets us see our current inventory of items we're carrying (with the obligatory helper functions first!):
@@ -131,7 +139,8 @@ Now pick up the bucket and try again:
 > (set state (pickup bucket state))
 ```
 ```lisp
-You are now carrying the whiskey-bottle.
+You are now carrying the bucket.
+...
 ```
 ```lisp
 > (display-inv state)

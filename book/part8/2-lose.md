@@ -75,7 +75,7 @@ Great relief washes over you, as you recognize the time-travel spell -- you're
 not doomed!
 ```
 
-And then a few more reveals this:
+After a few more seconds you see this:
 
 ```lisp
 Confident that you will never pick up the frog again, things get a bit fuzzy.

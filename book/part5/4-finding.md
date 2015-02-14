@@ -37,10 +37,6 @@ Remember that ``(state-objects state)`` returns all game objects. Let's use ``li
 
 Now let's try it out:
 
-![](../images/slob.jpg)
-
-Let's try this out:
-
 ```lisp
 > (whats-here? state)
 ```
@@ -64,7 +60,7 @@ You know how, in the last section, we described a single exit and then a list of
   ((string) (++ string "\n")))
 ```
 
-That last function is to prevent a newline being printed when there are no items to describe.
+That last function is to prevent a newline being printed when there are no items to describe. What's it's saying is "if I get an argument that matches an empty list, I'll just return an empty list; if I get a non-empty list, I'll append a newline character."
 
 Now let's use this function and our ``whats-here?`` function to describe all the items in the current room:
 

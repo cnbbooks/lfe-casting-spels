@@ -84,11 +84,12 @@ What are you waiting for?! Let's try it!
 ```
 ```lisp
 You are in a beautiful garden. There is a well in front of you.
+You see a frog on the ground. You see a chain on the ground.
 There is a door going east from here.
-You see a frog on the floor. You see a chain on the floor.
+...
 ```
 
-You will also see the new state displayed in the REPL. We'll talk more about that later. (Don't worry, we're going to make it go away!)
+You will also see the new state displayed in the REPL. We'll talk more about that later. (Don't worry, we're going to make it go away ... eventually!)
 
 It would be nice to adjust the ``walk-direction/2`` function so that it doesn't have an annoying quote mark in the command that the player has to type in. But, as we have learned, when the compiler reads a form in *Code Mode*, it will read all its parameters in *Code Mode*, unless a quote tells it not to.
 

@@ -84,7 +84,6 @@ We're going to use that function to create names in our macros.
 Now we can create a new SPEL to save us from having to repeat so much code:
 
 ```lisp
-
 (defmacro game-action (cmd sub obj goal-name)
   `(defun ,(ccatoms `(do- ,cmd))
     ((',sub ',obj game-state)

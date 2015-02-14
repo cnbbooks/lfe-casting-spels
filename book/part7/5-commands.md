@@ -84,16 +84,16 @@ And we can use that to update our ``display-scene/1`` and ``display-exits/1`` fu
 ```lisp
 (defun display-scene (game-state)
   (io:format
-    "~n~s~s~s~n~n"
-  (lists:map
-    #'wrap-text/1
-    `(,(describe-location game-state)
-      ,(describe-items game-state)
-      ,(describe-exits game-state))))))
+    "~n~s~s~s"
+    (lists:map
+      #'wrap-text/1
+      `(,(describe-location game-state)
+        ,(describe-items game-state)
+        ,(describe-exits game-state)))))
 
 (defun display-exits (game-state)
   (io:format
-    "~n~s~n~n"
+    "~n~s"
     (list (wrap-text (describe-exits game-state)))))
 ```
 

@@ -50,7 +50,7 @@ And now we can generate the code for splashing water on the wizard:
 > (game-action splash wizard bucket splash-wizard)
 ```
 ```lisp
-splash
+do-splash
 ```
 ```lisp
 (defspel splash-wizard (game-state)
