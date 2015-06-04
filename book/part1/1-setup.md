@@ -62,4 +62,4 @@ ok
 
 ![](../images/reset.jpg)
 
-Keep in mind, though, this will clean *verything* up! You'll have to start over again!
+Keep in mind, though, this will clean *everything* up! You'll have to start over again!
