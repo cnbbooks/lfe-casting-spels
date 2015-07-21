@@ -1,6 +1,6 @@
 ## Record Functions
 
-Wait -- before we make game commands, let's take a quick time-out for a piblic service announcement: records are your friends! And they come with magically created functions. You'll be seeing more of them, so let's get you introduced.
+Wait -- before we make game commands, let's take a quick time-out for a public service announcement: records are your friends! And they come with magically created functions. You'll be seeing more of them, so let's get you introduced.
 
 As noted, for every record we define, a bunch of functions are magically created by LFE. These functions let us:
  * create records of the given type
