@@ -1,6 +1,6 @@
 ## Finding Things
 
-We still have one thing we need to describe: If there are any objects on the floor at the location we are standing in, we'll want to describe them as well. Let's first write a helper function that tells us wether an item is in a given place:
+We still have one thing we need to describe: If there are any objects on the floor at the location we are standing in, we'll want to describe them as well. Let's first write a helper function that tells us whether an item is in a given place:
 
 ```lisp
 (defun item-there?
