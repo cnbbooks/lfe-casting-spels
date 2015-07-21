@@ -2,14 +2,14 @@
 
 The first command we'd want to have is a command that tells us about the location we're standing in. What do we need to do? Perhaps if we start with describing all places, we can work towards one place. This may sound a little backwards, but Lisp is very good with lists, so let's try it!
 
-We can get there in stages by plying with our new game state and record fucntions. Getting the player location is super-easy:
+We can get there in stages by playing with our new game state and record fucntions. Getting the player location is super-easy:
 
 ```lisp
 > (state-player state)
 living-room
 ```
 
-What about a place's description? Well, that's burried a few more levels deep in our game state record. We'll take a look, but first we can refresh our memories about the fields defined in the records:
+What about a place's description? Well, that's buried a few more levels deep in our game state record. We'll take a look, but first we can refresh our memories about the fields defined in the records:
 
 ```lisp
 > (fields-state)
