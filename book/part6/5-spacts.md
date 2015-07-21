@@ -102,7 +102,7 @@ Now we can create a new SPEL to save us from having to repeat so much code:
       game-state)))
 ```
 
-Notice how ridiculously complex this SPEL is -- it has more weird quotes, backquotes, and commas than you can shake a list at. More than that it is a SPEL that actually cast ANOTHER SPEL! Even experienced Lisp programmers would have to put some thought into create a monstrosity like this (and in fact they would consider this SPEL to be inelegant and would go through some extra esoteric steps to make it better-behaved that we won't worry about here...)
+Notice how ridiculously complex this SPEL is -- it has more weird quotes, backquotes, and commas than you can shake a list at. More than that it is a SPEL that actually cast ANOTHER SPEL! Even experienced Lisp programmers would have to put some thought into creating a monstrosity like this (and in fact they would consider this SPEL to be inelegant and would go through some extra esoteric steps to make it better-behaved that we won't worry about here...)
 
 ![](../images/game_action.jpg)
 
