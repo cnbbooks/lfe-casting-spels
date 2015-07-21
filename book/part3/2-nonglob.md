@@ -1,6 +1,6 @@
 ## Non-Global State
 
-What are the alternatives to global state? One of the most common techniques functional programming languages like LFE, is to pass data from one function to the other. If a function needs to change data, then it outputs a new copy of the data with the change, and this changed data is then passed to other functions.
+What are the alternatives to global state? One of the most common techniques in functional programming languages like LFE, is to pass data from one function to the other. If a function needs to change data, then it outputs a new copy of the data with the change, and this changed data is then passed to other functions.
 
 In LFE, a common *pattern* (something you *do* want to do) is to create a "state" data structure, and pass this around. You can use *property lists* for this, but *records* are more common. The most recent versions of Erlang allow the use of *maps*.
 
