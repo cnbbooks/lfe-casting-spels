@@ -37,7 +37,7 @@ There are a couple of things in this code you haven't yet seen:
 * the odd ``(= ...)`` form, and
 * ``lists:filtermap``
 
-The ``(= ...)`` form is not an equality test! In LFE, you can test if two things are equal with ``(== ...)`` or ``(=:= ...)``. So what is ``(= ...)``, then? If you look at it, you see that it's wrapping a record matching in the function arguments. In our match, we only care about one field from the goal record: ``name``. And we only care if it matches the passed argument ``goal-nam``. Let's say our match succeeds, that the chain is already welded ... now what? We don't have any variables defined! Our function needs to return the game state, so how do we get it?
+The ``(= ...)`` form is not an equality test! In LFE, you can test if two things are equal with ``(== ...)`` or ``(=:= ...)``. So what is ``(= ...)``, then? If you look at it, you see that it's wrapping a record matching in the function arguments. In our match, we only care about one field from the goal record: ``name``. And we only care if it matches the passed argument ``goal-name``. Let's say our match succeeds, that the chain is already welded ... now what? We don't have any variables defined! Our function needs to return the game state, so how do we get it?
 
 In LFE record-matching, you have the ability to not only match individual fields from a record, but to wrap the whole matching up and assign the passed record to a variable. You do that with the ``(= ...)`` form!
 
