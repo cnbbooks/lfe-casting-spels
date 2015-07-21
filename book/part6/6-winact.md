@@ -18,7 +18,7 @@ We're still missing one last special action: the one that will let us win the ga
   (io:format (++ "~nThe wizard awakens from his slumber, greets you "
                  "warmly, and thanks you for~npulling him out of a rather "
                  "nasty dream.~nYour reward, it seems, is a magical "
-                 "low-card donut which he hands you ...~nright before "
+                 "low-carb donut which he hands you ...~nright before "
                  "drifting off to sleep again.~n~nYou won!!~n")))
 
 (defun lost-msg ()
