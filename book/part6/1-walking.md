@@ -47,7 +47,7 @@ garden
 
 Excellent!
 
-Let's create some more helper functions: whever the player's move is good or bad, two things need to happen, and in this order:
+Let's create some more helper functions: whether the player's move is good or bad, two things need to happen, and in this order:
 
 1. A message needs to be displayed, and
 1. The game state needs to be returned.
