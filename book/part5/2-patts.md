@@ -72,7 +72,7 @@ We used *pattern matching* again, but this time to do something a tiny bit cleve
 
 ![](../images/living_room.jpg)
 
-Now we can use this function to get the desciption of the player location:
+Now we can use this function to get the description of the player location:
 
 ```lisp
 (defun describe-location (game-state)

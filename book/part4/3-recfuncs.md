@@ -4,7 +4,7 @@ Wait -- before we make game commands, let's take a quick time-out for a public s
 
 As noted, for every record we define, a bunch of functions are magically created by LFE. These functions let us:
  * create records of the given type
- * retreive values from the record
+ * retrieve values from the record
  * update values in a record
  * extract metadata from a record
 

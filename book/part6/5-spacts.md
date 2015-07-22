@@ -44,7 +44,7 @@ and then we could turn that into an atom:
 cattheseatoms
 ```
 
-But doesn't it seem like there should be a function, like ``lists:map`` that would let us to it all at once? You know, ``map`` it and then maybe reduce the list ot strings to one string? Fold that list of strings into a single one? Amazing that you should ask that -- there *is* such a function: ``lists:foldl``. Unlike ``lists:map``, though, it uses a function that takes two arguments, not just one:
+But doesn't it seem like there should be a function, like ``lists:map`` that would let us to it all at once? You know, ``map`` it and then maybe reduce the list of strings to one string? Fold that list of strings into a single one? Amazing that you should ask that -- there *is* such a function: ``lists:foldl``. Unlike ``lists:map``, though, it uses a function that takes two arguments, not just one:
 
 1. an item from the list you gave it, *and*
 1. an *accumulator* (in our case, the string that we are building up from atoms)

@@ -10,9 +10,9 @@ We still have one thing we need to describe: If there are any objects on the flo
       'false))
 ```
 
-This is very similar to one of our previous functions, having both pattern maching and a guard. Out function above is *2-arity*, with the first argument being the location, and the second argument the expression for matching an ``object`` record.
+This is very similar to one of our previous functions, having both pattern matching and a guard. Out function above is *2-arity*, with the first argument being the location, and the second argument the expression for matching an ``object`` record.
 
-That's the first fucntion head pattern that ``there?`` has. The second function head pattern has two arguments, just like the first one, but in this case the function arguments are both the "don't care" variable: the underscore. This part of the function is saying, "If you've made it past the first pattern without matching, I don't care what your location is or what your record is: I'm going to return ``false``. In other words, since there was no match, the queried item is not present.
+That's the first function head pattern that ``there?`` has. The second function head pattern has two arguments, just like the first one, but in this case the function arguments are both the "don't care" variable: the underscore. This part of the function is saying, "If you've made it past the first pattern without matching, I don't care what your location is or what your record is: I'm going to return ``false``. In other words, since there was no match, the queried item is not present.
 
 Let's try out that function in the REPL. This will tell us if the first object
 in the list of game objects is in the living room:

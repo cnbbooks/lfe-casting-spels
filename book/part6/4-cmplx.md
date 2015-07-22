@@ -170,5 +170,5 @@ Now let's create a command for dunking the chain and bucket in the well. We'll n
     game-state))
 ```
 
-Hrm ... what can we do about that repititive code?
+Hrm ... what can we do about that repetitive code?
 

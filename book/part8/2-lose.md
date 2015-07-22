@@ -34,7 +34,7 @@ He completely looses it.
 As he waves his wand at you, everything disappears ...
 ```
 
-Wondering what happend, you take a look around:
+Wondering what happened, you take a look around:
 
 ```lisp
 (look)

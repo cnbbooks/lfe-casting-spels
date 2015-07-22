@@ -41,4 +41,4 @@ There is a door going west from here. There is a stairway going upstairs from he
 
 Much better!
 
-Wait, why ``(set state ...)``? Rmember: this is *functional programming*! We're not changing any global variables inside functions. So if our player walks, how do we make sure that the new state created by the ``walk`` SPEL is usable for the next command? We set the output of the ``walk`` SPEL (which is the new state) to the ``state`` variable!
+Wait, why ``(set state ...)``? Remember: this is *functional programming*! We're not changing any global variables inside functions. So if our player walks, how do we make sure that the new state created by the ``walk`` SPEL is usable for the next command? We set the output of the ``walk`` SPEL (which is the new state) to the ``state`` variable!
