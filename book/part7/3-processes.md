@@ -5,7 +5,7 @@ We've looked at classic Lisp closures, and now we're going to look at something 
 To take advantage of this, we will need a couple of parts:
 
 * a state-holder function
-* something that starts our inital state-holder "process"
+* something that starts our initial state-holder "process"
 * a name for out state-holder "process"
 * something that stops our state-holder "process"
 
@@ -31,7 +31,7 @@ Here's what something like these might look like:
   (exit (whereis 'our-proc) 'done))
 ```
 
-See that ``receive`` call? That's like the ``lambda`` in the previous example that was creating our closure. Just like we could ``send`` messages to that ``lambda``, we can *really* send message to the ``recieve``.
+See that ``receive`` call? That's like the ``lambda`` in the previous example that was creating our closure. Just like we could ``send`` messages to that ``lambda``, we can *really* send message to the ``receive``.
 
 As you can see, to start things off, we are going to "spawn" a function as its own tiny little process (these are nothing like operating system processes!). And then we are going to send messages to it -- kinda like our closures. We'll use the special "send" function, though: ``(! ...)`` And we'll use the ``(whereis ...)`` function to look up our spawned process id. Wanna try it out?
 
