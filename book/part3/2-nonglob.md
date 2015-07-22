@@ -9,5 +9,5 @@ The game you're going to create in LFE will use *records*. As we start writing o
 Hints to keep in mind:
 
 * You will need a data structure that captures the complete state of the game (objects, locations, players, etc., and all the ways in which these might change).
-* Any time you wish to perform a calcualtion based upon game state, you will need to pass the state into your function as an argument.
+* Any time you wish to perform a calculation based upon game state, you will need to pass the state into your function as an argument.
 * Any time you wish to update game data, you will need to output the modified state, and then use that new state in the rest of your code.
