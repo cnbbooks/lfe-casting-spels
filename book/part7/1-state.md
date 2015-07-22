@@ -4,10 +4,10 @@ As a functional language, LFE doesn't let you (easily or cleanly) set global sta
 
 Do you think there's a way that we could both *pass state data to functions* and *keep the game interface uncluttered*?
 
-We won't keep you in suspense: yes, there is! There are some keey incredients needed for this:
+We won't keep you in suspense: yes, there is! There are some key ingredients needed for this:
 
 * we need some place to "hide" the state
 * wherever we "hide" the state, we need to be able to tell it when to change
-* we need to be able to easily retreive the state from its hiding place
+* we need to be able to easily retrieve the state from its hiding place
 
 Thinking about this is almost as tricky as creating SPELs ... so let's take it one step at a time.
