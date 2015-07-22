@@ -156,7 +156,7 @@ Three more to go!
 
 
 This may seem like a lot of overhead, but it means that things will be much
-cleaner and less suseptible to bugs: each item of data is well-defined, with functions that create the data, access the data, and update the data -- both the "magical" record functions mention above as well as functions defined in the Erlang standard library (e.g., the ``proplists`` and ``orddict`` modules).
+cleaner and less susceptible to bugs: each item of data is well-defined, with functions that create the data, access the data, and update the data -- both the "magical" record functions mention above as well as functions defined in the Erlang standard library (e.g., the ``proplists`` and ``orddict`` modules).
 
 Furthermore, this is a common practice used in many real-world Erlang and LFE applications: records are passed as inputs to functions and returned as (often updated) outputs, which in turn are fed into other functions.
 

@@ -13,7 +13,7 @@ You are now carrying the chain.
 You are now carrying the frog.
 ```
 
-You then perform all the other tasks that you would do in the winnin scenario. Finally, you are ready to wake the wizard:
+You then perform all the other tasks that you would do in the winning scenario. Finally, you are ready to wake the wizard:
 
 ```lisp
 (inv)

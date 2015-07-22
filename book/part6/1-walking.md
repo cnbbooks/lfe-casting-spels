@@ -10,7 +10,7 @@ Ok, now that we can see our world, let's write some code that lets us walk aroun
     exits))
 ```
 
-Since we're in the living room right now, out two valid moves should be those that take us to the garden or to the attic:
+Since we're in the living room right now, our two valid moves should be those that take us to the garden or to the attic:
 
 ```lisp
 > (get-valid-moves (place-exits (get-here state)))
