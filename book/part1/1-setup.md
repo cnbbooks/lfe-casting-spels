@@ -36,9 +36,18 @@ Are you ready? Oh, the *REPL*? That's an acronym that stands for *read-eval-prin
 $ ./bin/lfe
 ```
 ```lisp
-Erlang/OTP 17 [erts-6.2] [source] [64-bit] [smp:8:8] [async...
+Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10]
 
-LFE Shell V6.2 (abort with ^G)
+   ..-~.~_~---..
+  (      \\     )    |   A Lisp-2+ on the Erlang VM
+  |`-.._/_\\_.-';    |   Type (help) for usage info.
+  |         g (_ \   |   
+  |        n    | |  |   Docs: http://docs.lfe.io/ 
+  (       a    / /   |   Source: http://github.com/rvirding/lfe
+   \     l    (_/    |   
+    \   r     /      |   LFE v1.0 (abort with ^G)
+     `-E___.-'
+
 >
 ```
 
