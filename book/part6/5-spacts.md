@@ -79,7 +79,7 @@ Let's use it to make a new function:
     (lists:foldl #'add-next-atom/2 "" atoms)))
 ```
 
-We're going to use that function to create names in our macros.
+We're going to use that function to create names in our macros, er, rather ... "SPEL"s.
 
 Now we can create a new SPEL to save us from having to repeat so much code:
 
@@ -118,7 +118,7 @@ Let's use our new SPEL to replace our ugly ``weld-them`` command:
 do-weld
 ```
 
-Look at how much easier it is to understand this command- The game-action SPEL lets us write exactly what we want to say without a lot of fat- It's almost like we've created our own computer language just for creating game commands. Creating your own pseudo-language with SPELs is called Domain Specific Language Programming, a very powerful way to program very quickly and elegantly.
+Look at how much easier it is to understand this command- The game-action SPEL lets us write exactly what we want to say without a lot of fat -- It's almost like we've created our own computer language just for creating game commands. Creating your own pseudo-language with SPELs is called Domain Specific Language programming, a very powerful way to program very quickly and elegantly.
 
 ...we still aren't in the right situation to do any welding, but the command is doing its job!
 
