@@ -1,10 +1,8 @@
 ## A Glance at Closures
 
-The solution we have in mind is to "hide" the state data -- but how do we do that? Well, if there was a way to capture the data in a variable, and then have that variable avialble for querying or updating, we'd be in luck.
+The solution we have proposed is to "hide" the state data -- but how do we do that? Well, if there was a way to capture the data in a variable, and then have that variable avialble for querying or updating, we'd be in luck. Fortunately, there is and we are :-)
 
-We are!
-
-Thanks to something called *closures*. The term *closure* was coined in 1964 and then made widely popular by the creators of a Lisp called Scheme in 1975. Let's see what a closure looks like, and then maybe we can make better sense of the name.
+Thanks to something called *closures*. The term *closure* was coined in 1964 and then made widely popular by the creators of a Lisp called *Scheme* in 1975. Let's see what a closure looks like, and then maybe we can make better sense of the name.
 
 Here's one example:
 
@@ -25,6 +23,10 @@ Let's try that out in the REPL:
 ```lisp
 > (set x (a-closure "here's my state!"))
 #Fun<lfe_eval.23.101079464>
+```
+(Wait for a year.)
+
+```lisp
 > (funcall x)
 "here's my state!"
 ```
@@ -73,11 +75,16 @@ Hrm ... we get the same result. When we think about it, that makes sense: we onl
         (state-holder (+ state 1))))))
 ```
 
-Since we're returning a new closure for the updated state, we'll want to capture it -- so we'll re-set the ``sh`` variable with each call:
+Since we're returning a new closure for the updated state, we'll want to capture it -- so we'll re-set the ``sh`` variable with each call. We'll start by calling the function we've defined:
 
 ```lisp
 > (set sh (state-holder 0))
 #Fun<lfe_eval.12.101079464>
+```
+
+What has just been saved in the ``sh`` variable is the *output* of the ``state-holder`` function, an anonymous function which takes a message as a parameters. Let's call this returned function repeatedly, resetting the output each time so that we keep track of the updated state:
+
+```lisp
 > (set sh (funcall sh 'hi))
 #Fun<lfe_eval.12.101079464>
 > (set sh (funcall sh 'hi))
