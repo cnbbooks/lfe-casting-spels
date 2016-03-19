@@ -6,10 +6,11 @@ That being said, should the curious reader want to learn more, where can they go
 
 Starting with the second bit first, here are some of the key points we have largely ignored:
 
-* The differences between writing code in the REPL and creating proper projects complete with the approriate directory structures, modules, etc.
+* The differences between writing code in the REPL and creating proper projects complete with the appropriate directory structures, modules, etc.
 * A discussion of the data types supported by LFE
 * No in-depth discussion of records nor detailed information about the automatically-generated record macros
-* 
+* No detailed explanation of higher-order functions
+* Only a passing explanation of macros
 
 so let's look at what those details are...
 
