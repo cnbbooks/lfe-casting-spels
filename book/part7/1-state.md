@@ -1,6 +1,6 @@
 ## The Problem of State
 
-As a functional language, LFE doesn't let you (easily or cleanly) set global state within functions. As such, we've had to learn how to pass the game state around to different functions which needed access to that data. Our data may be nice and clean (hooray!), but the effect this has had on the game play is rather awful, to be honest.
+As a functional language, LFE doesn't let you (easily or cleanly) set global state within functions. (This is something that experienced programmers are quite grateful for!) As such, we've had to learn how to pass the game state around to different functions which needed access to that data. Our data may be nice and clean (hooray!), but the effect this has had on the game play is rather awful, to be honest.
 
 Do you think there's a way that we could both *pass state data to functions* and *keep the game interface uncluttered*?
 
