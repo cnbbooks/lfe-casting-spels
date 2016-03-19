@@ -34,7 +34,7 @@ Let's try our new spell:
 ```
 ```lisp
 You are in the living-room of a wizard's house. There is a wizard 
-   snoring loudly on the couch.
+  snoring loudly on the couch.
 You see a whiskey-bottle on the ground. You see a bucket on the ground.
 There is a door going west from here. There is a stairway going upstairs from here.
 ...
