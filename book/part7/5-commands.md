@@ -2,7 +2,16 @@
 
 Throughout the entirety of this little book, we've asked you, gentle coder, to suspend the horror of having to see the game state spit out at you with every command. At the beginning of this chapter, we proposed a solution for this -- the use of closures -- in order to hide the state data from the user experience. In the last section we successfully created a game server that will contain this state. That last piece of this puzzle, then, is now able to fall into place: a new set of game commands, specifically written to make use of our new game server.
 
-We're going to want to put a separator between each command:
+We can also take this opportunity to do a little clean-up work on the command results. We will tackle the following
+
+* Create a new command prompt that provides a separator between our last action + result and the new user prompt;
+* Create a SPEL for sending a command to the server;
+* Create command SPELs that make use of this general ``send`` SPEL; and
+* Create a function that presents text to the user in a nicely-wrapped manner.
+
+Let's finish up!
+
+As just mentioned, we're going to want to put a separator between each command:
 
 ```lisp
 (defspel sent-prompt ()
