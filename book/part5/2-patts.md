@@ -41,7 +41,7 @@ You can have as many different patterns and associated function bodies as you wa
 
 But we've got something else new there, too: the ``when`` form. When you see a ``(when ...)`` after a pattern in LFE, it's called a *guard*. This guard is standing watch over the pattern, and will only let the pattern match if the location ``loc`` that was passed as a regular function argument is the same as the ``place`` record's ``location`` field.
 
-That takes care of the first pattern and function body. The second function body has a patter that seems rather strange: ``(_ _)`` and the body simple returns ``false`` no matter what! In this case, the pattern is saying "I don't care what the values are for the two arguments that are getting passed to me, just move on to the body." And, as we noticed, the body simply returns ``false``. Thus, the overall meaning of this function is "if the first pattern is matched, the definition of "here" is met and return ``true``; anything else does not meet the definition of "here", therefore return ``false``.
+That takes care of the first pattern and function body. The second function body has a pattern that seems rather strange: ``(_ _)``. Then the body simply returns ``false`` no matter what! In this case, the pattern is saying "I don't care what the values are for the two arguments that are getting passed to me, just move on to the body." And, as we noticed, the body then just returns ``false``. Thus, the overall meaning of this function is "if the first pattern is matched, the definition of "here" is met and return ``true``; anything else does not meet the definition of "here", therefore return ``false``.
 
 Let's try it out against the first place in our ``state``'s ``places`` field:
 
@@ -87,7 +87,8 @@ Now let's use our new function:
 > (describe-location state)
 ```
 ```lisp
-"You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch."
+"You are in the living-room of a wizard's house. There is a wizard 
+snoring loudly on the couch."
 ```
 
 Perfect! Just what we wanted.
