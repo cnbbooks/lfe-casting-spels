@@ -13,10 +13,10 @@ Therefore, I decided to experiment with a new term for a macro in this essay: SP
 
 So I hope, as a Lisper, you'll consider supporting this new term. Naturally, any new memes like this have a very low likelihood of success.
 
-If you have a library or are a Lisp implementation author, **please drop everything you are doing right now** and add the following line to your library:
+If you are an LFE library author, **please drop everything you are doing right now** and add the following line to your code:
 
 ```lisp
-(defmacro defspel (&rest rest) `(defmacro ,@rest))
+(defmacro defspel body `(defmacro ,@body))
 ```
 
 There, problem solved!
