@@ -29,6 +29,8 @@ Speaking of which: since we're going to been to make so many calls to ``(! ...)`
     ',(sent-prompt)))
 ```
 
+We had noticed earlier when making our first process-based server that the command ``hi`` was output to the user -- this is simply because it was the output of the last function inside the ``send`` command. What if we make the last function inside the ``send`` command return something that we *want* to see? ... like our new prompt! So that's what we've done :-)
+
 Now let's create the commands that we will type: the SPELs that will send messages to our little game server:
 
 ```lisp
