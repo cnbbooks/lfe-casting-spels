@@ -1,6 +1,6 @@
 ## Supporting Commands
 
-[add opening notes about this section]
+Throughout the entirety of this little book, we've asked you, gentle coder, to suspend the horror of having to see the game state spit out at you with every command. At the beginning of this chapter, we proposed a solution for this -- the use of closures -- in order to hide the state data from the user experience. In the last section we successfully created a game server that will contain this state. That last piece of this puzzle, then, is now able to fall into place: a new set of game commands, specifically written to make use of our new game server.
 
 We're going to want to put a separator between each command:
 
@@ -20,7 +20,7 @@ Speaking of which: since we're going to been to make so many calls to ``(! ...)`
     ',(sent-prompt)))
 ```
 
-Now let's create the commands that we will type: the SPELs that will send messages to our little game "server":
+Now let's create the commands that we will type: the SPELs that will send messages to our little game server:
 
 ```lisp
 (defspel go (direction)
