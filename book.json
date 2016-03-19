@@ -1,9 +1,8 @@
 {
     "title": "Casting SPELs in Lisp",
     "description": "The LFE Edition of the Comic Book",
-    "plugins": [
-        "ga",
-    ],
+    "gitbook": "2.x.x",
+    "plugins": ["ga"],
     "pluginsConfig": {
         "fontSettings": {
             "theme": "night",
