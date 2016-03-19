@@ -8,6 +8,7 @@ Starting with the second bit first, here are some of the key points we have larg
 
 * The differences between writing code in the REPL and creating proper projects complete with the appropriate directory structures, modules, etc.
 * A discussion of the data types supported by LFE
+* Comparing and contrasting ``if``, ``cond``, and pattern-matching as conditional flow mechanisms
 * No in-depth discussion of records nor detailed information about the automatically-generated record macros
 * No detailed explanation of higher-order functions
 * Only a passing explanation of macros
