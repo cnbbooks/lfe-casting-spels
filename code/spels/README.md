@@ -5,7 +5,7 @@
 Start the LFE REPL (which will first compile all the modules):
 
 ```bash
-$ make repl
+$ make otp-repl
 ```
 
 Once in the REPL, start the game server and then load up the game commands:
@@ -115,7 +115,7 @@ You have achieved the 'splash-wizard' goal!
 
 The wizard awakens from his slumber, greets you warmly, and thanks you for
 pulling him out of a rather nasty dream.
-Your reward, it seems, is a magical low-card donut which he hands you ...
+Your reward, it seems, is a magical low-carb donut which he hands you ...
 right before drifting off to sleep again.
 
 You won!!

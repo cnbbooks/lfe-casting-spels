@@ -128,7 +128,7 @@ You have achieved the 'splash-wizard' goal!
 
 The wizard awakens from his slumber, greets you warmly, and thanks you for
 pulling him out of a rather nasty dream.
-Your reward, it seems, is a magical low-card donut which he hands you ...
+Your reward, it seems, is a magical low-carb donut which he hands you ...
 right before drifting off to sleep again.
 
 You won!!
