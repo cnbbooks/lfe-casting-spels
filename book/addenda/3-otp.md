@@ -9,7 +9,7 @@ The OTP version of the game is available in the ``code/spels`` directory. To run
 To begin with, you'll fire up the LFE REPL:
 
 ```bash
-$ make repl
+$ make otp-repl
 ```
 
 This will download and compile all the necessary LFE dependencies and then put you into the REPL:
