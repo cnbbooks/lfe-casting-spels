@@ -1,0 +1,12 @@
+[{<<"clj">>,
+  {git,"git://github.com/lfex/clj.git",
+       {ref,"b935818364ff9b2715345a050c97db81289ae628"}},
+  0},
+ {<<"kla">>,
+  {git,"git://github.com/lfex/kla.git",
+       {ref,"a8afc4f673809d89b6c4a374b972f54ef6b39bde"}},
+  1},
+ {<<"lfe">>,
+  {git,"git://github.com/rvirding/lfe.git",
+       {ref,"b84e9a8a1db6ffdd0cfe593fc8ad440ef72a5511"}},
+  1}].
