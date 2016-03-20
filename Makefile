@@ -8,12 +8,8 @@ PROD_PATH=$(BASE_DIR)/$(PROD_DIR)
 STAGE_DIR=$(PROD_DIR)
 STAGE_PATH=$(BASE_DIR)/$(STAGE_DIR)
 
-compile:
+compile: book
 	@cd code/spels && make
-
-setup:
-	@npm install -g gitbook-cli
-	@gitbook install
 
 check:
 	@rebar3 as test eunit
@@ -31,10 +27,16 @@ clean:
 	@rebar3 clean
 	@rm -rf ebin/* _build/default/lib/$(PROJECT) _book
 
-build-book:
+deps:
+	@npm install -g gitbook-cli
+
+setup:
+	@gitbook install
+
+book:
 	gitbook build $(SRC) --output=$(PROD_DIR)
 
-run-book:
+book-server:
 	gitbook serve $(SRC)
 
 staging: build
@@ -44,4 +46,6 @@ staging: build
 publish: build
 	-git commit -a && git push origin master
 	git subtree push --prefix $(PROD_DIR) origin gh-pages
+
+.PHONY: book
 
