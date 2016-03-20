@@ -19,6 +19,9 @@ check:
 	@rebar3 as test eunit
 
 repl:
+	@cd code && make repl
+
+otp-repl:
 	@cd code/spels && make repl
 
 shell:
