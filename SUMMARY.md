@@ -44,4 +44,4 @@
   * [Changes from the Original](book/addenda/1-changes.md)
   * [The Case Against the Word "Macro"](book/addenda/2-whyspels.md)
   * [Using OTP](book/addenda/3-otp.md)
-  * [Source Code](book/addenda/4-code.md)
+  * [Source Code](book/addenda/4-source.md)
