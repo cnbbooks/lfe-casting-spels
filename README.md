@@ -117,3 +117,27 @@ If you found a bug, typo, inconsistency, etc., feel free to open a ticket or
 even submit a pull request!
 
 * [Create a ticket](https://github.com/lfe/casting-spels/issues/new).
+
+
+### Building the Book
+
+To build a local copy of the book, install the dependencies:
+
+```bash
+$ make deps
+```
+
+On Linux, you'll need to run that with ``sudo``.
+
+Then install the gitbook modules:
+
+```bash
+$ make setup
+```
+
+Finally, build the book:
+
+```bash
+$ make book
+```
+
