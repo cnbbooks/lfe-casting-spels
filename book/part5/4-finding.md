@@ -10,7 +10,7 @@ We still have one thing we need to describe: If there are any objects on the flo
       'false))
 ```
 
-This is very similar to one of our previous functions, having both pattern matching and a guard. Out function above is *2-arity*, with the first argument being the location, and the second argument the expression for matching an ``object`` record.
+This is very similar to one of our previous functions, having both pattern matching and a guard. Our function above is *2-arity*, with the first argument being the location, and the second argument the expression for matching an ``object`` record.
 
 That's the first function head pattern that ``there?`` has. The second function head pattern has two arguments, just like the first one, but in this case the function arguments are both the "don't care" variable: the underscore. This part of the function is saying, "If you've made it past the first pattern without matching, I don't care what your location is or what your record is: I'm going to return ``false``. In other words, since there was no match, the queried item is not present.
 
@@ -60,7 +60,7 @@ You know how, in the last section, we described a single exit and then a list of
   ((string) (++ string "\n")))
 ```
 
-That last function is to prevent a newline being printed when there are no items to describe. What's it's saying is "if I get an argument that matches an empty list, I'll just return an empty list; if I get a non-empty list, I'll append a newline character."
+That last function is to prevent a newline being printed when there are no items to describe. What it's saying is "if I get an argument that matches an empty list, I'll just return an empty list; if I get a non-empty list, I'll append a newline character."
 
 Now let's use this function and our ``whats-here?`` function to describe all the items in the current room:
 
