@@ -23,7 +23,7 @@ The ``car`` function is one of the oldest functions in Lisp (some modern Lisps n
 frog
 ```
 
-Ignoring the fact that there's a function which defines this exact behaviour, let's define our own which caputes this playful exploration:
+Ignoring the fact that there's a function which defines this exact behaviour, let's define our own which computes this playful exploration:
 
 ```lisp
 > (defun cccr (objs)

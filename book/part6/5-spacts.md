@@ -2,7 +2,7 @@
 
 You probably noticed that the dunk command looked a lot like the weld command... Both commands need to check the location, subject, and object -- but there's enough making them different that we can't combine the similarities into a single function. Too bad...
 
-...but since this is Lisp, we can do more than just write functions, we can cast SPELs! As usually, we're going to need some helper functions. We're going to need a function that will allow us to create function names by concatenating *atoms*. If we've got a list of atoms:
+...but since this is Lisp, we can do more than just write functions, we can cast SPELs! As usual, we're going to need some helper functions. We're going to need a function that will allow us to create function names by concatenating *atoms*. If we've got a list of atoms:
 
 ```lisp
 '(cat these atoms)

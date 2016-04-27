@@ -20,7 +20,7 @@ As just mentioned, we're going to want to put a separator between each command:
 
 Not only does that help us keep the command history clearly delineated, it takes care of that pesky problem of seeing the return value from calling the ``(! ...)`` function.
 
-Speaking of which: since we're going to been to make so many calls to ``(! ...)`` (one for each command), how about we create a SPEL for that -- it will make things much cleaner:
+Speaking of which: since we're going to be making so many calls to ``(! ...)`` (one for each command), how about we create a SPEL for that -- it will make things much cleaner:
 
 ```lisp
 (defspel send (args)

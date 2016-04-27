@@ -11,7 +11,7 @@ For example, if you have a global variable, you can access it from a function. W
     (car (cdr (cdr objects))))
 ```
 
-The function doesn't define something called ``objects`` and it doesn't receive something called ``objects`` via a function argument. So it's *accessing* the global variable. Some languages will also let you *change* the value of global variables. Conversely, other consider this an *anti-pattern* (something you shouldn't do) and either discourage it or out-right prevent it.
+The function doesn't define something called ``objects`` and it doesn't receive something called ``objects`` via a function argument. So it's *accessing* the global variable. Some languages will also let you *change* the value of global variables. Conversely, others consider this an *anti-pattern* (something you shouldn't do) and either discourage it or outright prevent it.
 
 LFE is one of the latter: you can't change a global variable from inside a function (unless you do some seriously crazy things to your code ... it *is* a Lisp, after all, so even some impossible things are possible!). LFE does allow you to *shadow* global variables, but that won't change the original (*shadowing* just covers it up temporarily).
 

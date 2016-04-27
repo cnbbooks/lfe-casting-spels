@@ -43,7 +43,7 @@ In fact, it's so familiar, we can use the same ``get-here`` function that we use
 
 What our ``describe-exits`` function does is build a list of strings and then joins them together with a space.
 
-But we skipped over something. Remember how we used ``lists:map`` before? By passing it a ``lambda``? Well here, we're passing it a *named function*, not an *anonymous function*. To pass a function, you need to put ``#'`` in front of the function name, and then it's *arity* after the function name. So, we get a list of the exits records, pass each record to ``describe-exit/1``, and with the resulting list of exit descriptions, joins them together using a single space.
+But we skipped over something. Remember how we used ``lists:map`` before? By passing it a ``lambda``? Well here, we're passing it a *named function*, not an *anonymous function*. To pass a function, you need to put ``#'`` in front of the function name, and then it's *arity* after the function name. So, we get a list of the exits records, pass each record to ``describe-exit/1``, and with the resulting list of exit descriptions, join them together using a single space.
 
 Let's try this new function:
 

@@ -6,7 +6,7 @@ LFE runs on the Erlang Virtual Machine, and Erlang is *famous* for its "light-we
 
 * a state-holder function
 * something that starts our initial state-holder "process"
-* a name for out state-holder "process"
+* a name for our state-holder "process"
 * something that stops our state-holder "process"
 
 Here's what something like these might look like:
@@ -61,5 +61,5 @@ amount?
 Current state: 3
 ```
 
-Whadayaknow? This is looking like it might be the answer! No ugly state data displayed after each command, no weird function represnetation printed to our REPL -- this is a pretty clean user experience. We still get the output of our "send" command, but that's pretty easy to overlook. And we might be able to make that even better...
+Whadayaknow? This is looking like it might be the answer! No ugly state data displayed after each command, no weird function representation printed to our REPL -- this is a pretty clean user experience. We still get the output of our "send" command, but that's pretty easy to overlook. And we might be able to make that even better...
 
