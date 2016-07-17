@@ -27,7 +27,7 @@ Let's create the over-arching record definition for our game state:
   goals)
 ```
 
-We've just defined a record called ``state`` that has three fields: ```objects``, ``places``, and ``player``.
+We've just defined a record called ``state`` that has four fields: ``objects``, ``places``, ``player``, and ``goals``.
 
 
 ### Objects
