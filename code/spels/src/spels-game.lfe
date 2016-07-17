@@ -50,7 +50,7 @@
 (defun handle_cast
   (('look state)
     (spels-io:display-scene state)
-    (case (state-player state)
+    (case (state-player-location state)
       ('netherworld
         `#(noreply ,(spels-io:hope-for-mercy state)))
       (_

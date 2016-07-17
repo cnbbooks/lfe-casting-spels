@@ -71,7 +71,7 @@ With these in place, we're ready to create our first action:
   (let ((exits (place-exits (get-here game-state))))
     (case (lists:member direction (get-valid-moves exits))
           ('true (good-move
-                   (set-state-player
+                   (set-state-player-location
                      game-state
                      (get-new-location direction exits))))
           ('false (bad-move game-state)))))

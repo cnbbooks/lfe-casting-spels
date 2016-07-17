@@ -28,7 +28,7 @@ Remember that ``(state-objects state)`` returns all game objects. Let's use ``li
 
 ```lisp
 (defun whats-here?
-  (((match-state player player-loc objects objs))
+  (((match-state player-location player-loc objects objs))
     (lists:filter
       (lambda (obj)
         (item-there? player-loc obj))

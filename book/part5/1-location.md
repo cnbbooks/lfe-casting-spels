@@ -5,7 +5,7 @@ The first command we'd want to have is a command that tells us about the locatio
 We can get there in stages by playing with our new game state and record functions. Getting the player location is super-easy:
 
 ```lisp
-> (state-player state)
+> (state-player-location state)
 living-room
 ```
 
@@ -13,7 +13,7 @@ What about a place's description? Well, that's buried a few more levels deep in 
 
 ```lisp
 > (fields-state)
-(objects places player goals)
+(objects places player-location goals)
 > (fields-object)
 (name location)
 > (fields-place)

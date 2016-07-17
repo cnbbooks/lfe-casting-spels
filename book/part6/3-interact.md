@@ -43,7 +43,7 @@ That's all the helper functions we need; now for the main attraction:
 
 ```lisp
 (defun pickup-item
-  ((item-name (= (match-state player player-loc objects objs) game-state))
+  ((item-name (= (match-state player-location player-loc objects objs) game-state))
     (case (lists:member item-name (get-item-names game-state))
           ('true
             (set-state-objects

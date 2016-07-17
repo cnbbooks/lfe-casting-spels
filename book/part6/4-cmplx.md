@@ -72,7 +72,7 @@ The first of the goals we'll write code for is the welding of the chain to the b
 (defun weld-ready? (game-state)
   (andalso (inv? 'bucket game-state)
            (inv? 'chain game-state)
-           (== (state-player game-state) 'attic)))
+           (== (state-player-location game-state) 'attic)))
 ```
 
 As you can see, that function checks to make sure that all the necessary conditions are present for a successful welding.
@@ -138,7 +138,7 @@ Now let's create a command for dunking the chain and bucket in the well. We'll n
 (defun dunk-ready? (game-state)
   (andalso (inv? 'bucket game-state)
            (goal-met? 'weld-chain game-state)
-           (== (state-player game-state) 'garden)))
+           (== (state-player-location game-state) 'garden)))
 
 (defun dunk-not-ready ()
   (io:format "~nYou seem to be missing a key condition for dunking ...~n"))

@@ -26,7 +26,7 @@
   (let ((exits (place-exits (spels-env:get-here game-state))))
     (case (lists:member direction (get-valid-moves exits))
           ('true (spels-io:good-move
-                   (set-state-player
+                   (set-state-player-location
                      game-state
                      (get-new-location direction exits))))
           ('false (spels-io:bad-move game-state)))))
@@ -34,7 +34,7 @@
 (defun weld-ready? (game-state)
   (andalso (spels-inv:inv? 'bucket game-state)
            (spels-inv:inv? 'chain game-state)
-           (== (state-player game-state) 'attic)))
+           (== (state-player-location game-state) 'attic)))
 
 (defun weld-them
   (('chain 'bucket game-state)
@@ -55,12 +55,12 @@
 (defun dunk-ready? (game-state)
   (andalso (spels-inv:inv? 'bucket game-state)
            (spels-goals:goal-met? 'weld-chain game-state)
-           (== (state-player game-state) 'garden)))
+           (== (state-player-location game-state) 'garden)))
 
 (defun splash-ready? (game-state)
   (andalso (spels-inv:inv? 'bucket game-state)
            (spels-goals:goal-met? 'dunk-bucket game-state)
-           (== (state-player game-state) 'living-room)))
+           (== (state-player-location game-state) 'living-room)))
 
 (defmacro game-action (cmd sub obj goal-name)
   `(defun ,(spels-util:ccatoms `(do- ,cmd))

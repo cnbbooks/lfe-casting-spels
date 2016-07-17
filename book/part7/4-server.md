@@ -18,7 +18,7 @@ create a game-state initializer like so:
   (make-state
     objects objects
     places (list living-room garden attic netherworld)
-    player 'living-room
+    player-location 'living-room
     goals goals))
 ```
 
@@ -49,7 +49,7 @@ Now we can create our state holder "server":
   (receive
     (`#(look)
       (display-scene state)
-      (case (state-player state)
+      (case (state-player-location state)
         ('netherworld (loop-server (hope-for-mercy state)))
         (_ (loop-server state))))
     (`#(exits)

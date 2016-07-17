@@ -63,14 +63,14 @@ Let's create a function which uses ``lists:filter`` to only return the place tha
 
 ```lisp
 (defun get-here
-  (((match-state player player-loc places locs))
+  (((match-state player-location player-loc places locs))
     (car (lists:filter
            (lambda (loc)
              (here? player-loc loc))
            locs))))
 ```
 
-We used *pattern matching* again, but this time to do something a tiny bit clever: we used it to define the variables ``player-loc`` and ``locs``. In other words, with our pattern above, we said "When you get a ``state`` record coming through here, get its ``player`` field and assign it to the ``player-loc`` variable; also get its ``places`` field and assign it to the ``locs`` variable."
+We used *pattern matching* again, but this time to do something a tiny bit clever: we used it to define the variables ``player-loc`` and ``locs``. In other words, with our pattern above, we said "When you get a ``state`` record coming through here, get its ``player-location`` field and assign it to the ``player-loc`` variable; also get its ``places`` field and assign it to the ``locs`` variable."
 
 ![](../images/living_room.jpg)
 

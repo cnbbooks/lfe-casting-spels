@@ -3,7 +3,7 @@
 (defrecord state
   objects
   places
-  player
+  player-location
   goals)
 
 (defrecord object
@@ -84,7 +84,7 @@
 (set state (make-state
              objects objects
              places (list living-room garden attic netherworld)
-             player 'living-room
+             player-location 'living-room
              goals goals))
 
 (defun here?
@@ -94,7 +94,7 @@
       'false))
 
 (defun get-here
-  (((match-state player player-loc places locs))
+  (((match-state player-location player-loc places locs))
     (car (lists:filter
            (lambda (loc)
              (here? player-loc loc))
@@ -121,7 +121,7 @@
       'false))
 
 (defun whats-here?
-  (((match-state player player-loc objects objs))
+  (((match-state player-location player-loc objects objs))
     (lists:filter
       (lambda (obj)
         (item-there? player-loc obj))
@@ -186,7 +186,7 @@
   (let ((exits (place-exits (get-here game-state))))
     (case (lists:member direction (get-valid-moves exits))
           ('true (good-move
-                   (set-state-player
+                   (set-state-player-location
                      game-state
                      (get-new-location direction exits))))
           ('false (bad-move game-state)))))
@@ -220,7 +220,7 @@
   (io:format "~nThat item is not here.~n"))
 
 (defun pickup-item
-  ((item-name (= (match-state player player-loc objects objs) game-state))
+  ((item-name (= (match-state player-location player-loc objects objs) game-state))
     (case (lists:member item-name (get-item-names game-state))
           ('true
             (set-state-objects
@@ -308,7 +308,7 @@
 (defun weld-ready? (game-state)
   (andalso (inv? 'bucket game-state)
            (inv? 'chain game-state)
-           (== (state-player game-state) 'attic)))
+           (== (state-player-location game-state) 'attic)))
 
 (defun weld-not-ready ()
   (io:format "~nYou seem to be missing a key condition for welding ...~n"))
@@ -342,7 +342,7 @@
 (defun dunk-ready? (game-state)
   (andalso (inv? 'bucket game-state)
            (goal-met? 'weld-chain game-state)
-           (== (state-player game-state) 'garden)))
+           (== (state-player-location game-state) 'garden)))
 
 (defun dunk-not-ready ()
   (io:format "~nYou seem to be missing a key condition for dunking ...~n"))
@@ -411,7 +411,7 @@
 (defun splash-ready? (game-state)
   (andalso (inv? 'bucket game-state)
            (goal-met? 'dunk-bucket game-state)
-           (== (state-player game-state) 'living-room)))
+           (== (state-player-location game-state) 'living-room)))
 
 (defun splash-not-ready ()
   (io:format "~nYou seem to be missing a key condition for splashing ...~n"))
@@ -439,7 +439,7 @@
       game-state)
     ('true
       (lost-msg)
-      (set-state-player game-state 'netherworld))))
+      (set-state-player-location game-state 'netherworld))))
 
 (defun already-splashed ()
   (io:format (++ "~nYou've already woken the wizard once. With a bucket full "
@@ -455,7 +455,7 @@
   (make-state
     objects objects
     places (list living-room garden attic netherworld)
-    player 'living-room
+    player-location 'living-room
     goals goals))
 
 (defun spell-of-mercy ()
@@ -483,7 +483,7 @@
   (receive
     (`#(look)
       (display-scene state)
-      (case (state-player state)
+      (case (state-player-location state)
         ('netherworld (loop-server (hope-for-mercy state)))
         (_ (loop-server state))))
     (`#(exits)

@@ -1,7 +1,7 @@
 (defrecord state
   objects
   places
-  player
+  player-location
   goals)
 
 (defrecord object

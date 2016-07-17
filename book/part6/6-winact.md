@@ -6,7 +6,7 @@ We're still missing one last special action: the one that will let us win the ga
 (defun splash-ready? (game-state)
   (andalso (inv? 'bucket game-state)
            (goal-met? 'dunk-bucket game-state)
-           (== (state-player game-state) 'living-room)))
+           (== (state-player-location game-state) 'living-room)))
 
 (defun splash-not-ready ()
   (io:format "~nYou seem to be missing a key condition for splashing ...~n"))
@@ -34,7 +34,7 @@ We're still missing one last special action: the one that will let us win the ga
       game-state)
     ('true
       (lost-msg)
-      (set-state-player game-state 'netherworld))))
+      (set-state-player-location game-state 'netherworld))))
 
 (defun already-splashed ()
   (io:format (++ "~nYou've already woken the wizard once. With a bucket full "

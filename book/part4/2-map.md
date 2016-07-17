@@ -10,7 +10,7 @@ Now we can combine the data we have defined to finally make our world state!
 > (set state (make-state
                objects objects
                places (list living-room garden attic netherworld)
-               player 'living-room
+               player-location 'living-room
                goals goals))
 ```
 ```lisp

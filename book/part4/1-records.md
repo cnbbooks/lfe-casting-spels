@@ -23,12 +23,11 @@ Let's create the over-arching record definition for our game state:
 (defrecord state
   objects
   places
-  player
+  player-location
   goals)
 ```
 
-We've just defined a record called ``state`` that has four fields: ``objects``, ``places``, ``player``, and ``goals``.
-
+We've just defined a record called ``state`` that has four fields: ``objects``, ``places``, ``player-location``, and ``goals``.
 
 ### Objects
 

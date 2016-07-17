@@ -61,5 +61,5 @@
   (make-state
     objects (objects)
     places (list (living-room) (garden) (attic) (netherworld))
-    player 'living-room
+    player-location 'living-room
     goals (goals)))

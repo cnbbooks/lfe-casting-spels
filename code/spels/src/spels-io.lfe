@@ -126,7 +126,7 @@
       game-state)
     ('true
       (lost-msg)
-      (set-state-player game-state 'netherworld))))
+      (set-state-player-location game-state 'netherworld))))
 
 (defun already-splashed ()
   (io:format (++ "~nYou've already woken the wizard once. With a bucket full "

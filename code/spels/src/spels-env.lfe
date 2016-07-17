@@ -12,7 +12,7 @@
     'false))
 
 (defun get-here
-  (((match-state player player-loc places locs))
+  (((match-state player-location player-loc places locs))
     (car (lists:filter
            (lambda (loc)
              (here? player-loc loc))
@@ -25,7 +25,7 @@
       'false))
 
 (defun whats-here?
-  (((match-state player player-loc objects objs))
+  (((match-state player-location player-loc objects objs))
     (lists:filter
       (lambda (obj)
         (item-there? player-loc obj))
