@@ -1,6 +1,6 @@
 ## Complex Interactions
 
-We've just implemented some simple interactions like picking up objects or checking our player's inventory. What about interacting with the world on a conditional basis? We need add these sorts of actions to the game so that the player can meed the conditions to *win* in the game.
+We've just implemented some simple interactions like picking up objects or checking our player's inventory. What about interacting with the world on a conditional basis? We need to add these sorts of actions to the game so that the player can meet the conditions to *win* in the game.
 
 Now we're to the bit about goals. Let's write some functions that will help us get info about goals and set the status of goals.
 

@@ -21,7 +21,7 @@ Ok, now that they're enabled, let's cast our first spell, called walk:
   `(walk-direction ',direction ,game-state))
 ```
 
-What this code does is it tells the Lisp compiler that the *atom* ``walk`` is not actually the *atom* ``walk`` but is, instead, ``walk-direction`` and that the direction actually has a quote in front of it, even though we can't see it. Basically we can sneak in some special code inbetween our program and the compiler that changes our code into something else before it is compiled:
+What this code does is it tells the Lisp compiler that the *atom* ``walk`` is not actually the *atom* ``walk`` but is, instead, ``walk-direction`` and that the direction actually has a quote in front of it, even though we can't see it. Basically we can sneak in some special code in between our program and the compiler that changes our code into something else before it is compiled:
 
 ![](../images/spel_compile.jpg)
 

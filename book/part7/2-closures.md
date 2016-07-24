@@ -1,6 +1,6 @@
 ## A Glance at Closures
 
-The solution we have proposed is to "hide" the state data -- but how do we do that? Well, if there was a way to capture the data in a variable, and then have that variable avialble for querying or updating, we'd be in luck. Fortunately, there is and we are :-)
+The solution we have proposed is to "hide" the state data -- but how do we do that? Well, if there was a way to capture the data in a variable, and then have that variable available for querying or updating, we'd be in luck. Fortunately, there is and we are :-)
 
 Thanks to something called *closures*. The term *closure* was coined in 1964 and then made widely popular by the creators of a Lisp called *Scheme* in 1975. Let's see what a closure looks like, and then maybe we can make better sense of the name.
 
@@ -93,7 +93,7 @@ What has just been saved in the ``sh`` variable is the *output* of the ``state-h
 #Fun<lfe_eval.12.101079464>
 ```
 
-Well, *maybe* that better -- we just can't tell. We keep getting the new closure back. How can we get a look at the current state? We could add a new message type ...
+Well, *maybe* that's better -- we just can't tell. We keep getting the new closure back. How can we get a look at the current state? We could add a new message type ...
 
 ```lisp
 (defun state-holder (state)

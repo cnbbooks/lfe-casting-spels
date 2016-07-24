@@ -44,6 +44,6 @@ And now you will be able to execute the commands that would be available at the 
 
 ### OTP Version
 
-As mentioned in the previous section, source code for an OTP version of the game has been made availbale in ``code/spels``. To start the REPL for this version, simply run ``make otp-repl``. Note that this code is *very* different from the code that is entered into the REPL throughout the course of the book, and some commands will not be present (or will have been changed).
+As mentioned in the previous section, source code for an OTP version of the game has been made available in ``code/spels``. To start the REPL for this version, simply run ``make otp-repl``. Note that this code is *very* different from the code that is entered into the REPL throughout the course of the book, and some commands will not be present (or will have been changed).
 
 For more details, please see the previous section.

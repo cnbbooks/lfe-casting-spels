@@ -37,7 +37,7 @@ Whereas functions *with* pattern matching in their arguments look like this:
   ...)
 ```
 
-You can have as many different patterns and associated function bodies as you want -- as long as they all have the same number of arguments (also know as *arity*). Our function has two arguments (*2-arity*): a location ``loc`` and a pattern matching against a ``place`` record. Our pattern was a call to one of the magical functions created by our ``place`` record, ``match-place``. So what got filled in the ``<pattern>`` slot was a ``(match-place ...)`` call, and that explains why you saw three opening parentheses in a row.
+You can have as many different patterns and associated function bodies as you want -- as long as they all have the same number of arguments (also known as *arity*). Our function has two arguments (*2-arity*): a location ``loc`` and a pattern matching against a ``place`` record. Our pattern was a call to one of the magical functions created by our ``place`` record, ``match-place``. So what got filled in the ``<pattern>`` slot was a ``(match-place ...)`` call, and that explains why you saw three opening parentheses in a row.
 
 But we've got something else new there, too: the ``when`` form. When you see a ``(when ...)`` after a pattern in LFE, it's called a *guard*. This guard is standing watch over the pattern, and will only let the pattern match if the location ``loc`` that was passed as a regular function argument is the same as the ``place`` record's ``location`` field.
 

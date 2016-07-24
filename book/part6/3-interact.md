@@ -3,7 +3,7 @@
 Now we'll create a command to pick up objects in our world. We'll need some helper functions for this. To help think about which helper functions we need to create, let's list the things we need to do:
 
 1. Check to see if the item we seek is present
-1. Check the object location to ``player`` for the object we seek
+1. Check the object location of ``player`` for the object we seek
 1. Update the list of objects
 1. Update the game state
 
@@ -150,7 +150,7 @@ You are carrying the following:
  - bucket
 ```
 
-Now a function that tells us if he have a certain object on us:
+Now a function that tells us if we have a certain object on us:
 
 ```lisp
 (defun inv? (item-name game-state)

@@ -19,7 +19,7 @@ Since we're in the living room right now, our two valid moves should be those th
 
 We used the same record function that we did in the "Exits" section: ``place-exits``, after getting the place record for our current location.
 
-We've got our list of valid moves the player can make; what next? Well, once the player moves in a direction, we'll want to set that destination has the new location for the player. So, given a list of exits, we need to match the one that the player chose to use:
+We've got our list of valid moves the player can make; what next? Well, once the player moves in a direction, we'll want to set that destination as the new location for the player. So, given a list of exits, we need to match the one that the player chose to use:
 
 ```lisp
 (defun match-directions
@@ -64,7 +64,7 @@ Let's make those functions now:
   game-state)
 ```
 
-With these in place, we're ready to create or first action:
+With these in place, we're ready to create our first action:
 
 ```lisp
 (defun walk-direction (direction game-state)
