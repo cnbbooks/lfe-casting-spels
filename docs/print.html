@@ -1,0 +1,2187 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js lfe-pdp">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>Casting SPELs in LFE</title>
+    
+    <meta name="robots" content="noindex" />
+    
+    
+
+
+    <!-- Custom HTML head -->
+    
+
+
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="description" content="The LFE Edition of the Classic Lisp Comic Book">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="icon" href="favicon.svg">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/chrome.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+    
+    <link rel="stylesheet" href="fonts/fonts.css">
+    
+
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" href="highlight.css">
+    <link rel="stylesheet" href="tomorrow-night.css">
+    <link rel="stylesheet" href="ayu-highlight.css">
+
+    <!-- Custom theme stylesheets -->
+    
+    <link rel="stylesheet" href="css/custom.css">
+    
+
+    
+</head>
+
+<body>
+    <!-- Provide site root to javascript -->
+    <script type="text/javascript">
+        var path_to_root = "";
+        var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "lfe-pdp" : "lfe-pdp";
+    </script>
+
+    <!-- Work around some values being stored in localStorage wrapped in quotes -->
+    <script type="text/javascript">
+        try {
+            var theme = localStorage.getItem('mdbook-theme');
+            var sidebar = localStorage.getItem('mdbook-sidebar');
+
+            if (theme.startsWith('"') && theme.endsWith('"')) {
+                localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+            }
+
+            if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+            }
+        } catch (e) { }
+    </script>
+
+    <!-- Set the theme before any content is loaded, prevents flash -->
+    <script type="text/javascript">
+        var theme;
+        try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+        if (theme === null || theme === undefined) { theme = default_theme; }
+        var html = document.querySelector('html');
+        html.classList.remove('no-js')
+        html.classList.remove('lfe-pdp')
+        html.classList.add(theme);
+        html.classList.add('js');
+    </script>
+
+    <!-- Hide / unhide sidebar before it is displayed -->
+    <script type="text/javascript">
+        var html = document.querySelector('html');
+        var sidebar = 'hidden';
+        if (document.body.clientWidth >= 1080) {
+            try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+            sidebar = sidebar || 'visible';
+        }
+        html.classList.remove('sidebar-visible');
+        html.classList.add("sidebar-" + sidebar);
+    </script>
+
+    <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <div class="sidebar-scrollbox">
+            <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Casting SPELs in LFE</a></li><li class="chapter-item expanded "><a href="front-matter/copyright-page.html"><strong aria-hidden="true">2.</strong> Copyright Page</a></li><li class="chapter-item expanded "><a href="introduction/index.html"><strong aria-hidden="true">3.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="part1/index.html"><strong aria-hidden="true">4.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="part1/1-setup.html"><strong aria-hidden="true">4.1.</strong> Getting Set Up</a></li><li class="chapter-item expanded "><a href="part1/2-synsem.html"><strong aria-hidden="true">4.2.</strong> Syntax and Semantics</a></li></ol></li><li class="chapter-item expanded "><a href="part2/index.html"><strong aria-hidden="true">5.</strong> Introducing the Game</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="part2/1-lay.html"><strong aria-hidden="true">5.1.</strong> Lay of the Land</a></li><li class="chapter-item expanded "><a href="part2/2-funcs.html"><strong aria-hidden="true">5.2.</strong> Introducing Functions</a></li></ol></li><li class="chapter-item expanded "><a href="part3/index.html"><strong aria-hidden="true">6.</strong> Getting Functional</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="part3/1-glob.html"><strong aria-hidden="true">6.1.</strong> Global State</a></li><li class="chapter-item expanded "><a href="part3/2-nonglob.html"><strong aria-hidden="true">6.2.</strong> A Non-global Alternative</a></li><li class="chapter-item expanded "><a href="part3/3-fp.html"><strong aria-hidden="true">6.3.</strong> The Functional Programming Style</a></li></ol></li><li class="chapter-item expanded "><a href="part4/index.html"><strong aria-hidden="true">7.</strong> Game World Data</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="part4/1-records.html"><strong aria-hidden="true">7.1.</strong> Organizing Things with Records</a></li><li class="chapter-item expanded "><a href="part4/2-map.html"><strong aria-hidden="true">7.2.</strong> Making the Game State</a></li><li class="chapter-item expanded "><a href="part4/3-recfuncs.html"><strong aria-hidden="true">7.3.</strong> Records Functions</a></li></ol></li><li class="chapter-item expanded "><a href="part5/index.html"><strong aria-hidden="true">8.</strong> Looking Around in our Game World</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="part5/1-location.html"><strong aria-hidden="true">8.1.</strong> Location, Location, Location</a></li><li class="chapter-item expanded "><a href="part5/2-patts.html"><strong aria-hidden="true">8.2.</strong> Thinking in Patterns</a></li><li class="chapter-item expanded "><a href="part5/3-exits.html"><strong aria-hidden="true">8.3.</strong> Exits</a></li><li class="chapter-item expanded "><a href="part5/4-finding.html"><strong aria-hidden="true">8.4.</strong> Finding Things</a></li><li class="chapter-item expanded "><a href="part5/5-looking.html"><strong aria-hidden="true">8.5.</strong> Putting These Pieces Together</a></li></ol></li><li class="chapter-item expanded "><a href="part6/index.html"><strong aria-hidden="true">9.</strong> Casting SPELs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="part6/1-walking.html"><strong aria-hidden="true">9.1.</strong> Walking Around In Our World</a></li><li class="chapter-item expanded "><a href="part6/2-spels.html"><strong aria-hidden="true">9.2.</strong> Introducing SPELs</a></li><li class="chapter-item expanded "><a href="part6/3-interact.html"><strong aria-hidden="true">9.3.</strong> Interacting</a></li><li class="chapter-item expanded "><a href="part6/4-cmplx.html"><strong aria-hidden="true">9.4.</strong> Complex Interactions</a></li><li class="chapter-item expanded "><a href="part6/5-spacts.html"><strong aria-hidden="true">9.5.</strong> Creating Special Actions</a></li><li class="chapter-item expanded "><a href="part6/6-winact.html"><strong aria-hidden="true">9.6.</strong> The Winning Move</a></li></ol></li><li class="chapter-item expanded "><a href="part7/index.html"><strong aria-hidden="true">10.</strong> Adding a Simple Game Server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="part7/1-state.html"><strong aria-hidden="true">10.1.</strong> The Problem of State</a></li><li class="chapter-item expanded "><a href="part7/2-closures.html"><strong aria-hidden="true">10.2.</strong> A Glance at Closures</a></li><li class="chapter-item expanded "><a href="part7/3-processes.html"><strong aria-hidden="true">10.3.</strong> Light-weight Processes as Closures</a></li><li class="chapter-item expanded "><a href="part7/4-server.html"><strong aria-hidden="true">10.4.</strong> Making a Game Server</a></li><li class="chapter-item expanded "><a href="part7/5-commands.html"><strong aria-hidden="true">10.5.</strong> Supporting Commands</a></li></ol></li><li class="chapter-item expanded "><a href="part8/index.html"><strong aria-hidden="true">11.</strong> Let's Play!</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="part8/1-win.html"><strong aria-hidden="true">11.1.</strong> Playing to Win</a></li><li class="chapter-item expanded "><a href="part8/2-lose.html"><strong aria-hidden="true">11.2.</strong> Playing to Lose</a></li><li class="chapter-item expanded "><a href="part8/3-next.html"><strong aria-hidden="true">11.3.</strong> What's Next?</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="addenda/index.html"><strong aria-hidden="true">12.</strong> Addenda</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="addenda/1-changes.html"><strong aria-hidden="true">12.1.</strong> Changes from the Original</a></li><li class="chapter-item expanded "><a href="addenda/2-whyspels.html"><strong aria-hidden="true">12.2.</strong> The Case Against the Word &quot;Macro&quot;</a></li><li class="chapter-item expanded "><a href="addenda/3-otp.html"><strong aria-hidden="true">12.3.</strong> Using OTP</a></li><li class="chapter-item expanded "><a href="addenda/4-source.html"><strong aria-hidden="true">12.4.</strong> Source Code</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="feedback.html">Feedback</a></li><li class="chapter-item expanded affix "><a href="redirects/docs.html">LFE Documentation</a></li><li class="chapter-item expanded affix "><a href="redirects/mdbook.html">Built with mdBook</a></li></ol>
+        </div>
+        <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+    </nav>
+
+    <div id="page-wrapper" class="page-wrapper">
+
+        <div class="page">
+            
+            <div id="menu-bar-hover-placeholder"></div>
+            <div id="menu-bar" class="menu-bar sticky bordered">
+                <div class="left-buttons">
+                    <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
+                        aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                        aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                        <i class="fa fa-paint-brush"></i>
+                    </button>
+                    <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                        <li role="none"><button role="menuitem" class="theme"
+                                id="lfe-pdp">LFE PDP</button></li>
+                        <li role="none"><button role="menuitem" class="theme"
+                                id="light">Light</button></li>
+                        <li role="none"><button role="menuitem" class="theme"
+                                id="rust">Rust</button></li>
+                        <li role="none"><button role="menuitem" class="theme"
+                                id="coal">Coal</button></li>
+                        <li role="none"><button role="menuitem" class="theme"
+                                id="navy">Navy</button></li>
+                        <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button>
+                        </li>
+                    </ul>
+                    
+                    <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                        aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                        aria-controls="searchbar">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    
+                </div>
+
+                <h1 class="menu-title">Casting SPELs in LFE</h1>
+
+                <div class="right-buttons">
+                    <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <i id="print-button" class="fa fa-print"></i>
+                    </a>
+                    
+                    <a href="https://github.com/lfe/casting-spels/" title="Git repository" aria-label="Git repository">
+                        <i id="git-repository-button" class="fa fa-github"></i>
+                    </a>
+                    
+                </div>
+            </div>
+
+            
+            <div id="search-wrapper" class="hidden">
+                <form id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" name="search" id="searchbar" name="searchbar"
+                        placeholder="Search this book ..." aria-controls="searchresults-outer"
+                        aria-describedby="searchresults-header">
+                </form>
+                <div id="searchresults-outer" class="searchresults-outer hidden">
+                    <div id="searchresults-header" class="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
+                </div>
+            </div>
+            
+
+            <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+            <script type="text/javascript">
+                document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                    link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                });
+            </script>
+
+            <div id="content" class="content">
+                <main>
+                    <h1><a class="header" href="#casting-spels-in-lfe" id="casting-spels-in-lfe">Casting SPELs in LFE</a></h1>
+<p><a href="images/cover-large.jpg"><img src="images/cover.jpg" alt="" /></a></p>
+<p><em>Casting SPELs in Lisp, the LFE Edition</em></p>
+<p>Original Common Lisp version by Conrad Barski, M.D.</p>
+<p>LFE translation by Duncan McGreggor</p>
+<!-- Named page links below: /-->
+<p>© 2007-2015, Conrad Barski, M.D.</p>
+<p>© 2015-2016, Duncan McGreggor</p>
+<p>This work is licensed under the <a href="http://www.gnu.org/licenses/fdl.txt">GNU Free Documentation License 1.2</a></p>
+<h1><a class="header" href="#casting-spels-in-lfe-1" id="casting-spels-in-lfe-1">Casting SPELs in LFE</a></h1>
+<p><em>A Bold New LFE Take on the Common Lisp Comic Classic</em></p>
+<p>Anyone who has ever learned to program in Lisp will tell you it is very different from any other programming language. It is different in lots of surprising ways -- this comic book will let you find out how Lisp's unique design makes it so powerful!</p>
+<p><img src="introduction/book/images/different.jpg" alt="" /></p>
+<p>This tutorial has small bits of Lisp code that are presented as it looks
+when using the LFE REPL (the &quot;interactive interpreter&quot;). The LFE prompt looks
+like this:</p>
+<pre><code class="language-lisp">&gt;
+</code></pre>
+<p>Code entered in the REPL looks like this:</p>
+<pre><code class="language-lisp">&gt; (+ 1 1)
+</code></pre>
+<pre><code class="language-lisp">2
+</code></pre>
+<p>Results will come right afterwards, in their own text block, just like you saw in
+that example just now.</p>
+<p>When you copy the code from this book into your own LFE REPL, be sure
+not to copy the <code>&gt;</code> prompt! Just copy the code :-)</p>
+<p>What will you be copying, you ask? A-ha! This is the best part: <strong>your own text
+adventure game!</strong></p>
+<p>First, though, we're going to have to cover some basics. But take heart: you'll be coding up some gamey goodness in no time ;-)</p>
+<h2><a class="header" href="#what-is-lfe" id="what-is-lfe">What is LFE?</a></h2>
+<p>LFE stands for &quot;Lisp Flavoured Erlang&quot;. It's a Lisp dialect written on top of
+the Erlang Virtual Machine (also known as the &quot;BEAM&quot;). Erlang syntax looks
+like this:</p>
+<pre><code class="language-erlang">factors(N) -&gt;
+     factors(N,2,[]).
+
+factors(1,_,Acc) -&gt; Acc;
+factors(N,K,Acc) when N rem K == 0 -&gt;
+    factors(N div K,K, [K|Acc]);
+factors(N,K,Acc) -&gt;
+    factors(N,K+1,Acc).
+</code></pre>
+<p>LFE syntax looks like this:</p>
+<pre><code class="language-lisp">(defun factors (n)
+  (factors n 2 '()))
+
+(defun factors
+  ((1 _ acc)
+    acc)
+  ((n k acc) (when (== 0 (rem n k)))
+    (factors (div n k) k (cons k acc)))
+  ((n k acc)
+    (factors n (+ k 1) acc)))
+</code></pre>
+<p>You don't need to worry about that code or what it means: it's just there to
+give you a &quot;feel&quot; of these two Erlang syntaxes (LFE in particular!), a visual
+sense of how the two languages are the same underneath, but superficially
+different (we'll be discussing syntax very shortly!)</p>
+<p>If you don't have LFE installed on your computer, no need to worry -- in the first chapter, you will be setting up LFE so that you can follow along
+in this book.</p>
+<h2><a class="header" href="#casting-spels-in-lfe-2" id="casting-spels-in-lfe-2">Casting SPELs in LFE?</a></h2>
+<p>The decision to port Casting SPELs in Lisp to LFE was based on two things. Firstly, it was inspired by an interest in providing the community and new comers with a greater number of interesting learning tools for the language. Secondly, whimsy. The original for Common Lisp was such great fun; how delightful to share that with the LFE community?</p>
+<p>It's actually very easy to port basic Common Lisp to LFE. But once you get deeper than syntax, things can diverge quite strongly. It turns out that the immutable data of Erlang and LFE made porting this comic book quite tricky. In the end, I had to give up all hope of the whimsy, and switch gears to basic application architecture best practices.</p>
+<p>As such, you will see a <em>very</em> different comic in this book than in the others: immutable data, Erlang records for tracking game state, state being returned by most functions, and many more. At first I was disappointed: this wasn't going to be the best casual, entry-level introduction to LFE.</p>
+<p>Upon further reflection, however, I came to embrace this difference. Erlang, and thus LFE, is not just another language you can pick up in a weekend and hack on for fun. It's not a Python, or Ruby, or Julia. Erlang wasn't created to solve the human problem of making a better high-level language, of making programming fit in the brains of new developers more easily. Rather, Erlang was created to hammer a very different nail, and quite the sledgehammer it turned out to be: pounding out some impressive fault-tolerant, distributed systems. Erlang was created to so that programmers could make better <em>industrial grade telecommunications infrastructure</em>.</p>
+<p>That's not a Sunday afternoon hacking project.</p>
+<p>And this brings me to the point: LFE is not a casual Lisp. It's a Lisp for those who want to build distributed applications like the Erlang software that powers 40% of the world's telecommunications. As a systems programming language, it's somewhat more involved and has many more moving parts than the sort of languages that are picked up like hobbies or to crunch data at work. It's a complete programming language, but it's also like an operating system; a highly-concurrent distributed operating system. If you've never programmed before, I would highly recommend learning another language first, waiting to tackle the concepts behind distributed systems once you have a strong foundation in place.</p>
+<p>So why build a game with it? Well, games can be fun when played alone -- and often are. But they can be even <em>more</em> fun when played with good friends. Even lots of friends! By learning to write games in an industrial-strength Lisp which specializes in distributed, fault-tolerant, message-passing applications, you're getting a foundation that can help you build the next SPEL-casting MMOMUD :-) But I digress.</p>
+<p>As a result of these ponderings, I concluded the following: the concerns about introducing records, pattern matching, guards, immutable data, and process servers paled in comparison to the other potential ways this comic book could have been rendered for use on the Erlang VM (don't worry, there's no OTP!). And for those who <em>are</em> ready to jump into the world of functional programming for distributed systems, this is a <em>super</em> fun way to start, giving you an intuition for some of the basic building blocks you will use in every LFE application you build from here on out.</p>
+<p>Enjoy!</p>
+<h2><a class="header" href="#about" id="about">About</a></h2>
+<p>This Gitbook (available <a href="http://lfe.gitbooks.io/casting-spels/">here</a>)
+is a work in progress, converting Dr. Conrad Barski's original Common Lisp
+<a href="http://www.lisperati.com/casting.html">comic book adventure game</a> to Lisp
+Flavoured Erlang. It was very kind of Dr. Barski to share his work with the
+Lisp community licensed as GNU Free Documentation, thus allowing others to
+adopt it for their own preferred language.</p>
+<p>Other editions of the book include:</p>
+<ul>
+<li><a href="http://www.lisperati.com/clojure-spels/casting.html">Clojure</a></li>
+<li><a href="http://www.lisperati.com/casting-spels-emacs/html/casting-spels-emacs-1.html">Emacs Lisp</a></li>
+</ul>
+<h2><a class="header" href="#contributing" id="contributing">Contributing</a></h2>
+<p>If you found a bug, typo, inconsistency, etc., feel free to open a ticket or
+even submit a pull request!</p>
+<ul>
+<li><a href="https://github.com/lfe/casting-spels/issues/new">Create a ticket</a>.</li>
+</ul>
+<h3><a class="header" href="#building-the-book" id="building-the-book">Building the Book</a></h3>
+<p>To build a local copy of the book, install the dependencies:</p>
+<pre><code class="language-bash">$ make deps
+</code></pre>
+<p>On Linux, you'll need to run that with <code>sudo</code>.</p>
+<p>Then install the gitbook modules:</p>
+<pre><code class="language-bash">$ make setup
+</code></pre>
+<p>Finally, build the book:</p>
+<pre><code class="language-bash">$ make book
+</code></pre>
+<h1><a class="header" href="#getting-started" id="getting-started">Getting Started</a></h1>
+<h2><a class="header" href="#getting-set-up" id="getting-set-up">Getting Set Up</a></h2>
+<p>If you're new to LFE and haven't read the <a href="http://lfe.gitbooks.io/quick-start/content/">LFE Quick Start</a>, that might be a
+good idea to do that -- you'll feel much more comfortable with the material in
+this book if you have. If you never encountered a Lisp before, or if your
+familiarity is rusty, we'd recommend reading through the original <a href="http://www.lisperati.com/casting.html">Casting
+SPELs in Lisp</a>. That version is more
+accessible to the Lisp new-comer.</p>
+<h2><a class="header" href="#prerequisites" id="prerequisites">Prerequisites</a></h2>
+<p>Here's what you need before we get started (links are to more resources,
+should you be missing any of them):</p>
+<ul>
+<li>Erlang needs to be installed on your system (<a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">download</a>)</li>
+<li>You need to have <a href="http://git-scm.com/downloads">git</a></li>
+<li>Developer/build tools for your system (in particular, <code>make</code>; instructions for this are very different between systems and can be found on the Web by searching for &quot;install developer tools&quot; or &quot;build essential&quot; for your operating system)</li>
+</ul>
+<h2><a class="header" href="#getting-and-building-lfe" id="getting-and-building-lfe">Getting and Building LFE</a></h2>
+<p>Once all of the above are set up on your system, you're ready to get LFE:</p>
+<pre><code class="language-bash">$ mkdir -p ~/lab
+$ cd ~/lab
+$ git clone https://github.com/rvirding/lfe.git
+$ cd lfe
+$ make
+</code></pre>
+<h2><a class="header" href="#starting-the-repl" id="starting-the-repl">Starting the REPL</a></h2>
+<p>Are you ready? Oh, the <em>REPL</em>? That's an acronym that stands for <em>read-eval-print loop</em> -- it's where you can type LFE code interactively. Let's start it up!</p>
+<pre><code class="language-bash">$ ./bin/lfe
+</code></pre>
+<pre><code class="language-lisp">Erlang/OTP 18 [erts-7.3] [source] [64-bit] [smp:4:4] [async-threads:10]
+
+   ..-~.~_~---..
+  (      \\     )    |   A Lisp-2+ on the Erlang VM
+  |`-.._/_\\_.-';    |   Type (help) for usage info.
+  |         g (_ \   |   
+  |        n    | |  |   Docs: http://docs.lfe.io/ 
+  (       a    / /   |   Source: http://github.com/rvirding/lfe
+   \     l    (_/    |   
+    \   r     /      |   LFE v1.0 (abort with ^G)
+     `-E___.-'
+
+&gt;
+</code></pre>
+<p>We'll use it more soon, but for now you can try out a little addition:</p>
+<pre><code class="language-lisp">&gt; (+ 2 2)
+</code></pre>
+<pre><code class="language-lisp">4
+</code></pre>
+<p>We'll be writing our whole adventure game here in the REPL :-) Things should go very smoothly, but if you start exploring and things go nuts, you can reset your REPL to its default clean state with this command:</p>
+<pre><code class="language-lisp">&gt; (reset-environment)
+</code></pre>
+<pre><code class="language-lisp">ok
+</code></pre>
+<p><img src="part1/../images/reset.jpg" alt="" /></p>
+<p>Keep in mind, though, this will clean <em>everything</em> up! You'll have to start over again!</p>
+<h2><a class="header" href="#syntax-and-semantics" id="syntax-and-semantics">Syntax and Semantics</a></h2>
+<p>Every computer language has code that is made up of <em>syntax</em> and <em>semantics</em>. The <em>syntax</em> of a programming language is the basic skeleton your program has to follow so that the compiler knows <em>what's what</em> in your program, so it can tell what's a function, a variable, etc. The <em>semantics</em> of a program is the more &quot;random&quot; stuff, like the different commands you have available and what variables you're allowed to look at at any point in the program. The first thing that is special about Lisp is that it has the simplest syntax of any major programming language.</p>
+<p>Basically, the Lisp syntax dictates that any text you give the Lisp compiler has to be arranged into lists, which can be nested into lists of lists or such as needed. The parenthesis mark the beginning and end of each list:</p>
+<p><img src="part1/../images/list.jpg" alt="" /></p>
+<p>Additionally, the Lisp compiler uses two modes when it reads your code: A <em>Code Mode</em> and a <em>Data Mode</em>. When you're in <em>Data Mode</em>, you can put anything you want into your lists. However, the compiler first starts off reading your code in <em>Code Mode</em>. In <em>Code Mode</em>, your lists need to be a special type of list called a <em>form</em>:</p>
+<p><img src="part1/../images/frame.jpg" alt="" /></p>
+<p>A form is a list where the first symbol in the list has to be a special word that the compiler can understand -- usually the name of a function. In this case, the compiler will send the other items of the list to the function as parameters. When it reads the text for these parameters, it will usually assume that they are also in <em>Code Mode</em>, unless you tell it to flip into data mode.</p>
+<h1><a class="header" href="#introducing-the-game" id="introducing-the-game">Introducing the Game</a></h1>
+<h2><a class="header" href="#lay-of-the-land" id="lay-of-the-land">Lay of the Land</a></h2>
+<p>As earlier stated, we're going to be creating a game. Our game is going to have some objects in it that the player can pick up and use. It's going to have places. It's going to have a player -- you! It's going to let you interact with it.</p>
+<p>Things are going to get pretty deep, pretty quickly, so before we take the dive, let's cruise around in the shallow end. We're going to play in the LFE REPL a bit, defining some variables. Our game won't be using them in exactly this form. For now, though, it will be helpful for demonstrating a few things.</p>
+<h3><a class="header" href="#objects" id="objects">Objects</a></h3>
+<p>Let's create some objects, a list of <em>atoms</em>:</p>
+<pre><code class="language-lisp">&gt; (set objects '(whiskey-bottle bucket frog chain))
+</code></pre>
+<pre><code class="language-lisp">(whiskey-bottle bucket frog chain)
+</code></pre>
+<p>Ok, now let's dissect this line and see what it means: Since a Lisp compiler always starts reading things in <em>Code Mode</em> and expects a form, the first symbol, <code>set</code>, must be a command. In this case, the command sets a variable to a value: The variable is <code>objects</code> The value we are setting it to is a list of the four objects in our game. Now, since the list is data (i.e. we don't want the compiler to try and call a function with the name of <code>whiskey-bottle</code>) we need to &quot;flip&quot; the compiler into <em>Data Mode</em> when reading the list. The single quote in front of the list is the command that tells the compiler to flip:</p>
+<p><img src="part2/../images/objects.jpg" alt="" /></p>
+<h3><a class="header" href="#locations" id="locations">Locations</a></h3>
+<p>In this simple game, there will only be three different locations: A house with a living room and an attic, along with a garden. Here is a picture of what our world looks like:</p>
+<p><img src="part2/../images/world.jpg" alt="" /></p>
+<p>We're going to provide descriptions for each of these locations, as well as provide metadata associated with them. We'll do that later with something called <em>records</em>. But for now, just to get some practice with some of the basic concepts in Lisp, let's define three variables, each containing bogus data for our locations:</p>
+<pre><code class="language-lisp">&gt; (set living-room &quot;Super-cool data.&quot;)
+&gt; (set garden &quot;Even cooler data.&quot;)
+&gt; (set attic &quot;The best data evar.&quot;)
+</code></pre>
+<p>Now, assume we wanted to bring all of these together in yet another, mind-blowingly cool variable, <code>state</code>:</p>
+<pre><code class="language-liap">&gt; (set state `(#(living-room ,living-room)
+               #(garden ,garden)
+               #(attic ,attic)))
+</code></pre>
+<p>What's going on here? Well, we've defined what is called a &quot;property list&quot; in LFE, a list of key/value tuples. Our three <em>keys</em> are the atoms <code>living-room</code>, <code>garden</code>, and <code>attic</code>. Our three <em>values</em> are the data stored in each of the variables.</p>
+<p>But there's more going on there, and it looks pretty strange: that's back-quoting and unquoting you're seeing. Just like above, when we used a quote to flip the compiler from <em>Code Mode</em> to <em>Data Mode</em>, by using the back-quote (the quote in the upper left corner of the keyboard) we can not only flip, but then also flop back into <em>Code Mode</em> by using a comma:</p>
+<p><img src="part2/../images/backquote.jpg" alt="" /></p>
+<p>This &quot;back-quoting&quot; technique is a great feature in Lisp -- it lets us write code that looks just like the data it creates. This happens frequently with code written in a functional style: By building functions that <em>look</em> like the data they create, we can make our code easier to understand and also build for longevity: As long as the data doesn't change, the functions will probably not need to be refactored or otherwise changed, since they mirror the data so closely. Imagine how you'd write a function like this in VB or C: you would probably chop the path into pieces, then append the text snippets and the pieces together again -- a more haphazard process that &quot;looks&quot; totally different from the data that is created and probably less likely to have longevity.</p>
+<h2><a class="header" href="#introducing-functions" id="introducing-functions">Introducing Functions</a></h2>
+<p>As you write more Lisp, you're going to find yourself writing a lot of functions. Before we write one, though, let's call some!</p>
+<pre><code class="language-lisp">&gt; (car objects)
+whiskey-bottle
+</code></pre>
+<p>The <code>car</code> function is one of the oldest functions in Lisp (some modern Lisps no longer define it) and it gets its name from manipulating memory registers (originally on the old IBM 704, which was used to create Lisp!). <code>car</code> gets the first element of a list. It has a complement, <code>cdr</code>:</p>
+<pre><code class="language-lisp">&gt; (cdr objects)
+(bucket frog chain)
+</code></pre>
+<p><code>cdr</code> gets the rest of a list. Let's do some more:</p>
+<pre><code class="language-lisp">&gt; (cdr (cdr objects))
+(frog chain)
+&gt; (car (cdr (cdr objects)))
+frog
+</code></pre>
+<p>Ignoring the fact that there's a function which defines this exact behaviour, let's define our own which computes this playful exploration:</p>
+<pre><code class="language-lisp">&gt; (defun cccr (objs)
+    (car (cdr (cdr objs))))
+cccr
+</code></pre>
+<p>In Lisp, <code>defun</code> lets us define a function which we can call later. A function definition has several key parts:</p>
+<ul>
+<li>the call to <code>defun</code></li>
+<li>a name for the function</li>
+<li>the arguments that the function will accept when we call it later (in this case, we only have one argument, <code>objs</code>)</li>
+<li>the function body</li>
+</ul>
+<p>Notice that we defined what is called a <em>local variable</em> in that function. This means that the <code>objs</code> variable will only be accessible <em>inside the function itself</em>.</p>
+<p>Let's try it out:</p>
+<pre><code class="language-lisp">&gt; (cccr objects)
+frog
+</code></pre>
+<p>That's much easier to type! (For the curious, Common Lisp and LFE define the function <code>caddr</code> which does the same as <code>(car (cdr (cdr ...))))</code>.)</p>
+<p>Note that functions in Lisp are often more like functions in math than in other programming languages: Just like in math, this function doesn't print stuff for the user to read or pop up a message box. All it does is return a value as a result of the function.</p>
+<p>In LFE, there are all sorts of ways to create functions, so be prepared -- you're going to see some different ways soon!</p>
+<h1><a class="header" href="#getting-functional" id="getting-functional">Getting Functional</a></h1>
+<h2><a class="header" href="#global-state" id="global-state">Global State</a></h2>
+<p>Many languages allow for something called <em>global variables</em>. The LFE REPL has partial support for this -- you did it when you created the <code>objects</code> variable earlier.</p>
+<p>What does it <em>mean</em>, though?</p>
+<p>For example, if you have a global variable, you can access it from a function. We could have defined our <code>cccr</code> function like this, to take advantage of the global variable <code>objects</code>:</p>
+<pre><code class="language-lisp">&gt; (defun cccr ()
+    (car (cdr (cdr objects))))
+</code></pre>
+<p>The function doesn't define something called <code>objects</code> and it doesn't receive something called <code>objects</code> via a function argument. So it's <em>accessing</em> the global variable. Some languages will also let you <em>change</em> the value of global variables. Conversely, others consider this an <em>anti-pattern</em> (something you shouldn't do) and either discourage it or outright prevent it.</p>
+<p>LFE is one of the latter: you can't change a global variable from inside a function (unless you do some seriously crazy things to your code ... it <em>is</em> a Lisp, after all, so even some impossible things are possible!). LFE does allow you to <em>shadow</em> global variables, but that won't change the original (<em>shadowing</em> just covers it up temporarily).</p>
+<p>When writing a simple game or modeling objects, global state is an easy thing to use for new-comers. Common Lisp supports this easily. However, in LFE this isn't an option. We're going to have to dive a little deeper for an alternative, and so our game won't be quite as simple as it might have been if we wrote it in Common Lisp or Python. But since LFE is a language for writing distributed systems, you are probably interested in avoiding global state anyway!</p>
+<p>So, buckle your seat-belt: before adventure time, we're gonna do some learnin'!
+It's okay, though -- it'll be fun :-)</p>
+<h2><a class="header" href="#non-global-state" id="non-global-state">Non-Global State</a></h2>
+<p>What are the alternatives to global state? One of the most common techniques in functional programming languages like LFE, is to pass data from one function to the other. If a function needs to change data, then it outputs a new copy of the data with the change, and this changed data is then passed to other functions.</p>
+<p>In LFE, a common <em>pattern</em> (something you <em>do</em> want to do) is to create a &quot;state&quot; data structure, and pass this around. You can use <em>property lists</em> for this, but <em>records</em> are more common. The most recent versions of Erlang allow the use of <em>maps</em>.</p>
+<p>The game you're going to create in LFE will use <em>records</em>. As we start writing our functions, accessing our data, and changing the game state, watch closely: you're going to be learning some of the classic techniques of <em>functional programming</em>.</p>
+<p>Hints to keep in mind:</p>
+<ul>
+<li>You will need a data structure that captures the complete state of the game (objects, locations, players, etc., and all the ways in which these might change).</li>
+<li>Any time you wish to perform a calculation based upon game state, you will need to pass the state into your function as an argument.</li>
+<li>Any time you wish to update game data, you will need to output the modified state, and then use that new state in the rest of your code.</li>
+</ul>
+<h2><a class="header" href="#the-functional-programming-style" id="the-functional-programming-style">The Functional Programming Style</a></h2>
+<p>We've mentioned it once or twice, so it's probably time to talk about it in some more detail: <em>functional programming</em> (to be clear, this is completely unrelated in any way to the concept called &quot;procedural programming&quot; or &quot;structural programming&quot; that you might have learned about in high school...). In this style, the goal is to write functions that always follow the following rules:</p>
+<ul>
+<li>
+<p>You only read variables that are passed into the function or are created by the function (So you don't read any global variables)</p>
+</li>
+<li>
+<p>You never change the value of a variable that has already been set (So no incrementing variables or other such foolishness)</p>
+</li>
+</ul>
+<p>For <em>pure</em> functional programming, there is another rule:</p>
+<ul>
+<li>You never interact with the outside world, besides returning a result value. (So no writing to files, no writing messages for the user)</li>
+</ul>
+<p>You may be wondering if you can actually write any code like this that actually does anything useful, given these brutal restrictions... the answer is yes, once you get used to the style... But why would anyone bother following these rules? One very important reason: Writing code in this style gives your program <em>referential transparency</em>: This means that a given piece of code, called with the same parameters, always positively returns the same result and does exactly the same thing no matter when you call it. This can reduce programming errors and is believed to improve programmer productivity in many cases.</p>
+<p>Of course, you'll always have some functions that are not <em>pure functional</em> in style or you couldn't communicate with the user or other parts of the outside world. We're going to be focusing on the first two rules in this book.</p>
+<h1><a class="header" href="#game-world-data" id="game-world-data">Game World Data</a></h1>
+<h2><a class="header" href="#organizing-things-with-records" id="organizing-things-with-records">Organizing Things with Records</a></h2>
+<h3><a class="header" href="#making-a-plan" id="making-a-plan">Making a Plan</a></h3>
+<p>As we've said, our game is going to need the following:</p>
+<ul>
+<li>objects</li>
+<li>places</li>
+<li>place data (description, exits)</li>
+<li>object locations</li>
+<li>player location</li>
+</ul>
+<p>We need to create a data structure to hold all of that, so that it can be passed to functions which need one or more bits of that data. As we mentioned when we talked about Non-Global State, The data structure we're going to use is the LFE <em>record</em>. A <em>record</em> is a simple data structure that lets us associate keys and values.</p>
+<p>Let's attack this problem in pieces; we can start with the big picture, and then fill that in.</p>
+<h3><a class="header" href="#game-state" id="game-state">Game State</a></h3>
+<p>Let's create the over-arching record definition for our game state:</p>
+<pre><code class="language-lisp">(defrecord state
+  objects
+  places
+  player-location
+  goals)
+</code></pre>
+<p>We've just defined a record called <code>state</code> that has four fields: <code>objects</code>, <code>places</code>, <code>player-location</code>, and <code>goals</code>.</p>
+<h3><a class="header" href="#objects-1" id="objects-1">Objects</a></h3>
+<p>For each object in the game, we need to know its name and location:</p>
+<pre><code class="language-lisp">(defrecord object
+  name
+  location)
+</code></pre>
+<p>Let's create some objects now, improving upon our initial &quot;objects&quot; exploration:</p>
+<pre><code class="language-lisp">&gt; (set objects
+    (list (make-object name 'whiskey-bottle location 'living-room)
+          (make-object name 'bucket location 'living-room)
+          (make-object name 'frog location 'garden)
+          (make-object name 'chain location 'garden)))
+</code></pre>
+<pre><code class="language-lisp">(#(object whiskey-bottle living-room)
+ #(object bucket living-room)
+ #(object frog garden)
+ #(object chain garden))
+</code></pre>
+<p>You are probably wondering where that mysterious <code>make-object</code> function came from. When you create a record in LFE, LFE creates several functions dynamically, just for use with your record: their names start with or have as part of their own names, the record name you used. For example, when you created the <code>state</code> and <code>object</code> records, LFE created the <code>make-state</code> and <code>make-object</code> functions (among several others -- more later).</p>
+<h3><a class="header" href="#places-and-exits" id="places-and-exits">Places and Exits</a></h3>
+<p>Now that we've defined some objects in our world, we're on our way towards describing our world. But there's more to go, still. Our next goal is to create a record for our places:</p>
+<pre><code class="language-lisp">(defrecord place
+  name
+  description
+  exits)
+</code></pre>
+<p>Great! Now we can define our places ... almost. What's the &quot;exit&quot; business? Well, if we're going to move about from place to place, we need to know what direction to go in, the object that lets us pass from one location to the next, and the final destination. Let's create another record for this data:</p>
+<pre><code class="language-lisp">(defrecord exit
+  direction
+  object
+  destination)
+</code></pre>
+<p><em>Now</em> we're ready to create our places!</p>
+<pre><code class="language-lisp">&gt; (set living-room
+    (make-place
+      name 'living-room
+      description (++ &quot;You are in the living-room of a wizard's house. &quot;
+                      &quot;There is a wizard snoring loudly on the couch.&quot;)
+      exits (list
+              (make-exit
+                direction &quot;west&quot;
+                object &quot;door&quot;
+                destination 'garden)
+              (make-exit
+                direction &quot;upstairs&quot;
+                object &quot;stairway&quot;
+                destination 'attic))))
+</code></pre>
+<pre><code class="language-lisp">#(place living-room
+  &quot;You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch.&quot;
+  (#(exit &quot;west&quot; &quot;door&quot; garden) #(exit &quot;upstairs&quot; &quot;stairway&quot; attic)))
+</code></pre>
+<p>As you can see above, we have records being created inside records: the <code>living-room</code> record has two exits in it, and we just created those <code>exit</code> records when created the living room's <code>place</code> record.</p>
+<p>Something else new: the <code>++</code> function. This is the function for combining two lists in LFE, and since strings and lists are actually the same exact data type, it's also what you use to concatenate strings.</p>
+<p>Three more to go!</p>
+<pre><code class="language-lisp">&gt; (set garden
+    (make-place
+      name 'garden
+      description (++ &quot;You are in a beautiful garden. &quot;
+                      &quot;There is a well in front of you.&quot;)
+      exits (list
+              (make-exit
+                direction &quot;east&quot;
+                object &quot;door&quot;
+                destination 'living-room))))
+</code></pre>
+<pre><code class="language-lisp">#(place garden
+  &quot;You are in a beautiful garden. There is a well in front of you.&quot;
+  (#(exit &quot;east&quot; &quot;door&quot; living-room)))
+</code></pre>
+<pre><code class="language-lisp">&gt; (set attic
+    (make-place
+      name 'attic
+      description (++ &quot;You are in the attic of the wizard's house. &quot;
+                      &quot;There is a giant welding torch in the corner.&quot;)
+      exits (list
+              (make-exit
+                direction &quot;downstairs&quot;
+                object &quot;stairway&quot;
+                destination 'living-room))))
+</code></pre>
+<pre><code class="language-lisp">#(place attic
+  &quot;You are in the attic of the wizard's house. There is a giant welding torch in the corner.&quot;
+  (#(exit &quot;downstairs&quot; &quot;stairway&quot; living-room)))
+</code></pre>
+<pre><code class="language-lisp">&gt; (set netherworld
+    (make-place
+      name 'netherworld
+      description (++ &quot;Everything is misty and vague. &quot;
+                      &quot;You seem to be in the netherworld.\n&quot;
+                      &quot;There are no exits.\n&quot;
+                      &quot;You could be here for a long, long time ...&quot;)
+      exits '()))
+</code></pre>
+<p>This may seem like a lot of overhead, but it means that things will be much
+cleaner and less susceptible to bugs: each item of data is well-defined, with functions that create the data, access the data, and update the data -- both the &quot;magical&quot; record functions mentioned above as well as functions defined in the Erlang standard library (e.g., the <code>proplists</code> and <code>orddict</code> modules).</p>
+<p>Furthermore, this is a common practice used in many real-world Erlang and LFE applications: records are passed as inputs to functions and returned as (often updated) outputs, which in turn are fed into other functions.</p>
+<h3><a class="header" href="#goals" id="goals">Goals</a></h3>
+<p>We're going to have a couple of puzzles in our game and a final task to accomplish, once these puzzles are solved. Let's define the goal record:</p>
+<pre><code class="language-lisp">(defrecord goal
+  name
+  achieved?)
+</code></pre>
+<p>Now the goals:</p>
+<pre><code class="language-lisp">&gt; (set goals
+    (list (make-goal name 'weld-chain achieved? 'false)
+          (make-goal name 'dunk-bucket achieved? 'false)
+          (make-goal name 'splash-wizard achieved? 'false)))
+</code></pre>
+<pre><code class="language-lisp">(#(goal weld-chain false)
+ #(goal dunk-bucket false)
+ #(goal splash-wizard false))
+</code></pre>
+<p>Now that we have our records, let's put them together!</p>
+<h2><a class="header" href="#making-the-game-state" id="making-the-game-state">Making the Game State</a></h2>
+<p>Here's a refresher on our locations:</p>
+<p><img src="part4/../images/world.jpg" alt="" /></p>
+<p>Now we can combine the data we have defined to finally make our world state!</p>
+<pre><code class="language-lisp">&gt; (set state (make-state
+               objects objects
+               places (list living-room garden attic netherworld)
+               player-location 'living-room
+               goals goals))
+</code></pre>
+<pre><code class="language-lisp">#(state
+  (#(object whiskey-bottle living-room)
+   #(object bucket living-room)
+   #(object frog garden)
+   #(object chain garden))
+  (#(place living-room
+     &quot;You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch.&quot;
+     (#(exit &quot;west&quot; &quot;door&quot; garden) #(exit &quot;upstairs&quot; &quot;stairway&quot; attic)))
+   #(place garden
+     &quot;You are in a beautiful garden. There is a well in front of you.&quot;
+     (#(exit &quot;east&quot; &quot;door&quot; living-room)))
+   #(place attic
+     &quot;You are in the attic of the wizard's house. There is a giant welding torch in the corner.&quot;
+     (#(exit &quot;downstairs&quot; &quot;stairway&quot; living-room)))
+   #(place netherworld
+     &quot;Everything is misty and vague. You seem to be in the netherworld.\nThere are no exits.\nYou could be here for a long, long time ...&quot;
+     ()))
+  living-room
+  (#(goal weld-chain false)
+   #(goal dunk-bucket false)
+   #(goal splash-wizard false)))
+</code></pre>
+<p>This state contains everything important that we'd like to know about:</p>
+<ul>
+<li>the objects in the game and their locations</li>
+<li>the player location</li>
+<li>the places in the game</li>
+<li>the goals and their status</li>
+</ul>
+<p>Notice how information-rich this one variable is and how it describes all we need to know but not a thing more. Lispers love to create small, concise pieces of code that leave out any fat and are easy to understand just by looking at them.</p>
+<p>Now let's begin making some game commands!</p>
+<p><img src="part4/../images/drink.jpg" alt="" /></p>
+<h2><a class="header" href="#record-functions" id="record-functions">Record Functions</a></h2>
+<p>Wait -- before we make game commands, let's take a quick time-out for a public service announcement: records are your friends! And they come with magically created functions. You'll be seeing more of them, so let's get you introduced.</p>
+<p>As noted, for every record we define, a bunch of functions are magically created by LFE. These functions let us:</p>
+<ul>
+<li>create records of the given type</li>
+<li>retrieve values from the record</li>
+<li>update values in a record</li>
+<li>extract metadata from a record</li>
+</ul>
+<p>The record functions which you will be seeing more of shortly are those of the following forms:</p>
+<ul>
+<li><code>make-&lt;name&gt;</code> - create a new record</li>
+<li><code>&lt;name&gt;-&lt;field&gt;</code> - get a record field value</li>
+<li><code>set-&lt;name&gt;</code> - set a whole record</li>
+<li><code>set-&lt;name&gt;-&lt;field&gt;</code> - set the value of a record field</li>
+<li><code>match-&lt;name&gt;</code> - use a record while <em>pattern matching</em></li>
+</ul>
+<p>This is not a complete list, but it's enough get get us started! (see the
+<a href="http://lfe.gitbooks.io/reference-guide/content/16.html">Reference Guide</a> for
+more details).</p>
+<p><em>Now</em> we can create some game commands ...</p>
+<h1><a class="header" href="#looking-around-in-our-game-world" id="looking-around-in-our-game-world">Looking Around in Our Game World</a></h1>
+<h2><a class="header" href="#location-location-location" id="location-location-location">Location, Location, Location</a></h2>
+<p>The first command we'd want to have is a command that tells us about the location we're standing in. What do we need to do? Perhaps if we start with describing all places, we can work towards one place. This may sound a little backwards, but Lisp is very good with lists, so let's try it!</p>
+<p>We can get there in stages by playing with our new game state and record functions. Getting the player location is super-easy:</p>
+<pre><code class="language-lisp">&gt; (state-player-location state)
+living-room
+</code></pre>
+<p>What about a place's description? Well, that's buried a few more levels deep in our game state record. We'll take a look, but first we can refresh our memories about the fields defined in the records:</p>
+<pre><code class="language-lisp">&gt; (fields-state)
+(objects places player-location goals)
+&gt; (fields-object)
+(name location)
+&gt; (fields-place)
+(name description exits)
+</code></pre>
+<p>Let's imagine our location is in <code>living-room</code> (which, indeed, it is...).</p>
+<p><img src="part5/../images/living_room.jpg" alt="" /></p>
+<p>To get the <code>description</code> field, we'll need a <code>place</code> record; to get the place, we'll need a specific element of the <code>places</code> field of the <code>state</code> record. Let's do it:</p>
+<pre><code class="language-lisp">&gt; (place-description
+    (car
+      (state-places state)))
+</code></pre>
+<pre><code class="language-lisp">&quot;You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch.&quot;
+&gt;
+</code></pre>
+<p>Hey, that wasn't so bad! And we got to use our old friend <code>car</code> :-) But how do we turn this into a function? Let's start with seeing if we can get a description for <em>all</em> places:</p>
+<pre><code class="language-lisp">&gt; (lists:map
+    (lambda (x)
+      (place-description x))
+    (state-places state))
+</code></pre>
+<pre><code class="language-lisp">(&quot;You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch.&quot;
+ &quot;You are in a beautiful garden. There is a well in front of you.&quot;
+ &quot;You are in the attic of the wizard's house. There is a giant welding torch in the corner.&quot;
+ &quot;Everything is misty and vague. You seem to be in the netherworld.\nThere are no exits.\nYou could be here for a long time.&quot;)
+</code></pre>
+<p>Wow! How did we do that? Well, there are a few new things here. This function uses a common <em>functional programming</em> technique: <em>Higher Order Functions</em>. This means that the <code>map</code> function in the Erlang standard library's <code>lists</code> module is taking another function as a parameter so that it can be called for each item in the list that is passed (in this case, the list that is passed is the output of the call to <code>(state-places ...)</code>).</p>
+<p>But what function? Good question! This is an example of the Function with No Name, or as it is better known, an <em>anonymous function</em>. <em>Anonymous functions</em> are not created with <code>define</code> like named functions are. Instead, they are created by using the <code>lambda</code> form. <em>Anonymous functions</em> are useful for doing a task that you don't want to bother writing a function for (or to wrap something that's not a function, but you want to <em>treat</em> like a function ...).</p>
+<h2><a class="header" href="#thinking-in-patterns" id="thinking-in-patterns">Thinking in Patterns</a></h2>
+<p>We've learned how to get a description of all places, but how do we get just the description of just the place where our player is? We can apply our new knowledge:</p>
+<ol>
+<li>Let's write a function that checks the player location against a <code>place</code> record to see if they're the same.</li>
+<li>Then, let's use that function with a list of place records!</li>
+</ol>
+<p>Here's the first part:</p>
+<pre><code class="language-lisp">(defun here?
+  ((loc (match-place name place-name)) (when (== loc place-name))
+      'true)
+  ((_ _)
+      'false))
+</code></pre>
+<p>That looks pretty wild, so let's pause while we go through it.</p>
+<p>LFE supports something called <em>pattern matching</em> thanks to its heritage from Erlang (which got it from Prolog). Many of the Lisp forms in LFE support <em>pattern matching</em>, and one of those is a function definition: you can put patterns in a function's arguments when you define it. However, when you do this, you need to make some changes. That's why the function above looks funny, because of these changes: an extra set of parentheses is needed (if you're wondering why, it's because instead of just one set of arguments and a function body, patterns allow for <em>many</em> sets of arguments and corresponding bodies ... so the extra set of parentheses is like a list of function definitions).</p>
+<p>Functions without pattern matching in their arguments look like this, as we saw previously:</p>
+<pre><code class="language-lisp">(defun &lt;name&gt; (&lt;arg&gt; ...)
+  &lt;body&gt;)
+</code></pre>
+<p>Whereas functions <em>with</em> pattern matching in their arguments look like this:</p>
+<pre><code class="language-lisp">(defun &lt;name&gt;
+  ((&lt;pattern&gt;)
+    body)
+  ((&lt;pattern&gt;)
+    body)
+  ...)
+</code></pre>
+<p>You can have as many different patterns and associated function bodies as you want -- as long as they all have the same number of arguments (also known as <em>arity</em>). Our function has two arguments (<em>2-arity</em>): a location <code>loc</code> and a pattern matching against a <code>place</code> record. Our pattern was a call to one of the magical functions created by our <code>place</code> record, <code>match-place</code>. So what got filled in the <code>&lt;pattern&gt;</code> slot was a <code>(match-place ...)</code> call, and that explains why you saw three opening parentheses in a row.</p>
+<p>But we've got something else new there, too: the <code>when</code> form. When you see a <code>(when ...)</code> after a pattern in LFE, it's called a <em>guard</em>. This guard is standing watch over the pattern, and will only let the pattern match if the location <code>loc</code> that was passed as a regular function argument is the same as the <code>place</code> record's <code>location</code> field.</p>
+<p>That takes care of the first pattern and function body. The second function body has a pattern that seems rather strange: <code>(_ _)</code>. Then the body simply returns <code>false</code> no matter what! In this case, the pattern is saying &quot;I don't care what the values are for the two arguments that are getting passed to me, just move on to the body.&quot; And, as we noticed, the body then just returns <code>false</code>. Thus, the overall meaning of this function is &quot;if the first pattern is matched, the definition of &quot;here&quot; is met and return <code>true</code>; anything else does not meet the definition of &quot;here&quot;, therefore return <code>false</code>.</p>
+<p>Let's try it out against the first place in our <code>state</code>'s <code>places</code> field:</p>
+<pre><code class="language-lisp">&gt; (here? 'living-room (car (state-places state)))
+true
+&gt; (here? 'attic (car (state-places state)))
+false
+</code></pre>
+<p><code>here?</code> takes two arguments: a location name and a place record. Remember we wanted to be able to handle a list of places. We used <code>lists:map</code> before, but that's not exactly what we want here. What would be <em>perfect</em> is if we could find a function that would only return the items of a list that met certain criteria (in this case, the criteria is that the player location and the place record name are the same!).</p>
+<p>It turns out there is <em>exactly</em> this function in the Erlang standard library: the <code>lists:filter</code> function. <code>lists:filter</code> takes two arguments:</p>
+<ol>
+<li>A <em>predicate</em> function (a function that returns <code>true</code> or <code>false</code>), given some input, and</li>
+<li>A list of inputs to give the <em>predicate</em> function.</li>
+</ol>
+<p>Let's create a function which uses <code>lists:filter</code> to only return the place that returns <code>true</code> when we ask <code>here?</code>:</p>
+<pre><code class="language-lisp">(defun get-here
+  (((match-state player-location player-loc places locs))
+    (car (lists:filter
+           (lambda (loc)
+             (here? player-loc loc))
+           locs))))
+</code></pre>
+<p>We used <em>pattern matching</em> again, but this time to do something a tiny bit clever: we used it to define the variables <code>player-loc</code> and <code>locs</code>. In other words, with our pattern above, we said &quot;When you get a <code>state</code> record coming through here, get its <code>player-location</code> field and assign it to the <code>player-loc</code> variable; also get its <code>places</code> field and assign it to the <code>locs</code> variable.&quot;</p>
+<p><img src="part5/../images/living_room.jpg" alt="" /></p>
+<p>Now we can use this function to get the description of the player location:</p>
+<pre><code class="language-lisp">(defun describe-location (game-state)
+  (++ (place-description (get-here game-state)) &quot;\n&quot;))
+</code></pre>
+<p>Now let's use our new function:</p>
+<pre><code class="language-lisp">&gt; (describe-location state)
+</code></pre>
+<pre><code class="language-lisp">&quot;You are in the living-room of a wizard's house. There is a wizard 
+snoring loudly on the couch.&quot;
+</code></pre>
+<p>Perfect! Just what we wanted.</p>
+<h2><a class="header" href="#exits" id="exits">Exits</a></h2>
+<p>One thing that our <code>describe-location</code> function doesn't do is tell us about the exits in and out of the current location to other locations. Let's write a function that describes these exits, starting with one exit:</p>
+<pre><code class="language-lisp">(defun describe-exit
+  (((match-exit object obj direction dir))
+    (++ &quot;There is a &quot; obj &quot; going &quot; dir &quot; from here.&quot;)))
+</code></pre>
+<p>Let's try it out first and then figure out how to use it. To try it, we're going to need some testing data, though:</p>
+<pre><code class="language-lisp">&gt; (set test-exit (car (place-exits
+                        (car (state-places state)))))
+</code></pre>
+<pre><code class="language-lisp">#(exit &quot;west&quot; &quot;door&quot; garden)
+</code></pre>
+<p>There: that gives us the first exit in the list of exits we got back from the
+<code>place-exits</code> call. Let's try these out:</p>
+<pre><code class="language-lisp">&gt; (describe-exit test-exit)
+</code></pre>
+<pre><code class="language-lisp">&quot;There is a door going west from here.&quot;
+</code></pre>
+<p>Now we can describe an exit, but see what we had to do to get our exit data? <code>(place-exits ...)</code> returns a <em>list</em> (and we called <code>car</code> to get the first element of that list). All of the place records have a list of exits (even if there's only one of them). As such, we need a function what will describe one or many exits. Sounding familiar? Good! You're catching on!</p>
+<p>In fact, it's so familiar, we can use the same <code>get-here</code> function that we used before!</p>
+<pre><code class="language-lisp">(defun describe-exits (game-state)
+  (string:join
+    (lists:map
+      #'describe-exit/1
+      (place-exits (get-here game-state)))
+    &quot; &quot;))
+</code></pre>
+<p>What our <code>describe-exits</code> function does is build a list of strings and then joins them together with a space.</p>
+<p>But we skipped over something. Remember how we used <code>lists:map</code> before? By passing it a <code>lambda</code>? Well here, we're passing it a <em>named function</em>, not an <em>anonymous function</em>. To pass a function, you need to put <code>#'</code> in front of the function name, and then it's <em>arity</em> after the function name. So, we get a list of the exits records, pass each record to <code>describe-exit/1</code>, and with the resulting list of exit descriptions, join them together using a single space.</p>
+<p>Let's try this new function:</p>
+<pre><code class="language-lisp">&gt; (describe-exits state)
+</code></pre>
+<pre><code class="language-lisp">&quot;There is a door going west from here. There is a stairway going upstairs from here.&quot;
+</code></pre>
+<p>Beautiful!</p>
+<p>Next, we'll want to find things ...</p>
+<h2><a class="header" href="#finding-things" id="finding-things">Finding Things</a></h2>
+<p>We still have one thing we need to describe: If there are any objects on the floor at the location we are standing in, we'll want to describe them as well. Let's first write a helper function that tells us whether an item is in a given place:</p>
+<pre><code class="language-lisp">(defun item-there?
+  ((loc (match-object location obj-loc)) (when (== loc obj-loc))
+      'true)
+  ((_ _)
+      'false))
+</code></pre>
+<p>This is very similar to one of our previous functions, having both pattern matching and a guard. Our function above is <em>2-arity</em>, with the first argument being the location, and the second argument the expression for matching an <code>object</code> record.</p>
+<p>That's the first function head pattern that <code>there?</code> has. The second function head pattern has two arguments, just like the first one, but in this case the function arguments are both the &quot;don't care&quot; variable: the underscore. This part of the function is saying, &quot;If you've made it past the first pattern without matching, I don't care what your location is or what your record is: I'm going to return <code>false</code>. In other words, since there was no match, the queried item is not present.</p>
+<p>Let's try out that function in the REPL. This will tell us if the first object
+in the list of game objects is in the living room:</p>
+<pre><code class="language-lisp">&gt; (item-there? 'living-room (car (state-objects state)))
+true
+&gt; (item-there? 'attic (car (state-objects state)))
+false
+</code></pre>
+<p>Remember that <code>(state-objects state)</code> returns all game objects. Let's use <code>lists:filter</code> like we did before with the place descriptions:</p>
+<pre><code class="language-lisp">(defun whats-here?
+  (((match-state player-location player-loc objects objs))
+    (lists:filter
+      (lambda (obj)
+        (item-there? player-loc obj))
+      objs)))
+</code></pre>
+<p>Now let's try it out:</p>
+<pre><code class="language-lisp">&gt; (whats-here? state)
+</code></pre>
+<pre><code class="language-lisp">(#(object whiskey-bottle living-room) #(object bucket living-room))
+</code></pre>
+<p><img src="part5/../images/slob.jpg" alt="" /></p>
+<p>You know how, in the last section, we described a single exit and then a list of exits? We're going to do the same thing now. In fact, the functions are <em>very</em> similar. Here's the function for describing an item:</p>
+<pre><code class="language-lisp">(defun describe-item
+  (((match-object name obj-name))
+    (++ &quot;You see a &quot; (atom_to_list obj-name) &quot; on the ground.&quot;)))
+</code></pre>
+<pre><code class="language-lisp">(defun add-newline
+  (('()) '())
+  ((string) (++ string &quot;\n&quot;)))
+</code></pre>
+<p>That last function is to prevent a newline being printed when there are no items to describe. What it's saying is &quot;if I get an argument that matches an empty list, I'll just return an empty list; if I get a non-empty list, I'll append a newline character.&quot;</p>
+<p>Now let's use this function and our <code>whats-here?</code> function to describe all the items in the current room:</p>
+<pre><code class="language-lisp">(defun describe-items (game-state)
+  (add-newline
+    (string:join
+      (lists:map
+        #'describe-item/1
+        (whats-here? game-state))
+      &quot; &quot;)))
+</code></pre>
+<p>There's nothing new here -- you've seen all of this before. You're starting to get it, right? Let's try our latest function:</p>
+<pre><code class="language-lisp">&gt; (describe-items state)
+</code></pre>
+<pre><code class="language-lisp">&quot;You see a whiskey-bottle on the ground. You see a bucket on the ground.\n&quot;
+</code></pre>
+<p>We're doing a good job defining the puzzle pieces. Next we'll see how they start to fit together ...</p>
+<h2><a class="header" href="#putting-these-pieces-together" id="putting-these-pieces-together">Putting These Pieces Together</a></h2>
+<p>Now we can tie all these descriptor functions into a single, easy command
+called <code>display-scene/1</code> which calls all the descriptor functions and describes <strong>everything</strong>:</p>
+<pre><code class="language-lisp">(defun display-scene (game-state)
+  (io:format
+    &quot;~n~s~s~s&quot;
+    (list (describe-location game-state)
+          (describe-items game-state)
+          (describe-exits game-state))))
+</code></pre>
+<p>Note that we're using an awkward name for now -- by the time we finish our game, we'll have created very easy game commands!</p>
+<p>Let's try it:</p>
+<pre><code class="language-lisp">&gt; (display-scene state)
+</code></pre>
+<pre><code class="language-lisp">You are in the living-room of a wizard's house. There is a wizard 
+  snoring loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from here.ok
+</code></pre>
+<p>Pretty cool!</p>
+<p>Let's create another function for just displaying the exits, as that might come in handy during game-play:</p>
+<pre><code class="language-lisp">(defun display-exits (game-state)
+  (io:format
+    &quot;~n~s&quot;
+    (list (describe-exits game-state))))
+</code></pre>
+<h1><a class="header" href="#casting-spels" id="casting-spels">Casting SPELs</a></h1>
+<h2><a class="header" href="#walking-around-in-our-world" id="walking-around-in-our-world">Walking Around In Our World</a></h2>
+<p>Ok, now that we can see our world, let's write some code that lets us walk around in it. Let's start with a helper function that lists the valid directions in which our player can move:</p>
+<pre><code class="language-lisp">(defun get-valid-moves (exits)
+  (lists:map
+    (lambda (x)
+      (list_to_atom (exit-direction x)))
+    exits))
+</code></pre>
+<p>Since we're in the living room right now, our two valid moves should be those that take us to the garden or to the attic:</p>
+<pre><code class="language-lisp">&gt; (get-valid-moves (place-exits (get-here state)))
+(west upstairs)
+</code></pre>
+<p>We used the same record function that we did in the &quot;Exits&quot; section: <code>place-exits</code>, after getting the place record for our current location.</p>
+<p>We've got our list of valid moves the player can make; what next? Well, once the player moves in a direction, we'll want to set that destination as the new location for the player. So, given a list of exits, we need to match the one that the player chose to use:</p>
+<pre><code class="language-lisp">(defun match-directions
+  ((player-dir (match-exit direction dir))
+    (if (== dir (atom_to_list player-dir))
+        'true
+        'false)))
+
+(defun get-new-location (player-dir exits)
+  (exit-destination
+    (car
+      (lists:filter
+        (lambda (exit) (match-directions player-dir exit))
+        exits))))
+</code></pre>
+<p>So, given a list of exits for the current location (<code>(place-exits (get-here state))</code>), what is the destination if the player choses to go <code>west</code>?</p>
+<pre><code class="language-lisp">&gt; (get-new-location 'west (place-exits (get-here state)))
+</code></pre>
+<pre><code class="language-lisp">garden
+</code></pre>
+<p>Excellent!</p>
+<p>Let's create some more helper functions: whether the player's move is good or bad, two things need to happen, and in this order:</p>
+<ol>
+<li>A message needs to be displayed, and</li>
+<li>The game state needs to be returned.</li>
+</ol>
+<p>Let's make those functions now:</p>
+<pre><code class="language-lisp">(defun good-move (game-state)
+  (display-scene game-state)
+  game-state)
+
+(defun bad-move (game-state)
+  (io:format &quot;~nYou can't go that way.~n&quot;)
+  game-state)
+</code></pre>
+<p>With these in place, we're ready to create our first action:</p>
+<pre><code class="language-lisp">(defun walk-direction (direction game-state)
+  (let ((exits (place-exits (get-here game-state))))
+    (case (lists:member direction (get-valid-moves exits))
+          ('true (good-move
+                   (set-state-player-location
+                     game-state
+                     (get-new-location direction exits))))
+          ('false (bad-move game-state)))))
+</code></pre>
+<p>What are you waiting for?! Let's try it!</p>
+<pre><code class="language-lisp">&gt; (set state (walk-direction 'west state))
+</code></pre>
+<pre><code class="language-lisp">You are in a beautiful garden. There is a well in front of you.
+You see a frog on the ground. You see a chain on the ground.
+There is a door going east from here.
+...
+</code></pre>
+<p>You will also see the new state displayed in the REPL. We'll talk more about that later. (Don't worry, we're going to make it go away ... eventually!)</p>
+<p>It would be nice to adjust the <code>walk-direction/2</code> function so that it doesn't have an annoying quote mark in the command that the player has to type in. But, as we have learned, when the compiler reads a form in <em>Code Mode</em>, it will read all its parameters in <em>Code Mode</em>, unless a quote tells it not to.</p>
+<p>Is there anything we can do to tell the compiler that west is just a piece of data without the quote?</p>
+<p>Let's find out ...</p>
+<h2><a class="header" href="#casting-spels-1" id="casting-spels-1">Casting SPELs</a></h2>
+<p>Now we're going to learn an incredibly powerful feature of Lisp: Creating SPELs!</p>
+<p>SPEL is short for &quot;Semantic Program Enhancement Logic&quot; and lets us create new behavior inside the world of our computer code that changes the Lisp language at a fundamental level in order to customize its behavior for our needs- It's the part of Lisp that looks most like magic. To enable SPELs, we first need to activate SPELs inside our Lisp compiler (Don't worry about what this line does -- advanced Lispers should click <a href="part6/../addenda/2-whyspels.html">here</a>):</p>
+<p>Type this into your REPL:</p>
+<pre><code class="language-lisp">&gt; (defmacro defspel body `(defmacro ,@body))
+</code></pre>
+<pre><code>()
+</code></pre>
+<p>Ok, now that they're enabled, let's cast our first spell, called walk:</p>
+<pre><code class="language-lisp">(defspel walk (direction game-state)
+  `(walk-direction ',direction ,game-state))
+</code></pre>
+<p>What this code does is it tells the Lisp compiler that the <em>atom</em> <code>walk</code> is not actually the <em>atom</em> <code>walk</code> but is, instead, <code>walk-direction</code> and that the direction actually has a quote in front of it, even though we can't see it. Basically we can sneak in some special code in between our program and the compiler that changes our code into something else before it is compiled:</p>
+<p><img src="part6/../images/spel_compile.jpg" alt="" /></p>
+<p>Notice how similar this function looks to the code we had written before for <code>describe-exit</code>. In Lisp, not only do code and data look a lot identical, but code and special commands to the compiler (the SPELs) look identical as well -- a very consistent and clean design!</p>
+<p>Let's try our new spell:</p>
+<pre><code class="language-lisp">&gt; (set state (walk east state))
+</code></pre>
+<pre><code class="language-lisp">You are in the living-room of a wizard's house. There is a wizard 
+  snoring loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from here.
+...
+</code></pre>
+<p>Much better!</p>
+<p>Wait, why <code>(set state ...)</code>? Remember: this is <em>functional programming</em>! We're not changing any global variables inside functions. So if our player walks, how do we make sure that the new state created by the <code>walk</code> SPEL is usable for the next command? We set the output of the <code>walk</code> SPEL (which is the new state) to the <code>state</code> variable!</p>
+<h2><a class="header" href="#interacting" id="interacting">Interacting</a></h2>
+<p>Now we'll create a command to pick up objects in our world. We'll need some helper functions for this. To help think about which helper functions we need to create, let's list the things we need to do:</p>
+<ol>
+<li>Check to see if the item we seek is present</li>
+<li>Set the object location of <code>player</code> for the object we seek</li>
+<li>Update the list of objects</li>
+<li>Update the game state</li>
+</ol>
+<pre><code class="language-lisp">(defun good-pick (item-name)
+  (io:format &quot;~nYou are now carrying the ~s.~n&quot;
+             (list (atom_to_list item-name))))
+
+(defun check-item
+  ((item-name (= (match-object name obj-name) obj)) (when (== item-name obj-name))
+    (good-pick item-name)
+    (set-object-location obj 'player))
+  ((_ obj) obj))
+</code></pre>
+<p>We saw something like this before, with our function that conditionally printed a new line. In <code>check-item/2</code>, there are two matches against function arguments: one is checking the value of a passed object name and the record's object name; the other doesn't care. If there's no match with the object name, the state isn't updated -- the old state is simply returned.</p>
+<p>Here are some more helper functions we'll need:</p>
+<pre><code class="language-lisp">(defun update-items (item-name game-state)
+  (lists:map
+    (lambda (obj) (check-item item-name obj))
+    (state-objects game-state)))
+
+(defun get-item-names (game-state)
+  (lists:map
+    (lambda (x) (object-name x))
+    (whats-here? game-state)))
+
+(defun bad-pick ()
+  (io:format &quot;~nThat item is not here.~n&quot;))
+</code></pre>
+<p>That's all the helper functions we need; now for the main attraction:</p>
+<pre><code class="language-lisp">(defun pickup-item
+  ((item-name (= (match-state player-location player-loc objects objs) game-state))
+    (case (lists:member item-name (get-item-names game-state))
+          ('true
+            (set-state-objects
+              game-state (update-items item-name game-state)))
+          ('false
+            (bad-pick)
+            game-state))))
+</code></pre>
+<p>Our <code>pickup-item</code> function takes two arguments:</p>
+<ol>
+<li>the name of an item, and</li>
+<li>the game state record</li>
+</ol>
+<p>But it's also doing some pattern matching: its extracting the player's current location as well as the list of objects in the game. Then it checks to see if the item passed as an argument is in present in the player's current location.</p>
+<p><img src="part6/../images/bucket_n_bottle.jpg" alt="" /></p>
+<p>Now let's cast another SPEL to make the command easier to use:</p>
+<pre><code class="language-lisp">(defspel pickup (item-name game-state)
+  `(pickup-item ',item-name ,game-state))
+</code></pre>
+<p>Now let's try our new SPEL:</p>
+<pre><code class="language-lisp">&gt; (pickup whiskey-bottle state)
+</code></pre>
+<pre><code class="language-lisp">You are now carrying the whiskey-bottle.
+...
+</code></pre>
+<p>Again, we're going to keep ignoring the state data that is returned with each of our commands -- we'll be taking care of that in the next chapter!</p>
+<pre><code class="language-lisp">&gt;  (pickup frog state)
+</code></pre>
+<pre><code class="language-lisp">That item is not here.
+...
+</code></pre>
+<p>Now let's add a couple more useful commands: first, a command that lets us see our current inventory of items we're carrying (with the obligatory helper functions first!):</p>
+<pre><code class="language-lisp">(defun inv-obj
+  (((match-state objects objs))
+    (lists:filter
+      (match-lambda
+        (((match-object location 'player)) 'true)
+        ((_) 'false))
+      objs)))
+
+(defun inv-name (game-state)
+  (lists:map
+    (lambda (x) (object-name x))
+    (inv-obj game-state)))
+
+(defun get-inv-str (game-state)
+  (string:join
+    (lists:map
+      (lambda (x) (++ &quot; - &quot; (atom_to_list x) &quot;\n&quot;))
+      (inv-name game-state))
+    &quot;&quot;))
+</code></pre>
+<p>Did you notice our <code>inv-obj</code> helper function has a <code>match-lambda</code>? In LFE, you can even do pattern matching in <em>anonymous functions</em>!</p>
+<pre><code class="language-lisp">(defun display-inv (game-state)
+  (let ((inv-str (get-inv-str game-state)))
+    (case inv-str
+      ('() (io:format &quot;~nYou are not carrying anything.~n&quot;))
+      (_ (io:format &quot;~nYou are carrying the following:~n~s&quot;
+                    (list inv-str))))))
+</code></pre>
+<p>Try it out:</p>
+<pre><code class="language-lisp">&gt; (display-inv state)
+</code></pre>
+<pre><code class="language-lisp">You are not carrying anything.
+</code></pre>
+<p>Now pick up the bucket and try again:</p>
+<pre><code class="language-lisp">&gt; (set state (pickup bucket state))
+</code></pre>
+<pre><code class="language-lisp">You are now carrying the bucket.
+...
+</code></pre>
+<pre><code class="language-lisp">&gt; (display-inv state)
+</code></pre>
+<pre><code class="language-lisp">You are carrying the following:
+ - bucket
+</code></pre>
+<p>Now a function that tells us if we have a certain object on us:</p>
+<pre><code class="language-lisp">(defun inv? (item-name game-state)
+  (lists:member item-name (inv-name game-state)))
+</code></pre>
+<p>Try it out:</p>
+<pre><code class="language-lisp">&gt; (inv? 'bucket state)
+</code></pre>
+<pre><code class="language-lisp">true
+</code></pre>
+<pre><code class="language-lisp">&gt; (inv? 'chain state)
+</code></pre>
+<pre><code class="language-lisp">false
+</code></pre>
+<h2><a class="header" href="#complex-interactions" id="complex-interactions">Complex Interactions</a></h2>
+<p>We've just implemented some simple interactions like picking up objects or checking our player's inventory. What about interacting with the world on a conditional basis? We need to add these sorts of actions to the game so that the player can meet the conditions to <em>win</em> in the game.</p>
+<p>Now we're to the bit about goals. Let's write some functions that will help us get info about goals and set the status of goals.</p>
+<pre><code class="language-lisp">(defun goal-matches?
+  ((goal-name (= (match-goal name name) goal)) (when (== goal-name name))
+    `#(true ,goal))
+  ((_ _)
+    'false))
+
+(defun filter-goals (goal-name game-state)
+  (lists:filtermap
+    (lambda (x) (goal-matches? goal-name x))
+    (state-goals state)))
+
+(defun extract-goal
+  (('())
+    'undefined)
+  ((`(,goal))
+    goal))
+
+(defun get-goal (goal-name game-state)
+  (extract-goal (filter-goals goal-name game-state)))
+
+(defun goal-met? (goal-name game-state)
+  (let ((goal (get-goal goal-name game-state)))
+    (if (== goal 'undefined)
+        goal
+        (goal-achieved? goal))))
+</code></pre>
+<p>There are a couple of things in this code you haven't yet seen:</p>
+<ul>
+<li>the odd <code>(= ...)</code> form, and</li>
+<li><code>lists:filtermap</code></li>
+</ul>
+<p>The <code>(= ...)</code> form is not an equality test! In LFE, you can test if two things are equal with <code>(== ...)</code> or <code>(=:= ...)</code>. So what is <code>(= ...)</code>, then? If you look at it, you see that it's wrapping a record matching in the function arguments. In our match, we only care about one field from the goal record: <code>name</code>. And we only care if it matches the passed argument <code>goal-name</code>. Let's say our match succeeds, that the chain is already welded ... now what? We don't have any variables defined! Our function needs to return the game state, so how do we get it?</p>
+<p>In LFE record-matching, you have the ability to not only match individual fields from a record, but to wrap the whole matching up and assign the passed record to a variable. You do that with the <code>(= ...)</code> form!</p>
+<p>The function <code>lists:filtermap</code> does what you might guess: it performs a <code>map</code> and a <code>filter</code> simultaneously. In order to use this, the function passed to <code>lists:filtermap</code> needs to return <code>false</code> for a bad match and a tuple of <code>#(true ,value)</code> for a good match. In our case, the value is the matching goal.</p>
+<p>Also, don't let the <code>(goal-acheived? ...)</code> call confuse you -- that's the magically created function for the <code>goal</code> record's <code>achieved?</code> field!</p>
+<p>So we've managed to get goal information -- what about updating goals? We can do the same thing that we did for updating objects:</p>
+<pre><code class="language-lisp">(defun good-goal (item-name)
+  (io:format &quot;~nYou have achieved the '~s' goal!~n&quot;
+             (list (atom_to_list item-name))))
+
+(defun check-goal
+  ((goal-name (= (match-goal name g-name) goal)) (when (== goal-name g-name))
+    (good-goal goal-name)
+    (set-goal-achieved? goal 'true))
+  ((_ goal) goal))
+
+(defun update-goals (goal-name game-state)
+  (set-state-goals
+    game-state
+    (lists:map
+      (lambda (goal) (check-goal goal-name goal))
+      (state-goals game-state))))
+</code></pre>
+<p>The first of the goals we'll write code for is the welding of the chain to the bucket in the attic:</p>
+<pre><code class="language-lisp">(defun weld-ready? (game-state)
+  (andalso (inv? 'bucket game-state)
+           (inv? 'chain game-state)
+           (== (state-player-location game-state) 'attic)))
+</code></pre>
+<p>As you can see, that function checks to make sure that all the necessary conditions are present for a successful welding.</p>
+<p>We're going to need some functions that print messages to the player; let's create those now:</p>
+<pre><code class="language-lisp">(defun weld-not-ready ()
+  (io:format &quot;~nYou seem to be missing a key condition for welding ...~n&quot;))
+
+(defun cant-weld ()
+  (io:format &quot;~nYou can't weld like that ...~n&quot;))
+
+(defun good-weld (game-state)
+  (io:format &quot;~nThe chain is now securely welded to the bucket.~n&quot;)
+  game-state)
+
+(defun already-welded ()
+  (io:format &quot;~nYou have already welded the bucket and chain!~n&quot;))
+</code></pre>
+<p>Notice that our <code>good-weld</code> function takes the game state as a parameter, unlike the other functions. This is us planning for the future :-) We may want to do something with the game state <em>after</em> we check for a good weld ...</p>
+<p>And now for the welding!</p>
+<pre><code class="language-lisp">(defun weld-them
+  (('chain 'bucket game-state)
+    (let ((ready? (weld-ready? game-state)))
+      (cond ((goal-met? 'weld-chain game-state)
+              (already-welded)
+              game-state)
+            ((not ready?)
+              (weld-not-ready)
+              game-state)
+            (ready?
+              (good-weld
+                (update-goals 'weld-chain game-state))))))
+  ((_ _ game-state)
+    (cant-weld)
+    game-state))
+</code></pre>
+<p>All of the code above should be familiar to you now, and with that, we've pieced together all our various functions to give our game a new action.</p>
+<p><img src="part6/../images/weld.jpg" alt="" /></p>
+<p>Let's try our new command:</p>
+<pre><code class="language-lisp">&gt; (weld-them 'chain 'bucket state)
+</code></pre>
+<pre><code class="language-lisp">You seem to be missing a key condition for welding ...
+</code></pre>
+<p>Oops... we're don't have a bucket or chain, do we? ...and there's no welding machine around... oh well...</p>
+<p>Now let's create a command for dunking the chain and bucket in the well. We'll need similar functions for this action:</p>
+<pre><code class="language-lisp">(defun dunk-ready? (game-state)
+  (andalso (inv? 'bucket game-state)
+           (goal-met? 'weld-chain game-state)
+           (== (state-player-location game-state) 'garden)))
+
+(defun dunk-not-ready ()
+  (io:format &quot;~nYou seem to be missing a key condition for dunking ...~n&quot;))
+
+(defun cant-dunk ()
+  (io:format &quot;~nYou can't dunk like that ...~n&quot;))
+
+(defun good-dunk (game-state)
+  (io:format &quot;~nThe bucket is now full of water.~n&quot;)
+  game-state)
+
+(defun already-dunked ()
+  (io:format &quot;~nYou filled the bucket. Again.~n&quot;))
+
+(defun dunk-it
+  (('bucket 'well game-state)
+    (let ((ready? (dunk-ready? game-state)))
+      (cond ((goal-met? 'dunk-bucket game-state)
+              (already-dunked)
+              game-state)
+            ((not ready?)
+              (dunk-not-ready)
+              game-state)
+            (ready?
+              (good-dunk
+                (update-goals 'dunk-bucket game-state))))))
+  ((_ _ game-state)
+    (cant-dunk)
+    game-state))
+</code></pre>
+<p>Hrm ... what can we do about that repetitive code?</p>
+<h2><a class="header" href="#creating-special-actions" id="creating-special-actions">Creating Special Actions</a></h2>
+<p>You probably noticed that the dunk command looked a lot like the weld command... Both commands need to check the location, subject, and object -- but there's enough making them different that we can't combine the similarities into a single function. Too bad...</p>
+<p>...but since this is Lisp, we can do more than just write functions, we can cast SPELs! As usual, we're going to need some helper functions. We're going to need a function that will allow us to create function names by concatenating <em>atoms</em>. If we've got a list of atoms:</p>
+<pre><code class="language-lisp">'(cat these atoms)
+</code></pre>
+<p>and we know that the <code>(atom_to_list ...)</code> function will let us convert each atom to a string (strings and lists are the same thing in LFE), you might be thinking we could use some new tricks we learned:</p>
+<ul>
+<li>send the list of atoms to the <code>lists:map</code> command</li>
+<li>and send the <code>#'atom_to_list/1</code> function to the <code>lists:map</code> command</li>
+<li>wrap the result with <code>(list_to_atom ...)</code></li>
+<li>and get our new, longer atom ...</li>
+</ul>
+<p>(Do you see the problem yet?)</p>
+<p>Let's try it:</p>
+<pre><code class="language-lisp">&gt; (lists:map #'atom_to_list/1 '(cat these atoms))
+</code></pre>
+<pre><code class="language-lisp">(&quot;cat&quot; &quot;these&quot; &quot;atoms&quot;)
+</code></pre>
+<p>Oh dear! We now have a list of lists (strings), not a single, larger atom. We've seen  another function we could use, <code>string:join/2</code>:</p>
+<pre><code class="language-lisp">&gt; (string:join (lists:map #'atom_to_list/1 '(cat these atoms)) &quot;&quot;)
+</code></pre>
+<pre><code class="language-lisp">&quot;cattheseatoms&quot;
+</code></pre>
+<p>and then we could turn that into an atom:</p>
+<pre><code class="language-lisp">&gt; (list_to_atom (string:join (lists:map #'atom_to_list/1 '(cat these atoms)) &quot;&quot;))
+</code></pre>
+<pre><code class="language-lisp">cattheseatoms
+</code></pre>
+<p>But doesn't it seem like there should be a function, like <code>lists:map</code> that would let us to it all at once? You know, <code>map</code> it and then maybe reduce the list of strings to one string? Fold that list of strings into a single one? Amazing that you should ask that -- there <em>is</em> such a function: <code>lists:foldl</code>. Unlike <code>lists:map</code>, though, it uses a function that takes two arguments, not just one:</p>
+<ol>
+<li>an item from the list you gave it, <em>and</em></li>
+<li>an <em>accumulator</em> (in our case, the string that we are building up from atoms)</li>
+</ol>
+<p>So let's write a little helper function we can use with <code>lists:foldl</code>:</p>
+<pre><code class="language-lisp">(defun add-next-atom (next-atom so-far)
+  (++ so-far
+      (atom_to_list next-atom)))
+</code></pre>
+<p>Let's check it:</p>
+<pre><code class="language-lisp">&gt; (add-next-atom 'these &quot;cat&quot;)
+&quot;catthese&quot;
+</code></pre>
+<p>Looks good! Now let's try it for real, setting our <em>accumulator</em> string (the &quot;so far&quot; string) to empty:</p>
+<pre><code class="language-lisp">&gt; (lists:foldl #'add-next-atom/2 &quot;&quot; '(cat these atoms))
+&quot;cattheseatoms&quot;
+</code></pre>
+<p>Let's use it to make a new function:</p>
+<pre><code class="language-lisp">(defun ccatoms (atoms)
+  (list_to_atom
+    (lists:foldl #'add-next-atom/2 &quot;&quot; atoms)))
+</code></pre>
+<p>We're going to use that function to create names in our macros, er, rather ... &quot;SPEL&quot;s.</p>
+<p>Now we can create a new SPEL to save us from having to repeat so much code:</p>
+<pre><code class="language-lisp">(defmacro game-action (cmd sub obj goal-name)
+  `(defun ,(ccatoms `(do- ,cmd))
+    ((',sub ',obj game-state)
+      (let ((ready? (,(ccatoms `(,cmd -ready?)) game-state)))
+        (cond ((goal-met? ',goal-name game-state)
+                (,(ccatoms `(already- ,cmd ed)))
+                game-state)
+              ((not ready?)
+                (,(ccatoms `(,cmd -not-ready)))
+                game-state)
+              (ready?
+                (,(ccatoms `(good- ,cmd))
+                  (update-goals ',goal-name game-state))))))
+    ((_ _ game-state)
+      (,(ccatoms `(cant- ,cmd)))
+      game-state)))
+</code></pre>
+<p>Notice how ridiculously complex this SPEL is -- it has more weird quotes, backquotes, and commas than you can shake a list at. More than that it is a SPEL that actually cast ANOTHER SPEL! Even experienced Lisp programmers would have to put some thought into creating a monstrosity like this (and in fact they would consider this SPEL to be inelegant and would go through some extra esoteric steps to make it better-behaved that we won't worry about here...)</p>
+<p><img src="part6/../images/game_action.jpg" alt="" /></p>
+<p>The point of this SPEL is to show you just how sophisticated and clever you can get with these SPELs. Also, the ugliness doesn't really matter much if we only have to write it once and then can use it to make hundreds of commands for a bigger adventure game.</p>
+<p>Let's use our new SPEL to replace our ugly <code>weld-them</code> command:</p>
+<pre><code class="language-lisp">&gt; (game-action weld chain bucket weld-chain)
+</code></pre>
+<pre><code class="language-lisp">do-weld
+</code></pre>
+<p>Look at how much easier it is to understand this command- The game-action SPEL lets us write exactly what we want to say without a lot of fat -- It's almost like we've created our own computer language just for creating game commands. Creating your own pseudo-language with SPELs is called Domain Specific Language programming, a very powerful way to program very quickly and elegantly.</p>
+<p>...we still aren't in the right situation to do any welding, but the command is doing its job!</p>
+<p><img src="part6/../images/dunk.jpg" alt="" /></p>
+<p>Next, let's rewrite the <code>dunk</code> command as well:</p>
+<pre><code class="language-lisp">(game-action dunk bucket well dunk-bucket)
+</code></pre>
+<pre><code class="language-lisp">do-dunk
+</code></pre>
+<p>Now we're ready to tackle the biggest move of the game ...</p>
+<h2><a class="header" href="#the-winning-move" id="the-winning-move">The Winning Move</a></h2>
+<p>We're still missing one last special action: the one that will let us win the game! Just like with the last two, we're going to create some helper functions:</p>
+<pre><code class="language-lisp">(defun splash-ready? (game-state)
+  (andalso (inv? 'bucket game-state)
+           (goal-met? 'dunk-bucket game-state)
+           (== (state-player-location game-state) 'living-room)))
+
+(defun splash-not-ready ()
+  (io:format &quot;~nYou seem to be missing a key condition for splashing ...~n&quot;))
+
+(defun cant-splash ()
+  (io:format &quot;~nYou can't splash like that ...~n&quot;))
+
+(defun won-msg ()
+  (io:format (++ &quot;~nThe wizard awakens from his slumber, greets you &quot;
+                 &quot;warmly, and thanks you for~npulling him out of a rather &quot;
+                 &quot;nasty dream.~nYour reward, it seems, is a magical &quot;
+                 &quot;low-carb donut which he hands you ...~nright before &quot;
+                 &quot;drifting off to sleep again.~n~nYou won!!~n&quot;)))
+
+(defun lost-msg ()
+  (io:format (++ &quot;~nThe wizard awakens to see that you are in possession &quot;
+                 &quot;of his most precious --~nand dangerous! -- frog.~nHe &quot;
+                 &quot;completely looses it.~nAs he waves his wand at you, &quot;
+                 &quot;everything disappears ...~n&quot;)))
+
+(defun good-splash (game-state)
+  (case (inv? 'frog game-state)
+    ('false
+      (won-msg)
+      game-state)
+    ('true
+      (lost-msg)
+      (set-state-player-location game-state 'netherworld))))
+
+(defun already-splashed ()
+  (io:format (++ &quot;~nYou've already woken the wizard once. With a bucket full &quot;
+                 &quot;of well water.~n&quot;
+                 &quot;Best not push your luck.~n&quot;)))
+</code></pre>
+<p><img src="part6/../images/splash.jpg" alt="" /></p>
+<p>And now we can generate the code for splashing water on the wizard:</p>
+<pre><code class="language-lisp">&gt; (game-action splash wizard bucket splash-wizard)
+</code></pre>
+<pre><code class="language-lisp">do-splash
+</code></pre>
+<pre><code class="language-lisp">(defspel splash-wizard (game-state)
+  `(splash 'wizard 'bucket ,game-state))
+</code></pre>
+<pre><code class="language-lisp">()
+</code></pre>
+<p><img src="part6/../images/donut.jpg" alt="" /></p>
+<p>There remains that rather unpleasant user experience, though ... seeing the game state for many of the commands we execute. Ah, but there's a clever solution to that!</p>
+<h1><a class="header" href="#adding-a-simple-game-server" id="adding-a-simple-game-server">Adding a Simple Game Server</a></h1>
+<h2><a class="header" href="#the-problem-of-state" id="the-problem-of-state">The Problem of State</a></h2>
+<p>As a functional language, LFE doesn't let you (easily or cleanly) set global state within functions. (This is something that experienced programmers are quite grateful for!) As such, we've had to learn how to pass the game state around to different functions which needed access to that data. Our data may be nice and clean (hooray!), but the effect this has had on the game play is rather awful, to be honest.</p>
+<p>Do you think there's a way that we could both <em>pass state data to functions</em> and <em>keep the game interface uncluttered</em>?</p>
+<p>We won't keep you in suspense: yes, there is! There are some key ingredients needed for this:</p>
+<ul>
+<li>we need some place to &quot;hide&quot; the state</li>
+<li>wherever we &quot;hide&quot; the state, we need to be able to tell it when to change</li>
+<li>we need to be able to easily retrieve the state from its hiding place</li>
+</ul>
+<p>Thinking about this is almost as tricky as creating SPELs ... so let's take it one step at a time.</p>
+<h2><a class="header" href="#a-glance-at-closures" id="a-glance-at-closures">A Glance at Closures</a></h2>
+<p>The solution we have proposed is to &quot;hide&quot; the state data -- but how do we do that? Well, if there was a way to capture the data in a variable, and then have that variable available for querying or updating, we'd be in luck. Fortunately, there is and we are :-)</p>
+<p>Thanks to something called <em>closures</em>. The term <em>closure</em> was coined in 1964 and then made widely popular by the creators of a Lisp called <em>Scheme</em> in 1975. Let's see what a closure looks like, and then maybe we can make better sense of the name.</p>
+<p>Here's one example:</p>
+<pre><code class="language-lisp">(defun a-closure (state)
+  (lambda () state))
+</code></pre>
+<p>What we have above is:</p>
+<ol>
+<li>A function definition that takes a single variable, and</li>
+<li>Returns a <em>separate</em> function which <em>has access to</em> that passed argument.</li>
+</ol>
+<p>When we call our <code>a-closure</code> function, we're going to get another function (not a value). Magically, when we call this returned function, we're going to see whatever data was passed as the <code>state</code> argument.</p>
+<p>Let's try that out in the REPL:</p>
+<pre><code class="language-lisp">&gt; (set x (a-closure &quot;here's my state!&quot;))
+#Fun&lt;lfe_eval.23.101079464&gt;
+</code></pre>
+<p>(Wait for a year.)</p>
+<pre><code class="language-lisp">&gt; (funcall x)
+&quot;here's my state!&quot;
+</code></pre>
+<p>So, long after we called the function <code>a-closure</code>, we called another function, <em>and got the data that was passed to the original function</em>. One way of describing this is that the <code>state</code> variable was &quot;bound in&quot; or &quot;closed&quot; in the environment of the <code>a-closure</code> function -- thus the name!</p>
+<p>So, we've done something that <em>might</em> seem pretty cool ... but maybe not? It's a little hard to tell. Let's try a bit bigger example to see if it <em>is</em> cool, and more importantly, if it might help us with our game.</p>
+<p>Let's try writing a closure whose state tracks the balance of greetings:</p>
+<pre><code class="language-lisp">(defun state-holder (state)
+  (lambda (msg)
+    (case msg
+      ('hi
+        (+ state 1)))))
+</code></pre>
+<p>Let's set up our state with an initial value of <code>0</code>:</p>
+<pre><code class="language-lisp">&gt; (set sh (state-holder 0))
+</code></pre>
+<pre><code class="language-lisp">#Fun&lt;lfe_eval.12.101079464&gt;
+</code></pre>
+<p>Unlike our first, super-simple example, the <code>lambda</code> in the <code>state-holder</code> example takes an argument. But not any old argument! It can only be <code>'hi</code>. Let's try it out on our <code>state-holder</code> variable:</p>
+<pre><code class="language-lisp">&gt; (funcall sh 'hi)
+1
+&gt; (funcall sh 'hi)
+1
+&gt; (funcall sh 'hi)
+1
+</code></pre>
+<p>Hrm ... we get the same result. When we think about it, that makes sense: we only bound our state variable once, when we called the <code>state-holder</code> function. Let's try it again:</p>
+<pre><code class="language-lisp">(defun state-holder (state)
+  (lambda (msg)
+    (case msg
+      ('hi
+        (state-holder (+ state 1))))))
+</code></pre>
+<p>Since we're returning a new closure for the updated state, we'll want to capture it -- so we'll re-set the <code>sh</code> variable with each call. We'll start by calling the function we've defined:</p>
+<pre><code class="language-lisp">&gt; (set sh (state-holder 0))
+#Fun&lt;lfe_eval.12.101079464&gt;
+</code></pre>
+<p>What has just been saved in the <code>sh</code> variable is the <em>output</em> of the <code>state-holder</code> function, an anonymous function which takes a message as a parameters. Let's call this returned function repeatedly, resetting the output each time so that we keep track of the updated state:</p>
+<pre><code class="language-lisp">&gt; (set sh (funcall sh 'hi))
+#Fun&lt;lfe_eval.12.101079464&gt;
+&gt; (set sh (funcall sh 'hi))
+#Fun&lt;lfe_eval.12.101079464&gt;
+&gt; (set sh (funcall sh 'hi))
+#Fun&lt;lfe_eval.12.101079464&gt;
+</code></pre>
+<p>Well, <em>maybe</em> that's better -- we just can't tell. We keep getting the new closure back. How can we get a look at the current state? We could add a new message type ...</p>
+<pre><code class="language-lisp">(defun state-holder (state)
+  (lambda (msg)
+    (case msg
+      ('hi
+        (state-holder (+ state 1)))
+      ('amount?
+        state))))
+</code></pre>
+<p>Let's try this out:</p>
+<pre><code class="language-lisp">&gt; (set sh (state-holder 0))
+#Fun&lt;lfe_eval.12.101079464&gt;
+&gt; (set sh (funcall sh 'hi))
+#Fun&lt;lfe_eval.12.101079464&gt;
+&gt; (set sh (funcall sh 'hi))
+#Fun&lt;lfe_eval.12.101079464&gt;
+&gt; (funcall sh 'amount?)
+2
+&gt; (set sh (funcall sh 'hi))
+#Fun&lt;lfe_eval.12.101079464&gt;
+&gt; (funcall sh 'amount?)
+3
+</code></pre>
+<p>Hey, look at that! We've got something pretty cool happening: the internal workings and representation of the state are hidden away. When we want to change things, we just need to send the right message and then rebind our <code>sh</code> variable to the updated <code>state-holder</code>. The down side is that we're seeing the closure data (the output of <code>#Fun&lt;lfe_eval.12.101079464&gt;</code>). But maybe there's a way around that?</p>
+<p>There is :-) But we're going to have to go a little further down the rabbit hole ...</p>
+<h2><a class="header" href="#light-weight-processes-as-closures" id="light-weight-processes-as-closures">Light-weight Processes as Closures</a></h2>
+<p>We've looked at classic Lisp closures, and now we're going to look at something completely different ... that's almost the same thing! </p>
+<p>LFE runs on the Erlang Virtual Machine, and Erlang is <em>famous</em> for its &quot;light-weight processes&quot;. It turns out that we can use these processes in a way that is very similar to closures. To take advantage of this, we will need a couple of parts:</p>
+<ul>
+<li>a state-holder function</li>
+<li>something that starts our initial state-holder &quot;process&quot;</li>
+<li>a name for our state-holder &quot;process&quot;</li>
+<li>something that stops our state-holder &quot;process&quot;</li>
+</ul>
+<p>Here's what something like these might look like:</p>
+<pre><code class="language-lisp">(defun state-holder (state)
+  (receive
+    ('hi
+      (state-holder (+ 1 state)))
+    ('amount?
+      (io:format &quot;Current state: ~p~n&quot; (list state))
+      (state-holder state))))
+
+(defun state-holder ()
+  (state-holder 0))
+
+(defun start ()
+  (let ((sh-pid (spawn #'state-holder/0)))
+    (register 'our-proc sh-pid)))
+
+(defun stop ()
+  (exit (whereis 'our-proc) 'done))
+</code></pre>
+<p>See that <code>receive</code> call? That's like the <code>lambda</code> in the previous example that was creating our closure. Just like we could <code>send</code> messages to that <code>lambda</code>, we can <em>really</em> send message to the <code>receive</code>.</p>
+<p>As you can see, to start things off, we are going to &quot;spawn&quot; a function as its own tiny little process (these are nothing like operating system processes!). And then we are going to send messages to it -- kinda like our closures. We'll use the special &quot;send&quot; function, though: <code>(! ...)</code> And we'll use the <code>(whereis ...)</code> function to look up our spawned process id. Wanna try it out?</p>
+<p>Start by pasting the code about into your LFE REPL. Then, start up the &quot;server&quot;:</p>
+<pre><code class="language-lisp">&gt; (start)
+</code></pre>
+<pre><code class="language-lisp">true
+</code></pre>
+<p>Now you can do the following</p>
+<pre><code class="language-lisp">&gt; (! (whereis 'our-proc) 'hi)
+hi
+&gt; (! (whereis 'our-proc) 'hi)
+hi
+&gt; (! (whereis 'our-proc) 'amount?)
+amount?
+Current state: 2
+&gt; (! (whereis 'our-proc) 'hi)
+hi
+&gt; (! (whereis 'our-proc) 'amount?)
+amount?
+Current state: 3
+</code></pre>
+<p>Whadayaknow? This is looking like it might be the answer! No ugly state data displayed after each command, no weird function representation printed to our REPL -- this is a pretty clean user experience. We still get the output of our &quot;send&quot; command, but that's pretty easy to overlook. And we might be able to make that even better...</p>
+<h2><a class="header" href="#making-a-game-server" id="making-a-game-server">Making a Game Server</a></h2>
+<p>Given what we're learned so far, we're ready to make a small process &quot;server&quot; that will hold our game's state. We can then send messages to it that will execute the functions we've defined. Here's a list of the commands we need to support in order to play the game:</p>
+<ul>
+<li>look</li>
+<li>walk (we'll use &quot;go&quot; instead)</li>
+<li>pickup (we'll use &quot;take&quot; instead)</li>
+<li>inv</li>
+<li>weld</li>
+<li>dunk</li>
+<li>splash</li>
+</ul>
+<p>Assuming that you've already defined the variables in this function, you can
+create a game-state initializer like so:</p>
+<pre><code class="language-lisp">(defun init-state ()
+  (make-state
+    objects objects
+    places (list living-room garden attic netherworld)
+    player-location 'living-room
+    goals goals))
+</code></pre>
+<p>There's one more thing we can do, though: take pity on the overly-curious and inclined-to-steal-frogs. Let's make sure that a player who takes too strong an interest in making new amphibian friends can amend their ways:</p>
+<pre><code class="language-lisp">(defun spell-of-mercy ()
+  (timer:sleep 2000)
+  (io:format (++ &quot;~nFrom deep in the mists, you hear a familiar intonation ...~n&quot;
+                 &quot;Great relief washes over you, as you recognize the &quot;
+                 &quot;time-travel spell -- you're~nnot doomed!~n~n&quot;))
+  (timer:sleep 4000)
+  (io:format (++ &quot;Confident that you will never pick up the frog again, &quot;
+                 &quot;things get a bit fuzzy.~nYou start to lose consciousness&quot;
+                 &quot;as the wizard pulls you back in time. Your~nlast thought is &quot;
+                 &quot;that you're probably not going to remember any of this &quot;
+                 &quot;...~n~n&quot;))
+  (timer:sleep 4000)
+  (let ((state (init-state)))
+    (display-scene state)
+    state))
+</code></pre>
+<p>Now we can create our state holder &quot;server&quot;:</p>
+<pre><code class="language-lisp">(defun loop-server (state)
+  (receive
+    (`#(look)
+      (display-scene state)
+      (case (state-player-location state)
+        ('netherworld (loop-server (hope-for-mercy state)))
+        (_ (loop-server state))))
+    (`#(exits)
+      (display-exits state)
+      (loop-server state))
+    (`#(go ,direction)
+      (loop-server (walk-direction direction state)))
+    (`#(take ,item)
+      (loop-server (pickup-item item state)))
+    (`#(inv)
+      (display-inv state)
+      (loop-server state))
+    (`#(weld ,subj ,obj)
+      (loop-server (do-weld subj obj state)))
+    (`#(dunk ,subj ,obj)
+      (loop-server (do-dunk subj obj state)))
+    (`#(splash ,subj ,obj)
+      (loop-server (do-splash subj obj state)))))
+
+(defun loop-server ()
+  (loop-server (init-state)))
+</code></pre>
+<pre><code class="language-lisp">(defun start ()
+  (case (whereis 'game-server)
+    ('undefined
+      (let ((server-pid (spawn #'loop-server/0)))
+        (register 'game-server server-pid)
+        '#(status started)))
+    (_ '#(status already-started))))
+
+(defun stop
+  (('undefined _)
+    '#(status already-stopped))
+  ((pid msg)
+    (exit pid msg)
+    `#(status ,msg)))
+
+(defun stop ()
+  (stop (whereis 'game-server) 'game-over))
+</code></pre>
+<p>Start up your new game server!</p>
+<pre><code class="language-lisp">&gt; (start)
+#(status started)
+</code></pre>
+<p>Try starting (again), stopping and restarting:</p>
+<pre><code class="language-lisp">&gt; (start)
+#(status already-started)
+&gt; (stop)
+#(status game-over)
+&gt; (stop)
+#(status already-stopped)
+&gt; (start)
+#(status started)
+</code></pre>
+<p>Next, we can cast some new SPELs for use with our server ...</p>
+<h2><a class="header" href="#supporting-commands" id="supporting-commands">Supporting Commands</a></h2>
+<p>Throughout the entirety of this little book, we've asked you, gentle coder, to suspend the horror of having to see the game state spit out at you with every command. At the beginning of this chapter, we proposed a solution for this -- the use of closures -- in order to hide the state data from the user experience. In the last section we successfully created a game server that will contain this state. That last piece of this puzzle, then, is now able to fall into place: a new set of game commands, specifically written to make use of our new game server.</p>
+<p>We can also take this opportunity to do a little clean-up work on the command results. We will tackle the following</p>
+<ul>
+<li>Create a new command prompt that provides a separator between our last action + result and the new user prompt;</li>
+<li>Create a SPEL for sending a command to the server;</li>
+<li>Create command SPELs that make use of this general <code>send</code> SPEL; and</li>
+<li>Create a function that presents text to the user in a nicely-wrapped manner.</li>
+</ul>
+<p>Let's finish up!</p>
+<p>As just mentioned, we're going to want to put a separator between each command:</p>
+<pre><code class="language-lisp">(defspel sent-prompt ()
+  '(list_to_atom (string:copies &quot;-&quot; 78)))
+</code></pre>
+<p>Not only does that help us keep the command history clearly delineated, it takes care of that pesky problem of seeing the return value from calling the <code>(! ...)</code> function.</p>
+<p>Speaking of which: since we're going to be making so many calls to <code>(! ...)</code> (one for each command), how about we create a SPEL for that -- it will make things much cleaner:</p>
+<pre><code class="language-lisp">(defspel send (args)
+  `(progn
+    (! (whereis 'game-server) ,args)
+    ',(sent-prompt)))
+</code></pre>
+<p>We had noticed earlier when making our first process-based server that the command <code>hi</code> was output to the user -- this is simply because it was the output of the last function inside the <code>send</code> command. What if we make the last function inside the <code>send</code> command return something that we <em>want</em> to see? ... like our new prompt! So that's what we've done :-)</p>
+<p>Now let's create the commands that we will type: the SPELs that will send messages to our little game server:</p>
+<pre><code class="language-lisp">(defspel go (direction)
+  `(send #(go ,direction)))
+
+(defspel look ()
+  `(send #(look)))
+
+(defspel exits ()
+  `(send #(exits)))
+
+(defspel inv ()
+  `(send #(inv)))
+
+(defspel take (item)
+  `(send #(take ,item)))
+
+(defspel weld (subj obj)
+  `(send #(weld ,subj ,obj)))
+
+(defspel dunk (subj obj)
+  `(send #(dunk ,subj ,obj)))
+
+(defspel splash (subj obj)
+  `(send #(splash ,subj ,obj)))
+</code></pre>
+<p>Now that we've got some new SPELs, let's try them out:</p>
+<pre><code class="language-lisp">&gt; (look)
+------------------------------------------------------------------------------
+&gt;
+You are in the living-room of a wizard's house. There is a wizard snoring loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from here.
+</code></pre>
+<p>Look at that! No more state -- we're not passing it and we're not seeing it returned! The closures are taking care of that for us. We haven't abandoned the <em>functional programming way</em> -- our game code is still not mutating any data. We've just &quot;hidden&quot; the plumbing, as it were, with the raised floor of closures :-)</p>
+<p>But ... the lines are a bit long. Let's make some changes to fix that. Here's
+some code for wrapping long lines:</p>
+<pre><code class="language-lisp">(defun make-regex-str (max-len)
+  (++ &quot;(.{1,&quot; (integer_to_list max-len) &quot;}|\\S{&quot;
+      (integer_to_list (+ max-len 1)) &quot;,})(?:\\s[^\\S\\r\\n]*|\\Z)&quot;))
+
+(defun wrap-text (text max-len)
+  (let ((find-patt (make-regex-str max-len))
+        (replace-patt &quot;\\1\\\n&quot;))
+    (re:replace text find-patt replace-patt
+                '(global #(return list)))))
+
+(defun wrap-text (text)
+  (wrap-text text 78))
+</code></pre>
+<p>And we can use that to update our <code>display-scene/1</code> and <code>display-exits/1</code> functions:</p>
+<pre><code class="language-lisp">(defun display-scene (game-state)
+  (io:format
+    &quot;~n~s~s~s&quot;
+    (lists:map
+      #'wrap-text/1
+      `(,(describe-location game-state)
+        ,(describe-items game-state)
+        ,(describe-exits game-state)))))
+
+(defun display-exits (game-state)
+  (io:format
+    &quot;~n~s&quot;
+    (list (wrap-text (describe-exits game-state)))))
+</code></pre>
+<p>Let's try again, with our display functions updated to wrap long text:</p>
+<pre><code>&gt; (stop)
+#(status game-over)
+&gt; (start)
+#(status started)
+&gt; (look)
+------------------------------------------------------------------------------
+&gt;
+You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+</code></pre>
+<p>Ah, much better :-)</p>
+<p>Well, it looks like we're finally ready to play our game!</p>
+<h1><a class="header" href="#lets-play" id="lets-play">Let's Play!</a></h1>
+<p><strong>You have now written a complete text adventure game!</strong></p>
+<p>Shall we play a game?</p>
+<h2><a class="header" href="#winning-play-through" id="winning-play-through">Winning Play-Through</a></h2>
+<p>If you have any problems at this point, you can still play through the game: all you need to do is load the code from the gamefile provided in the code repository for this book:</p>
+<pre><code class="language-bash">$ git clone https://github.com/lfe/casting-spels.git
+$ cd casting-spels
+$ /path/to/your/lfe-dir/bin/lfe
+</code></pre>
+<p>Then, in the LFE REPL, do this:</p>
+<pre><code class="language-lisp">&gt; (run &quot;code/game.lfe&quot;)
+game-data-loaded
+</code></pre>
+<p>And you're ready to go!</p>
+<p>Let's start:</p>
+<p><img src="part8/../images/world.jpg" alt="" /></p>
+<pre><code class="language-lisp">&gt; (look)
+------------------------------------------------------------------------------
+&gt;
+You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+</code></pre>
+<p><img src="part8/../images/living_room.jpg" alt="" /></p>
+<pre><code class="language-lisp">(go west)
+------------------------------------------------------------------------------
+&gt;
+You are in a beautiful garden. There is a well in front of you.
+You see a frog on the ground. You see a chain on the ground.
+There is a door going east from here.
+(take chain)
+------------------------------------------------------------------------------
+&gt;
+You are now carrying the chain.
+(go east)
+------------------------------------------------------------------------------
+&gt;
+You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+</code></pre>
+<p><img src="part8/../images/slob.jpg" alt="" /></p>
+<pre><code class="language-lisp">(take bucket)
+------------------------------------------------------------------------------
+&gt;
+You are now carrying the bucket.
+(go upstairs)
+------------------------------------------------------------------------------
+&gt;
+You are in the attic of the wizard's house. There is a giant welding torch in
+the corner.
+There is a stairway going downstairs from here.
+</code></pre>
+<p>![](../images/weld
+.jpg)</p>
+<pre><code class="language-lisp">(weld chain bucket)
+------------------------------------------------------------------------------
+&gt;
+You have achieved the 'weld-chain' goal!
+
+The chain is now securely welded to the bucket.
+(go downstairs)
+------------------------------------------------------------------------------
+&gt;
+You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+You see a whiskey-bottle on the ground.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+(go west)
+------------------------------------------------------------------------------
+&gt;
+You are in a beautiful garden. There is a well in front of you.
+You see a frog on the ground.
+There is a door going east from here.
+</code></pre>
+<p><img src="part8/../images/dunk.jpg" alt="" /></p>
+<pre><code class="language-lisp">(dunk bucket well)
+------------------------------------------------------------------------------
+&gt;
+You have achieved the 'dunk-bucket' goal!
+
+The bucket is now full of water.
+(go east)
+------------------------------------------------------------------------------
+&gt;
+You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+You see a whiskey-bottle on the ground.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+</code></pre>
+<p><img src="part8/../images/splash.jpg" alt="" /></p>
+<pre><code class="language-lisp">(splash wizard bucket)
+------------------------------------------------------------------------------
+&gt;
+You have achieved the 'splash-wizard' goal!
+
+The wizard awakens from his slumber, greets you warmly, and thanks you for
+pulling him out of a rather nasty dream.
+Your reward, it seems, is a magical low-carb donut which he hands you ...
+right before drifting off to sleep again.
+
+You won!!
+</code></pre>
+<p><img src="part8/../images/donut.jpg" alt="" /></p>
+<h2><a class="header" href="#losing-play-through" id="losing-play-through">Losing Play-Through</a></h2>
+<p>Now, for the morbidly curious, here's what a losing scenario might look like, starting from when you're in the garden:</p>
+<pre><code class="language-lisp">(take chain)
+------------------------------------------------------------------------------
+&gt;
+You are now carrying the chain.
+(take frog)
+------------------------------------------------------------------------------
+&gt;
+You are now carrying the frog.
+</code></pre>
+<p>You then perform all the other tasks that you would do in the winning scenario. Finally, you are ready to wake the wizard:</p>
+<pre><code class="language-lisp">(inv)
+------------------------------------------------------------------------------
+&gt;
+You are carrying the following:
+ - bucket
+ - frog
+ - chain
+(splash wizard bucket)
+------------------------------------------------------------------------------
+&gt;
+You have achieved the 'splash-wizard' goal!
+
+The wizard awakens to see that you are in possession of his most precious --
+and dangerous! -- frog.
+He completely looses it.
+As he waves his wand at you, everything disappears ...
+</code></pre>
+<p>Wondering what happened, you take a look around:</p>
+<pre><code class="language-lisp">(look)
+------------------------------------------------------------------------------
+&gt;
+Everything is misty and vague. You seem to be in the netherworld.
+There are no exits.
+You could be here for a long, long time ...
+</code></pre>
+<p>Nothing happens. You look some more:</p>
+<pre><code class="language-lisp">(look)
+------------------------------------------------------------------------------
+&gt;
+Everything is misty and vague. You seem to be in the netherworld.
+There are no exits.
+You could be here for a long, long time ...
+</code></pre>
+<p>Again, nothing. Another try ...</p>
+<pre><code class="language-lisp">(look)
+------------------------------------------------------------------------------
+&gt;
+Everything is misty and vague. You seem to be in the netherworld.
+There are no exits.
+You could be here for a long, long time ...
+</code></pre>
+<p>And as you're wondering what's going on, after a few seconds, you see this:</p>
+<pre><code class="language-lisp">From deep in the mists, you hear a familiar intonation ...
+Great relief washes over you, as you recognize the time-travel spell -- you're
+not doomed!
+</code></pre>
+<p>After a few more seconds you see this:</p>
+<pre><code class="language-lisp">Confident that you will never pick up the frog again, things get a bit fuzzy.
+You start to lose consciousness as the wizard pulls you back in time. Your
+last thought is that you're probably not going to remember any of this ...
+</code></pre>
+<p>Finally, you are back where you started:</p>
+<pre><code class="language-lisp">You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+</code></pre>
+<p>Now you have the chance to play the game again, but this time without taking the power-frog!</p>
+<h2><a class="header" href="#whats-next" id="whats-next">What's Next?</a></h2>
+<p>In order to make this tutorial as simple as possible, many details about how LFE works have been glossed or fudged over. The aim of this little book is to provide a fun exposure to some of LFE's ideas, not to provide an in-depth introduction to the language, to distributed systems, and the theories behind these both. </p>
+<p>That being said, should the curious reader want to learn more, where can they go? And what was skipped in the first place?</p>
+<p>Starting with the second bit first, here are some of the key points we have largely ignored:</p>
+<ul>
+<li>The differences between writing code in the REPL and creating proper projects complete with the appropriate directory structures, modules, etc.</li>
+<li>A discussion of the data types supported by LFE</li>
+<li>Comparing and contrasting <code>if</code>, <code>cond</code>, and pattern-matching as conditional flow mechanisms</li>
+<li>No in-depth discussion of records nor detailed information about the automatically-generated record macros</li>
+<li>No detailed explanation of higher-order functions</li>
+<li>Only a passing explanation of macros</li>
+<li>No in-depth discussion of light-weight Erlang/LFE processes</li>
+</ul>
+<p>And where can you go for additional reading and learning materials? Currently, the documentation for LFE is a bit limited, though growing (in fits and starts). The <a href="http://docs.lfe.io/">documentation web site</a> is currently <a href="https://github.com/lfe/docs/issues/62">getting an overhaul</a> and should be much better in a few months. The first chapter of the classic work <em>Structure and Interpretation of Computer Programs</em> is <a href="https://www.gitbook.com/book/lfe/sicp/details">available for LFE</a>. Another great resource for LFE is browsing the archives of <a href="http://blog.lfe.io/">the LFE blog</a>, many posts in which are actually tutorials.</p>
+<p>For mastering some of the basics of Lisp, we recommend the following:</p>
+<ul>
+<li><a href="http://www.gigamonkeys.com/book/">Practical Common Lisp</a> by Peter Seibel</li>
+<li>Principles of Artificial Intelligence by Peter Norvig (largely a text on Lisp)</li>
+<li><a href="http://www.paulgraham.com/onlisp.html">On Lisp</a> by Paul Graham</li>
+<li>Land of Lisp by Conrad Barski (the auther of the original <em>Casting SPELs in Lisp</em>)</li>
+</ul>
+<p>For Erlang, probably the most accessible is <em>Learn You Some Erlang for Great Good</em> (LYSE), through there are also other excellent resources. LYSE is <a href="http://learnyousomeerlang.com/">freely available online</a>, while most other Erlang books (also quite good) are pay for download or available in print (including LYSE).</p>
+<h1><a class="header" href="#addenda" id="addenda">Addenda</a></h1>
+<h2><a class="header" href="#changes-from-the-original" id="changes-from-the-original">Changes from the Original</a></h2>
+<p>As mentioned in the introduction to the LFE edition of &quot;Casting SPELs in Lisp&quot; the changes from the original (written in Common Lisp) are many. Primarily this was due to the fact that LFE (and Erlang) does not support mutable data nor global state (two very good things to avoid). As such, the game had to be restrcutured to pass state data (in the form of LFE records) and, eventually, a process server to manage state in a safe, non-global manner.</p>
+<p>These resulted in a great deal more work required of the coder, since the game is no longer as simple an application as that developed in the original. However, it does to a good job of preparing the reader (coder!) for writing applications in LFE using OTP (highly recommended), and as such offers a great jumping-off point for real-world LFE.</p>
+<p>All this being said, every attempt was made to preserve the fun and tone of the original -- if we have not done that, then we have failed.</p>
+<h2><a class="header" href="#the-case-against-the-word-macro" id="the-case-against-the-word-macro">The Case Against the Word &quot;Macro&quot;</a></h2>
+<p>Part of the purpose of writing this tutorial is to experiment with ways that can tackle the difficult subject of <em>true macros</em> in Lisp. Often, when I try to explain the concept of macros to somebody who has only used other languages, I'll get a response like &quot;Oh yeah! There's macros like that in C++, too!&quot;. The moment this happens, it becomes very difficult to explain &quot;true macros&quot;, because of the semantic load on the word &quot;macro&quot;. After all, &quot;true macros&quot; <em>really are</em> a lot like C++ macros, in that they are a way to talk to the compiler with modified code...</p>
+<p>...so imagine if John McCarthy had used the word &quot;add&quot; instead of &quot;cons&quot; to connect items to lists: It would make it really difficult to explain how consing works.</p>
+<p>Therefore, I decided to experiment with a new term for a macro in this essay: SPEL, which stands for &quot;Semantic Program Enhancement Logic&quot;, which is admittedly a bit of a stretch, but the term has many benefits:</p>
+<ol>
+<li>It captures the almost magical power that Lisp macros can have to change the behavior of a Lisp environment.</li>
+<li>The term SPEL can be used in a million different ways to explain programming concepts in elegant ways, using the metaphor of the <em>spell</em> and <em>casting spells</em>.</li>
+<li>The term causes no confusion between true macros and other types of macros.</li>
+<li>The semantic load of the term &quot;spel&quot; is very low. A Google search for &quot;(macro OR macros) programming -lisp -scheme&quot; return 1150000 hits. A Google search for &quot;(spel OR spels) programming -lisp -scheme&quot; return only 28400. Even worse when you consider that the search &quot;(macro OR macros) programming (lisp OR scheme)&quot; only returns a measly 395000!</li>
+</ol>
+<p>So I hope, as a Lisper, you'll consider supporting this new term. Naturally, any new memes like this have a very low likelihood of success.</p>
+<p>If you are an LFE library author, <strong>please drop everything you are doing right now</strong> and add the following line to your code:</p>
+<pre><code class="language-lisp">(defmacro defspel body `(defmacro ,@body))
+</code></pre>
+<p>There, problem solved!</p>
+<p>:)</p>
+<p>-- Conrad Barski, M.D.</p>
+<h2><a class="header" href="#using-otp" id="using-otp">Using OTP</a></h2>
+<p>Throughout the book, we avoided the fairly complicated topic of OTP (the means by which you can write fault-tolerant, production-ready applications in LFE). There are several great resources to learn of OTP (as provided at the end of the book), but it still felt negligent to show readers how to create a simple game server -- which, if used in production, would cause endless heartache -- and now show they how to do it &quot;properly&quot;.</p>
+<p>Thus, for the motivated reader, we include here a version of the game converted to LFE/OTP. An explanation of this code and what it does is beyond the scope of this mini-book, but there are plenty of good books where you can read about Erlang/OTP and apply this to what you've learned here, using the LFE/OTP game code to extend your knowledge.</p>
+<p>The OTP version of the game is available in the <code>code/spels</code> directory. To run it, you will need to have <code>rebar3</code> installed on your machine.</p>
+<p>To begin with, you'll fire up the LFE REPL:</p>
+<pre><code class="language-bash">$ make otp-repl
+</code></pre>
+<p>This will download and compile all the necessary LFE dependencies and then put you into the REPL:</p>
+<pre><code>Erlang/OTP 17 [erts-6.2] [source] [64-bit] [smp:4:4] [async-threads:10]
+
+   ..-~.~_~---..
+  (      \\     )    |   A Lisp-2+ on the Erlang VM
+  |`-.._/_\\_.-';    |   Type (help) for usage info.
+  |         g (_ \   |
+  |        n    | |  |   Docs: http://docs.lfe.io/
+  (       a    / /   |   Source: http://github.com/rvirding/lfe
+   \     l    (_/    |
+    \   r     /      |   LFE v1.0 (abort with ^G)
+     `-E___.-'
+
+&gt;
+</code></pre>
+<p>At this point, you can start the server and load the game commands:</p>
+<pre><code class="language-lisp">&gt; (spels-game:start)
+#(ok &lt;0.36.0&gt;)
+&gt; (include-lib &quot;spels/include/commands.lfe&quot;)
+loaded-game-commands
+</code></pre>
+<p>With the commands loaded, you're ready to play the game:</p>
+<p><img src="addenda/../images/world.jpg" alt="" /></p>
+<pre><code class="language-lisp">&gt; (look)
+ok
+&gt;
+You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+</code></pre>
+<p><img src="addenda/../images/living_room.jpg" alt="" /></p>
+<pre><code class="language-lisp">&gt; (go west)
+ok
+&gt;
+You are in a beautiful garden. There is a well in front of you.
+You see a frog on the ground. You see a chain on the ground.
+There is a door going east from here.
+&gt; (take chain)
+ok
+
+You are now carrying the chain.
+&gt; (go east)
+ok
+</code></pre>
+<p><img src="addenda/../images/slob.jpg" alt="" /></p>
+<pre><code class="language-lisp">You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+&gt; (take 'bucket)
+ok
+&gt;
+You are now carrying the bucket.
+&gt; (go upstairs)
+ok
+
+You are in the attic of the wizard's house. There is a giant welding torch in
+the corner.
+There is a stairway going downstairs from here.
+</code></pre>
+<p><img src="addenda/../images/weld.jpg" alt="" /></p>
+<pre><code class="language-lisp">&gt; (weld chain bucket)
+ok
+&gt;
+You have achieved the 'weld-chain' goal!
+
+The chain is now securely welded to the bucket.
+
+&gt; (go downstairs)
+ok
+
+You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+&gt; (go west)
+ok
+
+You are in a beautiful garden. There is a well in front of you.
+You see a frog on the ground.
+There is a door going east from here.
+</code></pre>
+<p><img src="addenda/../images/dunk.jpg" alt="" /></p>
+<pre><code class="language-lisp">&gt; (dunk bucket well)
+ok
+
+You have achieved the 'dunk-bucket' goal!
+
+The bucket is now full of water.
+&gt; (go east)
+ok
+
+You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+</code></pre>
+<p><img src="addenda/../images/splash.jpg" alt="" /></p>
+<pre><code class="language-lisp">&gt; (splash wizard bucket)
+ok
+
+You have achieved the 'splash-wizard' goal!
+
+The wizard awakens from his slumber, greets you warmly, and thanks you for
+pulling him out of a rather nasty dream.
+Your reward, it seems, is a magical low-card donut which he hands you ...
+right before drifting off to sleep again.
+
+You won!!
+</code></pre>
+<p><img src="addenda/../images/donut.jpg" alt="" /></p>
+<h2><a class="header" href="#source-code" id="source-code">Source Code</a></h2>
+<h3><a class="header" href="#obtaining-a-copy" id="obtaining-a-copy">Obtaining a Copy</a></h3>
+<p>The source code for the book is available at <a href="https://github.com/lfe/casting-spels">https://github.com/lfe/casting-spels</a>. To get a copy of this code, simply run:</p>
+<pre><code class="language-bash">$ git clone https://github.com/lfe/casting-spels.git
+$ cd casting-spels
+</code></pre>
+<h3><a class="header" href="#regular-version" id="regular-version">Regular Version</a></h3>
+<p>In this repository, the file <code>code/game.lfe</code> contains all the code one enters in the REPL as following along in the book.</p>
+<p>If you choose, you may load all of this code into the REPL as if you had typed it yourself:</p>
+<pre><code class="language-bash">$ make repl
+</code></pre>
+<pre><code>Erlang/OTP 17 [erts-6.2] [source] [64-bit] [smp:4:4] [async-threads:10] [kernel-poll:false]
+
+   ..-~.~_~---..
+  (      \\     )    |   A Lisp-2+ on the Erlang VM
+  |`-.._/_\\_.-';    |   Type (help) for usage info.
+  |         g (_ \   |   
+  |        n    | |  |   Docs: http://docs.lfe.io/ 
+  (       a    / /   |   Source: http://github.com/rvirding/lfe
+   \     l    (_/    |   
+    \   r     /      |   LFE v1.0 (abort with ^G)
+     `-E___.-'
+
+&gt;
+</code></pre>
+<pre><code class="language-lisp">&gt; (run &quot;game.lfe&quot;)
+game-data-loaded
+</code></pre>
+<p>And now you will be able to execute the commands that would be available at the end of the book.</p>
+<h3><a class="header" href="#otp-version" id="otp-version">OTP Version</a></h3>
+<p>As mentioned in the previous section, source code for an OTP version of the game has been made available in <code>code/spels</code>. To start the REPL for this version, simply run <code>make otp-repl</code>. Note that this code is <em>very</em> different from the code that is entered into the REPL throughout the course of the book, and some commands will not be present (or will have been changed).</p>
+<p>For more details, please see the previous section.</p>
+<h1><a class="header" href="#feedback" id="feedback">Feedback</a></h1>
+<h1><a class="header" href="#lfe-documentation" id="lfe-documentation">LFE Documentation</a></h1>
+<h1><a class="header" href="#built-with-mdbook" id="built-with-mdbook">Built with mdBook</a></h1>
+
+                </main>
+
+                <nav class="nav-wrapper" aria-label="Page navigation">
+                    <!-- Mobile navigation buttons -->
+                    
+
+                    
+
+                    <div style="clear: both"></div>
+                </nav>
+            </div>
+        </div>
+
+        <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            
+
+            
+        </nav>
+
+    </div>
+
+    
+    <!-- Livereload script (if served using the cli tool) -->
+    <script type="text/javascript">
+        var socket = new WebSocket("ws://localhost:3000/__livereload");
+        socket.onmessage = function (event) {
+            if (event.data === "reload") {
+                socket.close();
+                location.reload();
+            }
+        };
+
+        window.onbeforeunload = function () {
+            socket.close();
+        }
+    </script>
+    
+
+    
+    <!-- Google Analytics Tag -->
+    <script type="text/javascript">
+        var localAddrs = ["localhost", "127.0.0.1", ""];
+
+        // make sure we don't activate google analytics if the developer is
+        // inspecting the book locally...
+        if (localAddrs.indexOf(document.location.hostname) === -1) {
+            (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-38274766-4', 'auto');
+            ga('send', 'pageview');
+        }
+    </script>
+    
+
+    
+
+    
+    <script type="text/javascript">
+        window.playground_copyable = true;
+    </script>
+    
+
+    
+
+    
+    <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+    
+
+    <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+    <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Custom JS scripts -->
+    
+
+    
+    
+    <script type="text/javascript">
+        window.addEventListener('load', function () {
+            window.setTimeout(window.print, 100);
+        });
+    </script>
+    
+    
+
+</body>
+
+</html>
