@@ -3,7 +3,10 @@
 * [Casting SPELs in LFE](README.md)
 * [Copyright Page](front-matter/copyright-page.md)
 * [Introduction](introduction/README.md)
-
+  * [What is LFE?](introduction/whatslfe.md)
+  * [Casting SPELs in LFE?](introduction/spels.md)
+  * [About the Text](introduction/about.md)
+  * [Contributing](introduction/contributing.md)
 * [Getting Started](part1/README.md)
   * [Getting Set Up](part1/1-setup.md)
   * [Syntax and Semantics](part1/2-synsem.md)
@@ -41,9 +44,6 @@
   * [Playing to Win](part8/1-win.md)
   * [Playing to Lose](part8/2-lose.md)
   * [What's Next?](part8/3-next.md)
-
-----
-
 * [Addenda](addenda/README.md)
   * [Changes from the Original](addenda/1-changes.md)
   * [The Case Against the Word "Macro"](addenda/2-whyspels.md)

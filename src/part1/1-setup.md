@@ -1,6 +1,7 @@
-## Getting Set Up
+# Getting Set Up
 
-If you're new to LFE and haven't read the [LFE Quick Start](http://lfe.gitbooks.io/quick-start/content/), that might be a
+If you're new to LFE and haven't read the 
+[LFE Quick Start](http://lfe.io/rebar3-quick-start/), that might be a
 good idea to do that -- you'll feel much more comfortable with the material in
 this book if you have. If you never encountered a Lisp before, or if your
 familiarity is rusty, we'd recommend reading through the original [Casting
@@ -11,14 +12,18 @@ accessible to the Lisp new-comer.
 
 Here's what you need before we get started (links are to more resources,
 should you be missing any of them):
- * Erlang needs to be installed on your system ([download](https://www.erlang-solutions.com/downloads/download-erlang-otp))
- * You need to have [git](http://git-scm.com/downloads)
- * Developer/build tools for your system (in particular, ``make``; instructions for this are very different between systems and can be found on the Web by searching for "install developer tools" or "build essential" for your operating system)
 
+* Erlang and `rebar3` need to be installed on your system; great instructions
+   for both are [here](https://www.rebar3.org/docs/getting-started).
+* You need to have `git` installed on your system.
+* Developer/build tools for your system (instructions for this are very
+  different between systems and can be found on the Web by searching for
+  "install developer tools" or "build essential" for your operating system).
 
-## Getting and Building LFE
+Once all of the above are set up on your system, you're ready to go! No need
+to manually install anything: `rebar3` will take care of that for you!
 
-Once all of the above are set up on your system, you're ready to get LFE:
+## Project Space
 
 ```bash
 $ mkdir -p ~/lab
