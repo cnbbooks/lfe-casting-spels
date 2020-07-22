@@ -1,8 +1,7 @@
 (defmodule spels-io
   (export all))
 
-(include-lib "clj/include/compose.lfe")
-(include-lib "spels/include/records.lfe")
+(include-lib "include/records.lfe")
 
 (defun describe-location (game-state)
   (++ (place-description (spels-env:get-here game-state)) "\n"))
@@ -12,38 +11,38 @@
     (++ "There is a " obj " going " dir " from here.")))
 
 (defun describe-exits (game-state)
-  (->> game-state
-       (spels-env:get-here)
-       (place-exits)
-       (lists:map #'describe-exit/1)
-       (spels-util:join)))
+  (clj:->> game-state
+           (spels-env:get-here)
+           (place-exits)
+           (lists:map #'describe-exit/1)
+           (spels-util:join)))
 
 (defun display-exits (game-state)
-  (->> game-state
-       (describe-exits)
-       (spels-util:wrap-text)
-       (list)
-       (io:format "~n~s")))
+  (clj:->> game-state
+           (describe-exits)
+           (spels-util:wrap-text)
+           (list)
+           (io:format "~n~s")))
 
 (defun describe-item
   (((match-object name obj-name))
     (++ "You see a " (atom_to_list obj-name) " on the ground.")))
 
 (defun describe-items (game-state)
-  (->> game-state
-       (spels-env:whats-here?)
-       (lists:map #'describe-item/1)
-       (spels-util:join)
-       (spels-util:add-newline)))
+  (clj:->> game-state
+           (spels-env:whats-here?)
+           (lists:map #'describe-item/1)
+           (spels-util:join)
+           (spels-util:add-newline)))
 
 (defun display-scene (game-state)
-  (->> game-state
-       (funcall (lambda (x)
-         (list (describe-location x)
-               (describe-items x)
-               (describe-exits x))))
-       (lists:map #'spels-util:wrap-text/1)
-       (io:format "~n~s~s~s")))
+  (clj:->> game-state
+           (funcall (lambda (x)
+             (list (describe-location x)
+                   (describe-items x)
+                   (describe-exits x))))
+           (lists:map #'spels-util:wrap-text/1)
+           (io:format "~n~s~s~s")))
 
 (defun good-move (game-state)
   (display-scene game-state)

@@ -584,6 +584,6 @@
     (list (wrap-text (describe-exits game-state)))))
 
 (defun game-data-loaded ()
-  "This is a dummy function; it's only here to display a message in the REPL
-  after loading this file."
+  "This is a dummy function; it's only here to display a message (the name of
+  the function) in the REPL after loading this file."
   'noop)

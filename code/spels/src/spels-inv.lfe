@@ -1,7 +1,7 @@
 (defmodule spels-inv
   (export all))
 
-(include-lib "spels/include/records.lfe")
+(include-lib "include/records.lfe")
 
 (defun check-item
   ((item-name (= (match-object name obj-name) obj)) (when (== item-name obj-name))

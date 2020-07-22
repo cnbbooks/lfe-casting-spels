@@ -21,7 +21,7 @@
     (dunk 2)
     (splash 2)))
 
-(include-lib "spels/include/records.lfe")
+(include-lib "include/records.lfe")
 
 ;;; config functions
 

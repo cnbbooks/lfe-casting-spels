@@ -1,7 +1,7 @@
 (defmodule spels-world
   (export all))
 
-(include-lib "spels/include/records.lfe")
+(include-lib "include/records.lfe")
 
 (defun objects ()
   `(,(make-object name 'whiskey-bottle location 'living-room)
