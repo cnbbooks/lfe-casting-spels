@@ -4,14 +4,16 @@ If you have any problems at this point, you can still play through the game: all
 
 ```bash
 $ git clone https://github.com/lfe/casting-spels.git
-$ cd casting-spels
-$ /path/to/your/lfe-dir/bin/lfe
+$ cd casting-spels/code
+$ rebar3 lfe repl
 ```
+
+The code in the `casting-spels` repository has been set up as an LFE/OTP release, mostly to engender good habits in the hearts and minds of LFE newcomers :-) 
 
 Then, in the LFE REPL, do this:
 
 ```lisp
-lfe> (run "code/game.lfe")
+lfe> (run "apps/simple/include/game.lfe")
 game-data-loaded
 ```
 

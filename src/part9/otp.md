@@ -1,17 +1,26 @@
-## Using OTP
+## Production-Quality Game: Using OTP
 
-Throughout the book, we avoided the fairly complicated topic of OTP (the means by which you can write fault-tolerant, production-ready applications in LFE). There are several great resources to learn of OTP (as provided at the end of the book), but it still felt negligent to show readers how to create a simple game server -- which, if used in production, would cause endless heartache -- and now show they how to do it "properly".
+Throughout the book, we avoided the fairly complicated topic of OTP (the means by which you can write fault-tolerant, production-ready applications in LFE). There are several great resources to learn of OTP (as provided at the end of the book), but we couldn't just leave it at that. No, it felt negligent to show readers how to create a simple game server -- which, if used in production, would cause endless heartache -- and _not_ show they how to do it "properly".
 
-Thus, for the motivated reader, we include here a version of the game converted to LFE/OTP. An explanation of this code and what it does is beyond the scope of this mini-book, but there are plenty of good books where you can read about Erlang/OTP and apply this to what you've learned here, using the LFE/OTP game code to extend your knowledge.
+Thus, for the motivated reader, we include here a version of the game converted to LFE/OTP. An explanation of this code and what it does is beyond the scope of this mini-book, but there are plenty of good books where you can read about Erlang/OTP (and blog posts where you can read about LFE/OTP!) and then apply that to what you've learned here, using the LFE/OTP game code to extend your knowledge.
 
-The OTP version of the game is available in the ``code/spels`` directory:
+The OTP version of the game is available in the `code` directory. If you haven't clonsed the book's repo already, be sure to do that now:
 
 ```bash
-$ cd code/spels
-$ rebar3 lfe repl
+git clone https://github.com/lfe/casting-spels.git
+cd casting-spels
 ```
 
-This will download and compile all the necessary LFE dependencies and then put you into the REPL:
+Now change directory to the code that accompanies the book and generate an OTP release for it:
+
+```bash
+cd code
+rebar3 release
+```
+
+This will build an LFE/OTP release for the spels application. It shouuld only take a few seconds, and once done you'll be ready to start the LFE REPL:
+
+$ rebar3 lfe repl
 
 ```lisp
 Erlang/OTP 23 [erts-11.0] [source] [64-bit] [smp:16:16] [ds:16:16:10] [async-threads:1] [hipe]
@@ -27,12 +36,40 @@ Erlang/OTP 23 [erts-11.0] [source] [64-bit] [smp:16:16] [ds:16:16:10] [async-thr
      `-E___.-'
 
 lfe>
+===> Booted compiler
+===> Booted lfe
+===> Booted spels
+===> Booted sasl
 ```
 
-At this point, you can start the server and load the game commands:
+The messages you see about applications booting are due to this running as an OTP release, essentially a production-ready set of applications, complete with a supervision tree for our game server!
+
+In fact, you can check to see if the supervisor is running with the following:
 
 ```lisp
-lfe> (include-lib "include/commands.lfe")
+lfe> (erlang:whereis 'spels-sup)
+#Pid<0.247.0>
+```
+
+Since this is a release application, the game server will already have been started after the REPL came up. You can confirm this by calling a function in the game server's API:
+
+```lisp
+lfe> (spels-game:look)
+```
+
+```text
+You are in the living-room of a wizard's house. There is a wizard snoring
+loudly on the couch.
+You see a whiskey-bottle on the ground. You see a bucket on the ground.
+There is a door going west from here. There is a stairway going upstairs from
+here.
+ok
+```
+
+But! We want to be able to use the short-hand versions of the commands, so let's load those up:
+
+```lisp
+lfe> (include-lib "spels/include/commands.lfe")
 loaded-game-commands
 ```
 
@@ -66,11 +103,6 @@ You are not, however, witout aid. Here are the available commands:
   (weld SUB OBJ)   - Weld two things together.
 
 ok
-```
-
-```lisp
-lfe> (start)
-#(ok #Pid<0.233.0>)
 ```
 
 With the commands loaded, you're ready to play the game:
@@ -111,7 +143,7 @@ loudly on the couch.
 You see a whiskey-bottle on the ground. You see a bucket on the ground.
 There is a door going west from here. There is a stairway going upstairs from
 here.
-lfe> (take 'bucket)
+lfe> (take bucket)
 ok
 lfe>
 You are now carrying the bucket.
