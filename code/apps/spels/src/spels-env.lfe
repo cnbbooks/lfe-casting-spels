@@ -1,7 +1,7 @@
 (defmodule spels-env
   (export all))
 
-(include-lib "include/records.lfe")
+(include-lib "spels/include/records.lfe")
 
 (defun here?
   ((loc (match-state places places))

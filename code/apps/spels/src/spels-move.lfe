@@ -1,7 +1,7 @@
 (defmodule spels-move
   (export all))
 
-(include-lib "include/records.lfe")
+(include-lib "spels/include/records.lfe")
 
 (defun get-valid-moves (exits)
   (lists:map

@@ -1,7 +1,7 @@
 (defmodule spels-io
   (export all))
 
-(include-lib "include/records.lfe")
+(include-lib "spels/include/records.lfe")
 
 (defun describe-location (game-state)
   (++ (place-description (spels-env:get-here game-state)) "\n"))

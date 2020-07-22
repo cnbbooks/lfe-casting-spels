@@ -3,6 +3,7 @@
   (export
     ;; gen_server implementation
     (start 0)
+    (start_link 0)
     (stop 0)
     ;; callback implementation
     (init 1)
@@ -21,7 +22,7 @@
     (dunk 2)
     (splash 2)))
 
-(include-lib "include/records.lfe")
+(include-lib "spels/include/records.lfe")
 
 ;;; config functions
 
@@ -35,9 +36,15 @@
 
 (defun start ()
   (gen_server:start (register-name)
-                    (callback-module)
+                    (MODULE)
                     (spels-world:init-state)
                     (genserver-opts)))
+
+(defun start_link ()
+  (gen_server:start_link (register-name)
+                         (MODULE)
+                         (spels-world:init-state)
+                         (genserver-opts)))
 
 (defun stop ()
   (gen_server:call (server-name) 'stop))

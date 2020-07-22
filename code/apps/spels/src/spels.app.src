@@ -5,7 +5,7 @@
   {description, "OTP version of the Casting SPELs with LFE game."},
 
   %% The version of the application
-  {vsn, "0.1.0"},
+  {vsn, "0.2.0"},
 
   %% All modules used by the application.
   {modules,
@@ -15,6 +15,7 @@
 
   %% All of the registered names the application uses. This can be ignored.
   {registered, []},
+  {mod, {'spels-app', []}},
 
   %% Applications that are to be started prior to this one. This can be ignored
   %% leave it alone unless you understand it well and let the .rel files in
@@ -22,7 +23,8 @@
   {applications,
    [
     kernel,
-    stdlib
+    stdlib,
+    lfe
    ]},
 
   %% OTP application loader will load, but not start, included apps. Again

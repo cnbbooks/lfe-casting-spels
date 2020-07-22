@@ -1,7 +1,7 @@
 (defmodule spels-goals
   (export all))
 
-(include-lib "include/records.lfe")
+(include-lib "spels/include/records.lfe")
 
 (defun goal-matches?
   ((goal-name (= (match-goal name name) goal)) (when (== goal-name name))
