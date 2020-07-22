@@ -1,6 +1,8 @@
 # Starting the REPL
 
-Are you ready? Oh, the *REPL*? That's an acronym that stands for *read-eval-print loop* -- it's where you can type LFE code interactively. Let's start it up!
+Now that you've built a release, you're ready to start hacking in the REPL! Right? Oh, the *REPL*? That's an acronym that stands for *read-eval-print loop* -- it's where you can type LFE code interactively. 
+
+Let's start it up:
 
 ```bash
 rebar3 lfe repl
@@ -21,7 +23,8 @@ Erlang/OTP 23 [erts-11.0] [source] [64-bit] [smp:16:16] [ds:16:16:10] [async-thr
 lfe>
 ```
 
-We'll use it more soon, but for now you can try out a little addition:
+You'll see some messages about deployment as well as applications being booted up; you can ignore all of those.
+For now, though, try out a little addition:
 
 ```lisp
 lfe> (+ 2 2)
@@ -42,3 +45,5 @@ ok
 ![](../images/reset.jpg)
 
 Keep in mind, though, this will clean *everything* up! You'll have to start over again!
+
+Next, let's learn a litte bit about Lisp ...

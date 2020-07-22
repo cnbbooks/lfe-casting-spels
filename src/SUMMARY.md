@@ -52,13 +52,11 @@
 * [Let's Play!](part8/README.md)
   * [Playing to Win](part8/win.md)
   * [Playing to Lose](part8/lose.md)
-  * [What's Next?](part8/next.md)
-* [Production-Quality Game](part9/otp.md)
+* [Production-Quality Game](part9/README.md)
+* [What's Next?](part10/README.md)
 * [Addenda](addenda/README.md)
   * [Changes from the Original](addenda/changes.md)
   * [The Case Against the Word "Macro"](addenda/whyspels.md)
-  * [An Executable](addenda/escript.md)
-  * [Source Code](addenda/source.md)
 
 ----
 

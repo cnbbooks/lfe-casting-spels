@@ -1,59 +1,18 @@
 # Project Space
 
-We're going to use `rebar3` to automatically generate all the files we need
-to start working on our game world :-) To do this, you will either need to
-edit your global `rebar.config` file or create a local one, and make sure
-the `rebar3_lfe` plugin is added.
+Most of this book takes place in the REPL, and as such, we're not going to be writing to files like you see in many non-Lisp tutorials. At the end of the book, you'll have the option of loading all the code created for this book. Also, there's a chapter at the end that briefly covers running production-ready code (using OTP project releases). For those two chapters, you'll be using `rebar3`.
 
-If you'd like to have the `lfe` commands available on your system, then create
-or edit your `~/.config/rebar3/rebar.config` to this:
-
-```erlang
-{plugins, [
-  {rebar3_lfe, {git, "https://github.com/lfe-rebar3/rebar3_lfe.git", {branch, "master"}}}
-]}.
-```
-
-If you already have plugins in that file, then just add another entry inside
-`plugins, [...]`. 
-
-If instead you just want to have the LFE `rebar3` plugin available locally,
-then in your current working directly, create a `rebar.config` file and ensure
-it has the above as its contents.
-
-With this in place, we're ready to create the structure for our project:
+However, you may want to set up a project for the book now, so you can follow along with the code in the repository. You can do that by cloning and switching to the code directory:
 
 ```bash
-rebar3 new lfe-escript casting-spels
+git clone https://github.com/lfe/casting-spels.git
+cd casting-spels/code
 ```
 
-Let's make sure everything's working as expected:
+Next you'll want to creat a release (we'll talk about this a bit more later; the code in the `casting-spels` repository has been set up as an LFE/OTP release, mostly to engender good habits in the hearts and minds of LFE newcomers :-)).
 
 ```bash
-cd casting-spels
-rebar3 lfe compile
-rebar3 escriptize
-rebar3 lfe run-escript
+rebar3 release
 ```
 
-This generates `_build/default/bin/casting-spels`, a stand-alone script that
-has everything we need packaged into it (that's what the `esctipize` command
-above does). 
-
-You can either run it directly (that file is executable) or you can use the
-convenience command provided by the LFE `rebar3` plugin:
-
-```bash
-rebar3 lfe run-script
-```
-
-Right now, that just runs the auto-generated sample script which outputs the
-following:
-
-```shell
-Got args: ()
-Answer: 42
-```
-
-We will be changing that! But later; initially, we're going to spend most of 
-our time in the LFE REPL ...
+That will download some plugins and some dependencies (including LFE itself!), compile them, and make all the project code accessible in a release directory. Again, a little more on that later.

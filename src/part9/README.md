@@ -4,37 +4,12 @@ Throughout the book, we avoided the fairly complicated topic of OTP (the means b
 
 Thus, for the motivated reader, we include here a version of the game converted to LFE/OTP. An explanation of this code and what it does is beyond the scope of this mini-book, but there are plenty of good books where you can read about Erlang/OTP (and blog posts where you can read about LFE/OTP!) and then apply that to what you've learned here, using the LFE/OTP game code to extend your knowledge.
 
-The OTP version of the game is available in the `code` directory. If you haven't clonsed the book's repo already, be sure to do that now:
+The OTP version of the game is available in the `code` directory. If you haven't clonsed the book's repo already, be sure to do that now. All you need to do is follow the instructions as detailed in the "Getting Started" section titled "Project Space."
 
-```bash
-git clone https://github.com/lfe/casting-spels.git
-cd casting-spels
-```
+If you followed those direction, and the steps in the next session about starting the REPL, then you'll have already generated a release for the code and will have started the REPL.
 
-Now change directory to the code that accompanies the book and generate an OTP release for it:
-
-```bash
-cd code
-rebar3 release
-```
-
-This will build an LFE/OTP release for the spels application. It shouuld only take a few seconds, and once done you'll be ready to start the LFE REPL:
-
-$ rebar3 lfe repl
-
+When you started the REPL, you would have seen messages like the following:
 ```lisp
-Erlang/OTP 23 [erts-11.0] [source] [64-bit] [smp:16:16] [ds:16:16:10] [async-threads:1] [hipe]
-
-   ..-~.~_~---..
-  (      \\     )    |   A Lisp-2+ on the Erlang VM
-  |`-.._/_\\_.-':    |   Type (help) for usage info.
-  |         g |_ \   |
-  |        n    | |  |   Docs: http://docs.lfe.io/
-  |       a    / /   |   Source: http://github.com/rvirding/lfe
-   \     l    |_/    |
-    \   r     /      |   LFE v1.3-dev (abort with ^G)
-     `-E___.-'
-
 lfe>
 ===> Booted compiler
 ===> Booted lfe
@@ -42,7 +17,7 @@ lfe>
 ===> Booted sasl
 ```
 
-The messages you see about applications booting are due to this running as an OTP release, essentially a production-ready set of applications, complete with a supervision tree for our game server!
+The messages you saw after starting the REPL had to do with applications booting up. This is due to the game code running as an OTP release, essentially a production-ready set of applications, complete with a supervision tree for our game server!
 
 In fact, you can check to see if the supervisor is running with the following:
 
@@ -51,7 +26,7 @@ lfe> (erlang:whereis 'spels-sup)
 #Pid<0.247.0>
 ```
 
-Since this is a release application, the game server will already have been started after the REPL came up. You can confirm this by calling a function in the game server's API:
+Since this is a release application, the game server will already have been started after the REPL came up. (Yeah, this whole time it has been running!) You can confirm this by calling a function in the game server's API:
 
 ```lisp
 lfe> (spels-game:look)
@@ -66,14 +41,14 @@ here.
 ok
 ```
 
-But! We want to be able to use the short-hand versions of the commands, so let's load those up:
+But! We want to be able to use the short-hand versions of the commands, so let's load those:
 
 ```lisp
 lfe> (include-lib "spels/include/commands.lfe")
 loaded-game-commands
 ```
 
-This version of the game has some help text:
+This version of the game has some help text we can view with the `(help)` function that was just loaded:
 ```lisp
 (help)
 
