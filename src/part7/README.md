@@ -1,3 +1,0 @@
-# Adding a Simple Game Server
-
-Here, hold my state ...
