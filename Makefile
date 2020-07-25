@@ -49,6 +49,7 @@ $(PUBLISH_DIR)/README.md:
 
 publish: clean build $(PUBLISH_DIR)/README.md
 	-@cd $(PUBLISH_DIR) && \
+	git add * && \
 	git commit -am "Regenerated book content." > /dev/null && \
 	git push origin $(PUBLISH_BRANCH) && \
 	cd -  && \
