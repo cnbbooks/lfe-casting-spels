@@ -41,3 +41,5 @@ publish: clean build $(PUBLISH_DIR)/README.md
 	git commit -am "Updated submodule for recently generated book content." && \
 	git submodule update && \
 	git push origin builder
+
+build-publish: build publish
