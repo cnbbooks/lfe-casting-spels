@@ -4,6 +4,9 @@ DOWNLOAD = https://github.com/rust-lang/mdBook/releases
 PUBLISH_DIR = book
 PUBLISH_BRANCH = master
 BUILDER_BRANCH = builder
+TMP_GIT_DIR = /tmp/lfe-casting-spels-git
+
+default: build
 
 define BINARY_ERROR
 
@@ -17,7 +20,9 @@ build:
 ifndef GEN
 	$(error $(BINARY_ERROR))
 endif
+	$(MAKE) backup-book-git
 	@$(GEN) build
+	$(MAKE) restore-book-git
 
 serve:
 	@$(GEN) serve
@@ -29,6 +34,13 @@ clean:
 
 book-init:
 	@git submodule update --init --recursive
+
+backup-book-git:
+	@mkdir -p $(TMP_GIT_DIR)/
+	@mv -v $(PUBLISH_DIR)/.git $(TMP_GIT_DIR)/
+
+restore-book-git:
+	@mv -v $(TMP_GIT_DIR)/.git $(PUBLISH_DIR)/
 
 $(PUBLISH_DIR)/README.md:
 	@echo '# Content for Casting SPELs in LFE' > $(PUBLISH_DIR)/README.md
