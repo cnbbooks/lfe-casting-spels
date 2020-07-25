@@ -2,6 +2,8 @@ BIN = mdbook
 GEN := $(shell which $(BIN) 2> /dev/null)
 DOWNLOAD = https://github.com/rust-lang/mdBook/releases
 PUBLISH_DIR = book
+PUBLISH_BRANCH = master
+BUILDER_BRANCH = builder
 
 define BINARY_ERROR
 
@@ -36,10 +38,11 @@ $(PUBLISH_DIR)/README.md:
 publish: clean build $(PUBLISH_DIR)/README.md
 	-@cd $(PUBLISH_DIR) && \
 	git commit -am "Regenerated book content." > /dev/null && \
-	git push origin master
-	-@git add $(PUBLISH_DIR) && \
+	git push origin $(PUBLISH_BRANCH) && \
+	cd -  && \
+	git add $(PUBLISH_DIR) && \
 	git commit -am "Updated submodule for recently generated book content." && \
 	git submodule update && \
-	git push origin builder
+	git push origin $(BUILDER_BRANCH)
 
 build-publish: build publish
