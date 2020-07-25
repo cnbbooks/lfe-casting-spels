@@ -23,7 +23,7 @@ serve:
 run: serve
 
 clean:
-	@rm $(PUBLISH_DIR)/README.md
+	@rm -f $(PUBLISH_DIR)/README.md
 
 book-init:
 	@git submodule update --init --recursive
