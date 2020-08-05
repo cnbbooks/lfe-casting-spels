@@ -1,7 +1,9 @@
-# Summary
+[Casting SPELs in LFE](README.md)
+[Title Page](front-matter/title.md)
+[Copyright Page](front-matter/copyright-page.md)
 
-* [Casting SPELs in LFE](README.md)
-* [Copyright Page](front-matter/copyright-page.md)
+--------------------
+
 * [Introduction](introduction/README.md)
   * [What is LFE?](introduction/whatslfe.md)
   * [Casting SPELs in LFE?](introduction/spels.md)
@@ -58,7 +60,7 @@
   * [Changes from the Original](addenda/changes.md)
   * [The Case Against the Word "Macro"](addenda/whyspels.md)
 
-----
+--------------------
 
 [Feedback](feedback.md)
 [LFE Documentation](redirects/docs.html)
