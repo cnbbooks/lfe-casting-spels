@@ -108,3 +108,6 @@ spell-suggest:
 	echo; \
 	fi; \
 	done
+
+play:
+	@cd code && $(MAKE) play
