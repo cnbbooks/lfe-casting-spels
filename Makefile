@@ -109,5 +109,8 @@ spell-suggest:
 	fi; \
 	done
 
+clean-code-build:
+	@cd code && rm -rf _build
+
 play:
 	@cd code && $(MAKE) play

@@ -47,7 +47,7 @@
   (erlang:halt 0))
 
 (defun help ()
-  (io:format 
+  (io:format
     (++
       "~nYou are not in a maze, there are no twisty passages, and everything~n"
       "is pretty much not the same.~n~n"
@@ -73,6 +73,7 @@
       "                     for ITEM are the items described when (look)ing.~n"
       "                     Command aliases: get, pickup~n"
       "  (weld SUB OBJ)   - Weld two things together.~n~n")))
+
 
 (defun loaded-game-commands ()
   "This is just a dummy function for display purposes when including from the
