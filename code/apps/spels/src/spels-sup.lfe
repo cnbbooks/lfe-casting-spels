@@ -1,5 +1,5 @@
 (defmodule spels-sup
-  (behaviour gen_server)
+  (behaviour supervisor)
   (export
     ;; supervisor implementation
     (start_link 0)
