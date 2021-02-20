@@ -88,7 +88,7 @@ lfe> (describe-location state)
 ```
 ```lisp
 "You are in the living-room of a wizard's house. There is a wizard 
-snoring loudly on the couch."
+snoring loudly on the couch.\n"
 ```
 
 Perfect! Just what we wanted.

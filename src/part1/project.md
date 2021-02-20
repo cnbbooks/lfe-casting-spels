@@ -9,7 +9,7 @@ git clone https://github.com/lfe/casting-spels.git
 cd casting-spels/code
 ```
 
-Next you'll want to creat a release (we'll talk about this a bit more later; the code in the `casting-spels` repository has been set up as an LFE/OTP release, mostly to engender good habits in the hearts and minds of LFE newcomers :-)).
+Next you'll want to create a release (we'll talk about this a bit more later; the code in the `casting-spels` repository has been set up as an LFE/OTP release, mostly to engender good habits in the hearts and minds of LFE newcomers :-)).
 
 ```bash
 rebar3 release

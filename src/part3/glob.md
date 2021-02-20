@@ -17,7 +17,7 @@ In addition to supporting globally scoped variables, some languages will also le
 
 LFE is one of the latter: you can't change a global variable from inside a function (unless you do some seriously crazy things to your code ... it *is* a Lisp, after all, so even some impossible things are possible!). LFE does allow you to *shadow* global variables, but that won't change the original (*shadowing* just covers it up temporarily).
 
-When writing a simple game or modeling objects, global state is an easy thing to use for new-comers. Common Lisp supports this easily. However, in LFE this isn't an option. We're going to have to dive a little deeper for an alternative, and so our game won't be quite as simple as it might have been if we wrote it in Common Lisp or Python. But since LFE is a language for writing distributed systems, you are probably interested in avoiding global state anyway!
+When writing a simple game or modeling objects, global state is an easy thing to use for newcomers. Common Lisp supports this easily. However, in LFE this isn't an option. We're going to have to dive a little deeper for an alternative, and so our game won't be quite as simple as it might have been if we wrote it in Common Lisp or Python. But since LFE is a language for writing distributed systems, you are probably interested in avoiding global state anyway!
 
 So, buckle up, buttercup: before adventure time, we're gonna do some learnin'!
 

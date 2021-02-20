@@ -48,7 +48,7 @@
 * [Adding a Simple Game Server](part7/README.md)
   * [The Problem of State](part7/state.md)
   * [A Glance at Closures](part7/closures.md)
-  * [Light-weight Processes as Closures](part7/processes.md)
+  * [Lightweight Processes as Closures](part7/processes.md)
   * [Making a Game Server](part7/server.md)
   * [Supporting Commands](part7/commands.md)
 * [Let's Play!](part8/README.md)

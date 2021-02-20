@@ -1,8 +1,8 @@
-# Light-weight Processes as Closures
+# Lightweight Processes as Closures
 
 We've looked at classic Lisp closures, and now we're going to look at something completely different ... that's almost the same thing! 
 
-LFE runs on the Erlang Virtual Machine, and Erlang is *famous* for its "light-weight processes". It turns out that we can use these processes in a way that is very similar to closures. To take advantage of this, we will need a couple of parts:
+LFE runs on the Erlang Virtual Machine, and Erlang is *famous* for its "lightweight processes". It turns out that we can use these processes in a way that is very similar to closures. To take advantage of this, we will need a couple of parts:
 
 * a state-holder function
 * something that starts our initial state-holder "process"
