@@ -10,6 +10,18 @@
   (case (re:split input "\s+" '(#(return list)))
     (`("help") (help))
     (`("go" ,dir) (go dir))
+    (`("n") (go "north"))
+    (`("north") (go "north"))
+    (`("e") (go "east"))
+    (`("east") (go "east"))
+    (`("s") (go "south"))
+    (`("south") (go "south"))
+    (`("w") (go "west"))
+    (`("west") (go "west"))
+    (`("u") (go "upstairs"))
+    (`("upstairs") (go "upstairs"))
+    (`("d") (go "downstairs"))
+    (`("downstairs") (go "downstairs"))
     (`("move" ,dir) (go dir))
     (`("travel" ,dir) (go dir))
     (`("look") (spels-game:look))
@@ -66,8 +78,9 @@
       "~n"
       "  dunk SUB OBJ   - Dunk one item in another.~n"
       "  go DIR         - Move in a particular direction. For valid values of~n"
-      "                   DIR, use the 'exits' command. ~n"
-
+      "                   DIR, use the 'exits' command. Note that for movement~n"
+      "                   the first letter of the direction may be used as the~n"
+      "                   command itself, e.g., 'n' for 'north'.~n"
       "  exits          - List the exits availble to the player from the~n"
       "                   current location.~n"
       "  help           - Display this help text.~n"

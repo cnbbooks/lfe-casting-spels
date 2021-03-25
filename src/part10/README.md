@@ -1,19 +1,62 @@
-# What's Next?
+# Next Level Stuff: Custom Game Language
 
-We've mentioned the following resources so far:
+We briefly introduced the REPL in the first version of the Hello-World example we wrote, stating that it was an acronym for 'read-eval-print loop' and how to start it with `rebar3`. As an LFE developer, this is one of the primnary tools -- arguably _the_ most powerful -- at your disposal, so we're going to do a more thorough job of introducing its capabilities in this section.
 
-* For a more in-depth and thorough introduction to LFE, see [The LFE Tutorial](http://lfe.io/tutorial/)
-* To learn more about how to use the `rebar3` plugin we mentioned, see [The LFE rebar3 Plugin Command Reference](https://lfe-rebar3.github.io/)
-* This is the old-skool [LFE User Guide](https://github.com/rvirding/lfe/blob/develop/doc/src/lfe_guide.7.md)
+<div class="alert alert-info">
+  <h4 class="alert-heading">
+    <i class="fa fa-info-circle" aria-hidden="true"></i>
+    Historical Note
+  </h4>
+  <p class="mb-0">
+    The first Lisp interpreter was created sometime in late 1958 by then-grad student Steve Russell after reading John McCarthy's definition of <code>eval</code>. He had the idea that the theoretical description provided there could actually be implemented in machine code.
+  </p>
+  <p class="mb-0">
+    It is uncertain when that expression of <code>eval</code> was first combined with <code>read</code> and <code>print</code>, though the usefulness of this might not have been very significant until video hardware began to replace teletype machines and punched cards in the 1970s.
+  </p>
+</div>
 
-Additional resources:
+A basic REPL can be implemented with just four functions; such an implementation could be started with the following:
 
-* Some classic LFE Examples: [Example code](https://github.com/rvirding/lfe/tree/develop/examples) in the LFE repository
-* Community-contributed libraries: [the lfex github org](https://github.com/lfex)
-* Core code, tools, and on-line resources (docs, blog, etc.): [the lfe github org](https://github.com/lfe)
-* There's always the blog, too: [The LFE Blog](http://blog.lfe.io/)
+```lisp
+(LOOP (PRINT (EVAL (READ))))
+```
 
-True mastery of LFE is not matter of syntax, though: it requires a deep
-knowledge of Erlang/OTP and how to best apply that knowledge. The
-[Erlang site](http://erlang.org/) has links to some of the really great Erlang books you can read.
-Read them!
+LFE has implemented most these functions for us already (and quite robustly), but we could create our own very limited REPL (single lines with no execution context or environment) within the LFE REPL using the following convenience wrappers:
+
+```lisp
+(defun read ()
+  (let* ((str (io:get_line "myrepl> "))
+         (`#(ok ,expr) (lfe_io:read_string str)))
+    expr))
+
+(defun print (result)
+  (lfe_io:format "~p~n" `(,result)))
+
+(defun loop (code)
+  (loop (print (eval (read)))))
+```
+
+Now we can start our custom REPL inside the LFE REPL:
+
+```lisp
+lfe> (loop (print (eval (read))))
+```
+
+This gives us a new prompt:
+
+```lisp
+myrepl>
+```
+
+At this prompt we can evaluate basic LFE expressions:
+
+```lisp
+myrepl> (+ 1 2 3)
+;; 6
+myrepl> (* 2 (lists:foldl #'+/2 0 '(1 2 3 4 5 6)))
+;; 42
+```
+
+Note that writing an evaluator is the hard part, and we've simply re-used the LFE evaluator for this demonstration.
+
+Now that we've explored some of the background of REPLs and Lisp interpreters, let's look more deeply into the LFE REPL and how to best take advantage of its power when using the machine that is LFE and OTP.

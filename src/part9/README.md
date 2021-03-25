@@ -6,7 +6,7 @@ Thus, for the motivated reader, we include here a version of the game converted 
 
 The OTP version of the game is available in the `code` directory. If you haven't clonsed the book's repo already, be sure to do that now. All you need to do is follow the instructions as detailed in the "Getting Started" section titled "Project Space."
 
-If you followed those direction, and the steps in the next session about starting the REPL, then you'll have already generated a release for the code and will have started the REPL.
+If you followed those directions, and the steps in the next session about starting the REPL, then you'll have already generated a release for the code and will have started the REPL.
 
 When you started the REPL, you would have seen messages like the following:
 ```lisp
