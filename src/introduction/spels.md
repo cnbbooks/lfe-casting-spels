@@ -1,6 +1,6 @@
 # Casting SPELs in LFE?
 
-The decision to port Casting SPELs in Lisp to LFE was based on two things. Firstly, it was inspired by an interest in providing the community and new comers with a greater number of interesting learning tools for the language. Secondly, whimsy. The original for Common Lisp was such great fun; how delightful to share that with the LFE community?
+The decision to port Casting SPELs in Lisp to LFE was based on two things. Firstly, it was inspired by an interest in providing the community and newcomers with a greater number of interesting learning tools for the language. Secondly, whimsy. The original for Common Lisp was such great fun; how delightful to share that with the LFE community?
 
 It's actually very easy to port basic Common Lisp to LFE. But once you get deeper than syntax, things can diverge quite strongly. It turns out that the immutable data of Erlang and LFE made porting this comic book quite tricky. In the end, I had to give up all hope of the whimsy, and switch gears to basic application architecture best practices.
 
