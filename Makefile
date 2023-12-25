@@ -2,9 +2,8 @@ BIN = mdbook
 GEN := $(shell which $(BIN) 2> /dev/null)
 DOWNLOAD = https://github.com/rust-lang/mdBook/releases
 PUBLISH_DIR = book
-PUBLISH_BRANCH = master
-BUILDER_BRANCH = builder
-TMP_GIT_DIR = /tmp/lfe-casting-spels-git
+PUBLISH_CONTENT = $(PUBLISH_DIR)
+PORT = 5099
 
 default: build
 
@@ -16,62 +15,26 @@ Download $(BIN) from $(DOWNLOAD).
 
 endef
 
-build:
+build: clean-all
 ifndef GEN
 	$(error $(BINARY_ERROR))
 endif
-	@echo " >> Rebuilding book ..."
-	@$(MAKE) backup-submodule-git
-	@$(GEN) build
-	@$(MAKE) restore-submodule-git
-
+	@echo ">> Rebuilding book ..."
+	@$(GEN) build -d $(PUBLISH_CONTENT)
 
 serve:
-	@bash -c "trap \"$(MAKE) serve-cleanup\" EXIT; $(GEN) serve"
+	@echo ">> Preparing to run mdbook server ..."
+	@$(GEN) serve -p $(PORT) -d $(PUBLISH_CONTENT)
 
-serve-cleanup: book-init build
 
 run: serve
 
 clean:
-	@rm -f $(PUBLISH_DIR)/README.md
+	@echo ">> Removing auto-generated top-level files ..."
 
-book-submodule:
-	@git submodule add -b master `git remote get-url --push origin` $(PUBLISH_DIR)
-	@git commit --author "LFE Maintainers <maintainers@lfe.io>" \
-		-m "Added master branch as submodule ($(PUBLISH_DIR) dir)."
-
-book-init:
-	@git submodule update --init --recursive
-
-backup-submodule-git:
-	@echo " >> Backup-up book's git dir ..."
-	@mkdir -p $(TMP_GIT_DIR)/
-	@mv -v $(PUBLISH_DIR)/.git $(TMP_GIT_DIR)/
-
-restore-submodule-git:
-	@echo " >> Restoring book's git dir ..."
-	@mv -v $(TMP_GIT_DIR)/.git $(PUBLISH_DIR)/
-
-$(PUBLISH_DIR)/README.md:
-	@echo '# Content for Casting SPELs in LFE' > $(PUBLISH_DIR)/README.md
-	@echo 'Published at [lfe.io/books/casting-spels/](https://lfe.io/books/casting-spels/)' >> $(PUBLISH_DIR)/README.md
-	@cd $(PUBLISH_DIR) && git add README.md
-
-publish: clean build $(PUBLISH_DIR)/README.md
-	-@cd $(PUBLISH_DIR) && \
-	git add * && \
-	git commit --author "LFE Maintainers <maintainers@lfe.io>" \
-		-am "Regenerated book content." > /dev/null && \
-	git push origin $(PUBLISH_BRANCH) && \
-	cd -  && \
-	git add $(PUBLISH_DIR) && \
-	git commit --author "LFE Maintainers <maintainers@lfe.io>" \
-		-am "Updated submodule for recently generated book content." && \
-	git submodule update && \
-	git push origin $(BUILDER_BRANCH)
-
-build-publish: build publish
+clean-all: clean
+	@echo ">> Removing previously generated content ..."
+	@rm -rf $(PUBLISH_CONTENT)
 
 spell-check:
 	@for FILE in `find . -name "*.md"`; do \
@@ -86,14 +49,14 @@ spell-check:
 
 add-word: WORD ?= ""
 add-word:
-	@echo "*$(WORD)\n#" | aspell -a > /dev/null
+	@echo "*$(WORD)\n#" | aspell -a
 
 add-words: WORDS ?= ""
 add-words:
 	@echo "Adding words:"
 	@for WORD in `echo $(WORDS)| tr "," "\n"| tr "," "\n" | sed -e 's/^[ ]*//' | sed -e 's/[ ]*$$//'`; \
 	do echo "  $$WORD ..."; \
-	echo "*$$WORD\n#" | aspell -a > /dev/null; \
+	echo "*$$WORD\n#" | aspell -a; \
 	done
 	@echo
 
@@ -108,9 +71,3 @@ spell-suggest:
 	echo; \
 	fi; \
 	done
-
-clean-code-build:
-	@cd code && rm -rf _build
-
-play:
-	@cd code && $(MAKE) play
